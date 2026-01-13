@@ -1,0 +1,43 @@
+What is this code doing?
+
+Sharels Upgrade of Mongo Biniaries. 
+Using Package management is not recommended 
+as it can at times add new artifacts into the instance as well as delete data and config files 
+
+Notes from Claude 
+
+Extract the archive - Uncompresses the MongoDB tarball
+Move to standard location - Places MongoDB in /opt/mongodb
+Backup old binaries - Saves any existing mongod and mongo commands (with .bak extension)
+Create symlinks - Links the new MongoDB binaries to system paths so commands like mongod and mongo work globally
+Edit service file - Opens the systemd service configuration file for MongoDB (likely to set permissions, working directory, etc.)
+Reload systemd - Refreshes systemd to recognize the service changes
+Enable & start service - Configures MongoDB to auto-start on boot and starts it
+Restart & verify - Restarts MongoDB and checks its status
+Connect to MongoDB - Launches the MongoDB shell to verify the installation works
+Summary: It's a clean upgrade that backs up the old version, installs the new one, configures it as a system service, and verifies connectivity.
+
+/******************************************************/
+/******************************************************/
+/******************************************************/
+/******************************************************/
+
+tar -xvzf mongodb-linux-x86_64-ubuntu1604-3.4.24.tgz
+sudo mv mongodb-linux-x86_64-ubuntu1604-3.4.24 /opt/mongodb
+sudo mv /usr/bin/mongod /usr/bin/mongod.bak
+sudo mv /usr/bin/mongo /usr/bin/mongo.bak
+sudo ln -s /opt/mongodb/bin/mongod /usr/bin/mongod
+sudo ln -s /opt/mongodb/bin/mongo /usr/bin/mongo
+sudo vim /etc/systemd/system/mongod.service
+sudo systemctl daemon-reload
+sudo systemctl enable mongod
+sudo systemctl start mongod
+sudo systemctl restart mongod
+sudo systemctl status mongod
+mongo
+
+
+/******************************************************/
+/******************************************************/
+/******************************************************/
+/******************************************************/
