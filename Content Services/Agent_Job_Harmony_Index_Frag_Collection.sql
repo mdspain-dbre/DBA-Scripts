@@ -1,11 +1,11 @@
 USE [msdb]
 GO
 
-/****** Object:  Job [Harmony_Index_Frag_Collection]    Script Date: 1/7/2026 5:47:39 PM ******/
+/****** Object:  Job [Harmony_Index_Frag_Collection]    Script Date: 1/14/2026 5:18:17 PM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Database Maintenance]    Script Date: 1/7/2026 5:47:39 PM ******/
+/****** Object:  JobCategory [Database Maintenance]    Script Date: 1/14/2026 5:18:17 PM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Database Maintenance' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Database Maintenance'
@@ -25,7 +25,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'Harmony_Index_Frag_Collectio
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'mssql1', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Frag]    Script Date: 1/7/2026 5:47:39 PM ******/
+/****** Object:  Step [Collect Frag]    Script Date: 1/14/2026 5:18:17 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Frag', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -36,26 +36,22 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect 
 		@retry_attempts=0, 
 		@retry_interval=0, 
 		@os_run_priority=0, @subsystem=N'TSQL', 
-		@command=N'Use Harmony
-GO
+		@command=N'truncate table dba.dbo.fragstats
 
-truncate table dba.dbo.fragstats
+Declare @CollectionTime datetime
+Set @CollectionTime = getdate()
 
-GO 
 insert into dba.dbo.fragstats
 SELECT S.name as ''Schema'',
 T.name as ''Table'',
 I.name as ''Index'',
-DDIPS.*
+DDIPS.*, @CollectionTime
 FROM sys.dm_db_index_physical_stats (DB_ID(), NULL, NULL, NULL, ''Detailed'') AS DDIPS
 INNER JOIN sys.tables T on T.object_id = DDIPS.object_id
 INNER JOIN sys.schemas S on T.schema_id = S.schema_id
 INNER JOIN sys.indexes I ON I.object_id = DDIPS.object_id
 AND DDIPS.index_id = I.index_id
 WHERE DDIPS.database_id = DB_ID()
-and I.name is not null
---AND DDIPS.avg_fragmentation_in_percent > 50
---ORDER BY DDIPS.avg_fragmentation_in_percent desc
 ', 
 		@database_name=N'Harmony', 
 		@flags=0
