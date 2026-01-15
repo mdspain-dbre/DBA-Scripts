@@ -20,7 +20,7 @@ try {
     $User = "ubuntu"
     
     ##Get servers you want to execute against from Servers.MongoDB table via this query
-    $MongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1"
+    $MongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1 and is_linux = 1"
     ##execute query
     $Servers = Invoke-DbaQuery -SqlInstance dre-jumpbox -Database DBStats -Query $MongoProdQuery -ErrorAction Stop
 
