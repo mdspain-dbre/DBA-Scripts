@@ -53,7 +53,7 @@ Invoke-RestMethod -Uri $webhookUrl -Method Post -Body $payload -ContentType "app
 
     # If everything succeeds
     exit 0
-    write-host "complete"
+
 } ##Try Block 
     catch [Exception] 
     {
