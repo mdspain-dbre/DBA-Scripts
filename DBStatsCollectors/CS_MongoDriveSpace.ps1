@@ -8,11 +8,13 @@ $InformationPreference = 'Continue'
 
 try {
 
-    ##get-yomomma
+
 
     ##Import needed modules
-    Import-Module posh-ssh -ErrorAction Stop
-    Import-Module dbatools -ErrorAction Stop
+    Import-Module posh-ssh -ErrorAction Stop -Scope Local
+    Import-Module dbatools -ErrorAction Stop -Scope Local
+
+    $Repo = "DRE-Jumpbox"
 
     ##Assign Pem file path to a variable  
     $KeyFile = "D:\SSH_Keys\PS_SSHKey.pem"
@@ -22,18 +24,18 @@ try {
     ##Get servers you want to execute against from Servers.MongoDB table via this query
     $MongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1 and is_linux = 1"
     ##execute query
-    $Servers = Invoke-DbaQuery -SqlInstance dre-jumpbox -Database DBStats -Query $MongoProdQuery -ErrorAction Stop
+    $LinuxServers = Invoke-DbaQuery -SqlInstance dre-jumpbox -Database DBStats -Query $MongoProdQuery -ErrorAction Stop
 
     ##capture collection time of this script to be inserted into MongoDriveSpace table to aid in reporting
-    $collection_time = Get-Date
+    $collection_time = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 
     ##Loop through Servers
-    foreach ($server in $Servers) {
+    foreach ($lserver in $LinuxServers) {
 
-    Write-Information "working on $($Server.Hostname)"
+    Write-Information "working on $($lServer.Hostname)"
 
         # Create SSH session
-        $SSH_Session = New-SSHSession -ComputerName $($server.IP) -KeyFile $KeyFile -Credential (
+        $SSH_Session = New-SSHSession -ComputerName $($lserver.IP) -KeyFile $KeyFile -Credential (
             New-Object System.Management.Automation.PSCredential($User,(ConvertTo-SecureString "dummy" -AsPlainText -Force))
         ) -ErrorAction Stop -AcceptKey
 
@@ -48,12 +50,12 @@ try {
         while ($i -lt $invokeOutput.Output.Count) {
             $splitarray = $invokeOutput.Output[$i].Split($separator,$option)
 
-            ##insert the parsed array into Collector.MongoDriveSpace
-            Invoke-DbaQuery -SqlInstance dre-jumpbox -Database DBStats -Query "
-                INSERT INTO Collector.MongoDriveSpace
+            $InsertQuery = " INSERT INTO Collector.MongoDriveSpace
                 (ServerID, filesystem, size, Used, Available, Used_Percentage, Mount, collectionTime)
-                VALUES ($($Server.ServerID), '$($splitarray[0])', '$($splitarray[1])', '$($splitarray[2])', '$($splitarray[3])', '$($splitarray[4])', '$($splitarray[5])', '$($collection_time)')
-            " -ErrorAction Stop
+                VALUES ($($lServer.ServerID), '$($splitarray[0])', '$($splitarray[1])', '$($splitarray[2])' , '$($splitarray[3])', '$($splitarray[4])', '$($splitarray[5])', '$($collection_time)' )"
+
+            ##insert the parsed array into Collector.MongoDriveSpace
+            Invoke-DbaQuery -SqlInstance $Repo -Database DBStats -Query $InsertQuery
 
             $i++
         }
@@ -61,6 +63,9 @@ try {
         
         # Close SSH session with no output to console
         Remove-SSHSession -SessionId $SSH_Session.SessionId -ErrorAction SilentlyContinue | Out-Null
+
+
+
     }
 
     # If everything succeeds
