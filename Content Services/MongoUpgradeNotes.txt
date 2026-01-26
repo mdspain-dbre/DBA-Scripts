@@ -41,3 +41,36 @@ mongo
 /******************************************************/
 /******************************************************/
 /******************************************************/
+
+
+/******************************************************/
+/******************************************************/
+To find replication lag in MongoDB, you can use several methods:
+/******************************************************/
+/******************************************************/
+
+1. rs.status() - Most Common Method
+
+    Look at the optimeDate field for each member. Calculate the difference between the primary and secondary timestamps to get the lag.
+
+2. rs.printReplicationInfo() - Primary Lag
+
+    Shows the oplog size and time window on the primary.
+
+3. rs.printSecondaryReplicationInfo() - Secondary Lag
+
+This will loop through the nodes to return lag time 
+
+/******************************************************/
+/******************************************************/
+
+var status = rs.status();
+var primary = status.members.find(m => m.stateStr === "PRIMARY");
+var secondaries = status.members.filter(m => m.stateStr === "SECONDARY");
+
+secondaries.forEach(s => {
+    var lag = (primary.optimeDate - s.optimeDate) / 1000;
+    print(s.name + " lag: " + lag + " seconds");
+});
+/******************************************************/
+/******************************************************/
