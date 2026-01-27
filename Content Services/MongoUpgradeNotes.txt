@@ -73,9 +73,77 @@ secondaries.forEach(s => {
 /******************************************************/
 /******************************************************/
 
-
+/******************************************************/
 /******************************************************/
 Determine how long the OpLog is good for 
 /******************************************************/
-
+/******************************************************/
 rs.printReplicationInfo()
+
+/******************************************************/
+/******************************************************/
+NetWork Share for MongoDB 4.4.30 msi 
+/******************************************************/
+/******************************************************/
+
+\\IP-0A74643F\Mongo4.4
+
+
+/******************************************************/
+/******************************************************/
+find feature compatibility version (FCV)
+/******************************************************/
+/******************************************************/
+
+db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })
+
+db.adminCommand({ setFeatureCompatibilityVersion: "4.4" })
+
+/******************************************************/
+/******************************************************/
+Return members of replica set
+/******************************************************/
+/******************************************************/
+
+rs.status().members.forEach(m => printjson({_id: m._id, name: m.name , stateStr: m.stateStr}))
+
+
+/******************************************************/
+/******************************************************/
+When upgrading MongoDB on Windows, you need to replace these binaries:
+/******************************************************/
+/******************************************************/
+
+
+Core binaries to replace:
+
+mongod.exe - MongoDB server daemon
+mongo.exe - MongoDB shell (legacy, removed in 6.0+)
+mongos.exe - MongoDB sharded cluster query router (if using sharding)
+Additional binaries included:
+
+mongodump.exe - Backup utility
+mongorestore.exe - Restore utility
+mongoexport.exe - Export utility
+mongoimport.exe - Import utility
+mongostat.exe - Statistics tool
+mongotop.exe - Tracking tool
+bsondump.exe - BSON utility
+
+# Stop MongoDB service
+Stop-Service MongoDB
+
+# Backup current binaries
+Copy-Item "C:\Program Files\MongoDB\Server\3.4\bin" "C:\Program Files\MongoDB\Server\3.4\bin.bak" -Recurse
+
+# Install new MSI from network share
+# \\IP-0A74643F\Mongo4.4\mongodb-windows-x86_64-4.4.30.msi
+
+# Or manually replace binaries in:
+# C:\Program Files\MongoDB\Server\4.4\bin\
+
+# Start MongoDB service
+Start-Service MongoDB
+
+# Verify version
+& "C:\Program Files\MongoDB\Server\4.4\bin\mongo.exe" --eval "db.version()"
