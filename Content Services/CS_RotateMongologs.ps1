@@ -7,9 +7,6 @@ $DebugPreference = 'SilentlyContinue'
 $InformationPreference = 'Continue'
 
 try {
-
-
-
     ##Import needed modules
     Import-Module posh-ssh -ErrorAction Stop -Scope Local
     Import-Module dbatools -ErrorAction Stop -Scope Local
@@ -22,56 +19,41 @@ try {
     $User = "ubuntu"
     
     ##Get servers you want to execute against from Servers.MongoDB table via this query
-    $MongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1 and is_linux = 1"
+    $MongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1 and is_linux = 1  and is_arbitor = 0"
     ##execute query
     $LinuxServers = Invoke-DbaQuery -SqlInstance dre-jumpbox -Database DBStats -Query $MongoProdQuery -ErrorAction Stop
-
-    ##capture collection time of this script to be inserted into MongoDriveSpace table to aid in reporting
-    $collection_time = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 
     ##Loop through Servers
     foreach ($lserver in $LinuxServers) {
 
-    Write-Information "working on $($lServer.Hostname)"
+    Write-Information "working on $($lserver.Hostname)"
 
         # Create SSH session
         $SSH_Session = New-SSHSession -ComputerName $($lserver.IP) -KeyFile $KeyFile -Credential (
             New-Object System.Management.Automation.PSCredential($User,(ConvertTo-SecureString "dummy" -AsPlainText -Force))
         ) -ErrorAction Stop -AcceptKey
 
-        # Execute Log rotation command
-        $invokeOutput = Invoke-SSHCommand -SessionId $SSH_Session.SessionId -Command "mongo --quiet --eval 'rs.status().members'" -ErrorAction Stop
+       ## $GrepLogCommand = 'ls /mnt/data/log/ | grep "mongod.log."'
+        ##$invokeOutput = Invoke-SSHCommand -SessionId $SSH_Session.SessionId -Command $GrepLogCommand -ErrorAction Stop
 
-        ##parge the array returned from df -h
-        $separator = " "
-        $option = [System.StringSplitOptions]::RemoveEmptyEntries
-        $i = 1
-
-        while ($i -lt $invokeOutput.Output.Count) {
-            $splitarray = $invokeOutput.Output[$i].Split($separator,$option)
-
-            $InsertQuery = " INSERT INTO Collector.MongoDriveSpace
-                (ServerID, filesystem, sizeMB, UsedMB, AvailableMB, Used_Percentage, Mount, collectionTime)
-                VALUES ($($lServer.ServerID), '$($splitarray[0])', '$($splitarray[1])', '$($splitarray[2])' , '$($splitarray[3])', '$($splitarray[4])', '$($splitarray[5])', '$($collection_time)' )"
-
-            ##insert the parsed array into Collector.MongoDriveSpace
-            Invoke-DbaQuery -SqlInstance $Repo -Database DBStats -Query $InsertQuery
-
-            $i++
-        }
-        
-        
-        # Close SSH session with no output to console
+        $RotateLogCommand = "mongo --quiet --eval 'db.adminCommand( { logRotate: 1 } )'"
+        $RemoveLogFilesCommand = 'sudo rm /mnt/data/log/mongod.log.*'
+       
+      
+        ##Execute Log rotation command
+        Invoke-SSHCommand -SessionId $SSH_Session.SessionId -Command $RotateLogCommand -ErrorAction Stop
+        ##Execute Remove old log files command
+        Invoke-SSHCommand -SessionId $SSH_Session.SessionId -Command $RemoveLogFilesCommand -ErrorAction Stop
+        ##Clean up SSH session 
         Remove-SSHSession -SessionId $SSH_Session.SessionId -ErrorAction SilentlyContinue | Out-Null
 
-
-
-    }
-
+    }  ##foreach block
     # If everything succeeds
     exit 0
-}
-catch {
+} ## try block 
+catch   {
+    
     Write-Host "ERROR: $($_.Exception.Message)"
     exit 1  # Causes SQL Agent job to fail
-}
+    
+        } ##catch block 
