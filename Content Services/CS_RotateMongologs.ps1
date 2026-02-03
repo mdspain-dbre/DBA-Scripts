@@ -43,6 +43,7 @@ try {
         ##Execute Log rotation command
         Invoke-SSHCommand -SessionId $SSH_Session.SessionId -Command $RotateLogCommand -ErrorAction Stop
         ##Execute Remove old log files command
+        start-sleep -Seconds 5
         Invoke-SSHCommand -SessionId $SSH_Session.SessionId -Command $RemoveLogFilesCommand -ErrorAction Stop
         ##Clean up SSH session 
         Remove-SSHSession -SessionId $SSH_Session.SessionId -ErrorAction SilentlyContinue | Out-Null
