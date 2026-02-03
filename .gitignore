@@ -35,3 +35,11 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ignore scripts with sensitive webhook URLs
+DRE_PS_Scripts/CS_IndexWebhook.ps1
+DRE_PS_Scripts/CS_UpdateStatsWebhook.ps1
+DRE_PS_Scripts/CS_Agent_Job_Alert_Webhook.ps1
+DRE_PS_Scripts/CS_MongoHealthStatusAlert.ps1
+DRE_PS_Scripts/CS_Prodsql1OfflineAlert.ps1
+DRE_PS_Scripts/MongoDBDriveSpaceAlert.ps1
