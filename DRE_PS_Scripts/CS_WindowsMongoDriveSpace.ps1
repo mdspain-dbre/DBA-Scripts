@@ -17,7 +17,7 @@ try {
 
     
     ##Get servers you want to execute against from Servers.MongoDB table via this query
-    $WindowsMongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1 and is_windows = 1"
+    $WindowsMongoProdQuery = "SELECT ServerID, IP,Hostname FROM Servers.MongoDB WHERE is_prod = 1 and is_windows = 1 and serverid <> 24" 
     ##execute query
 
     $WindowsServers = Invoke-DbaQuery -SqlInstance $Repo -Database DBStats -Query $WindowsMongoProdQuery -ErrorAction Stop
