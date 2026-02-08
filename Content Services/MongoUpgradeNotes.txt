@@ -175,3 +175,5 @@ SystemPropertiesAdvanced
 
 
 MongoDB Troubleshooting code snippets 
+db.serverStatus().connections
+rs.printSecondaryReplicationInfo()1
