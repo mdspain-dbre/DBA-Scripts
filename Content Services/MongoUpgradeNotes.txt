@@ -172,3 +172,6 @@ Change Environment Variables if changing path to new folder
 /******************************************************/
 
 SystemPropertiesAdvanced
+
+
+MongoDB Troubleshooting code snippets 
