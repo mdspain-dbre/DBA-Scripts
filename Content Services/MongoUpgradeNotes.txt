@@ -176,4 +176,5 @@ SystemPropertiesAdvanced
 
 ##MongoDB Troubleshooting code snippets 
 db.serverStatus().connections
-rs.printSecondaryReplicationInfo()1
+rs.printSecondaryReplicationInfo()
+rs.status().members.forEach(m => printjson({_id: m._id, name: m.name , stateStr: m.stateStr, health: m.health}))
