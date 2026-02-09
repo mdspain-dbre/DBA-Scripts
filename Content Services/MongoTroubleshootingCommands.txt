@@ -1,0 +1,33 @@
+##MongoDB Troubleshooting code snippets 
+
+##find status of cluster.  You want the healt state to be 1
+rs.status().members.forEach(m => printjson({_id: m._id, name: m.name , stateStr: m.stateStr, health: m.health}))
+
+##how many active connections on a Mongo Instance
+db.serverStatus().connections
+
+##How to find Replication Lag across Mongo Cluster
+rs.printSecondaryReplicationInfo()
+
+##How to find the Primary node
+rs.status().members.find(m => m.stateStr === "PRIMARY").name
+
+##Lots of metadata about the Mongo Cluster..  Tags, Terrafomr, hosts, arbiters, etc.. 
+db.hello()
+
+##how to find the Oplog size and other metrics 
+rs.printReplicationInfo()
+
+##View current config
+rs.conf()
+
+##if we have to an intial sync of a replica this will tell us the status of the synch
+db.adminCommand({replSetGetStatus: 1}).initialSyncStatus
+
+##Check if it exists first
+let status = db.adminCommand({replSetGetStatus: 1})
+if (status.initialSyncStatus) {
+  printjson(status.initialSyncStatus)
+} else {
+  print("Node is not currently syncing")
+}
