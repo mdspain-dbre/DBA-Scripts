@@ -31,3 +31,5 @@ if (status.initialSyncStatus) {
 } else {
   print("Node is not currently syncing")
 }
+
+##show everyone Mongo Compass on the DRE-JumpBox
