@@ -1,43 +1,52 @@
-Create or Alter Procedure HarmonyStatsUpdate  @showstats bit = 1,@print bit = 1,@seconds int = 500
-as
-/****************************************
-*****************************************
-AUTHOR:  MICHAEL D'SPAIN 8.27.2025
-VERSION 2.0
+/*
+===============================================================================
+HARMONY STATISTICS UPDATE PROCEDURE
+===============================================================================
+Procedure:  HarmonyStatsUpdate
+Author:     Michael D'Spain
+Version:    2.0 (August 27, 2025)
 
-Update Stats based upon the formula used by Trace Flag 2371
-	SQRT(rows*1000)
+Purpose:
+    Intelligently updates statistics on the Harmony database based on the 
+    automatic threshold formula used by SQL Server Trace Flag 2371.
 
+Algorithm:
+    Uses SQRT(rows * 1000) as the modification threshold, which provides
+    a dynamic threshold that scales with table size:
+    - Small tables (10K rows): ~3,162 modifications trigger update
+    - Medium tables (1M rows): ~31,623 modifications trigger update  
+    - Large tables (100M rows): ~316,228 modifications trigger update
 
-Execution examples.....
+    Also captures stats where:
+    - Modification counter > threshold BUT percent changed < 20%
+    - Modification counter < threshold BUT percent changed > 20%
 
-Execute HarmonyStatsUpdate @showstats = 1, @print =1  
-	will show the current state of stats and what statements would be executed
-	
-Execute HarmonyStatsUpdate @showstats = 0, @print =0, @seconds = 500
-	will execute the process and update stats and will run for approx 500 seconds.  
+Parameters:
+    @showstats  BIT = 1    Show current stats state without executing
+    @print      BIT = 1    Print statements only, don't execute
+    @seconds    INT = 500  Maximum runtime in seconds
 
-Execute HarmonyStatsUpdate @showstats = 0, @print =1
-	will only print the statements that would be executed
+Usage Examples:
+    -- Preview mode: Show stats that would be updated
+    EXECUTE HarmonyStatsUpdate @showstats = 1, @print = 1
+    
+    -- Execute mode: Update stats for ~500 seconds
+    EXECUTE HarmonyStatsUpdate @showstats = 0, @print = 0, @seconds = 500
+    
+    -- Dry run: Print statements without executing
+    EXECUTE HarmonyStatsUpdate @showstats = 0, @print = 1
 
+Dependencies:
+    - DBA.dbo.Stats_Log table for logging
+    - sys.dm_db_stats_properties DMV
 
-Will only run for the amount of time specified in the process.  Look for the @time variable
+Output:
+    Logs all updates to DBA.dbo.Stats_Log with start/end times
+===============================================================================
+*/
 
-
-
-GRAB ALL STATS AND RETURN THE FOLLOWING 
-	1.  TABLE NAME 
-	2.  SCHEMA NAME
-	3.  NUMBER OF ROWS IN TABLE
-	4.	LAST TIME STATS WERE UPDATED
-	5.	PERCENTAGE OF ROWS SAMPLED 
-	6.  PERCENTAGE OF ROWS CHANGED 
-	7.  NUMBER OF ROWS MODIFIED
-
-Next version will make this dynamic sql to run against all DBs
-
-*****************************************
-****************************************/
+CREATE OR ALTER PROCEDURE HarmonyStatsUpdate  @showstats bit = 1,@print bit = 1,@seconds int = 500
+AS
 Set NoCount ON
 
 --Return the current state of stats

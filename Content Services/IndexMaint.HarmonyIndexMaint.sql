@@ -1,12 +1,61 @@
 USE [DBA]
 GO
+/*
+===============================================================================
+HARMONY INDEX MAINTENANCE PROCEDURE
+===============================================================================
+Procedure:  [IndexMaint].[HarmonyIndexMaint]
+Author:     Michael DSpain
+Created:    January 7, 2026
+
+Purpose:
+    Performs intelligent index rebuilds on the Harmony database based on 
+    page density (avg_page_space_used_in_percent) collected from the 
+    fragmentation stats in DBA.dbo.FragStats.
+
+Algorithm:
+    1. Truncates and repopulates DBA.IndexMaint.HarmonyIndexes from FragStats
+    2. Filters indexes based on:
+       - Page density < 90% (indexes with wasted space)
+       - Page count >= 1000 (excludes very small indexes)
+    3. Excludes MatchScores_Direct table (27B rows - use stats update instead)
+    4. Rebuilds indexes with:
+       - ONLINE = OFF (faster, but requires maintenance window)
+       - FILLFACTOR = 95 (leaves 5% free space per page)
+       - MAXDOP = 32 (parallel rebuild)
+    5. Tracks progress in DBA.IndexMaint.HarmonyIndexes with start/end times
+
+Parameters:
+    @print      BIT = 1    1 = Print only (dry run), 0 = Execute rebuilds
+    @TimeLimit  INT = 360  Maximum runtime in minutes
+
+Usage Examples:
+    -- Dry run: Show what would be rebuilt
+    EXECUTE [IndexMaint].[HarmonyIndexMaint] @print = 1
+    
+    -- Execute: Rebuild indexes for up to 6 hours
+    EXECUTE [IndexMaint].[HarmonyIndexMaint] @print = 0, @TimeLimit = 360
+    
+    -- Execute: Rebuild for 2 hours
+    EXECUTE [IndexMaint].[HarmonyIndexMaint] @print = 0, @TimeLimit = 120
+
+Dependencies:
+    - DBA.dbo.FragStats (populated by HarmonyIndexFragCollection.sql)
+    - DBA.IndexMaint.HarmonyIndexes (staging table for rebuild work)
+
+Notes:
+    - Process may run slightly longer than @TimeLimit if a rebuild is in progress
+    - Indexes are processed smallest (page count) first for quick wins
+    - RebuildStatus = 1 indicates successful rebuild
+===============================================================================
+*/
 /****** Object:  StoredProcedure [IndexMaint].[HarmonyIndexMaint]    Script Date: 1/7/2026 5:42:23 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER   Procedure [IndexMaint].[HarmonyIndexMaint] @print bit = 1, @TimeLimit int = 360
-as
+ALTER PROCEDURE [IndexMaint].[HarmonyIndexMaint] @print bit = 1, @TimeLimit int = 360
+AS
 
 
 /*********************************
