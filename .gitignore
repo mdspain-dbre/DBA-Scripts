@@ -43,4 +43,5 @@ DRE_PS_Scripts/CS_Agent_Job_Alert_Webhook.ps1
 DRE_PS_Scripts/CS_MongoHealthStatusAlert.ps1
 DRE_PS_Scripts/CS_Prodsql1OfflineAlert.ps1
 DRE_PS_Scripts/MongoDBDriveSpaceAlert.ps1
+DRE_PS_Scripts/CS_MongoServiceCheck.ps1
 Content Services/CS_MongoServiceCheck.ps1
