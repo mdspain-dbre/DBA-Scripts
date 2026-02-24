@@ -36,15 +36,17 @@
 Import-Module AWSPowerShell
 #endregion
 
+$ErrorActionPreference = "Stop" # Stop on errors to trigger catch block
+$InformationPreference = 'Continue' # Show informational messages
+
+##Get AWS credentials from local files (ensure these files are secure and not accessible to unauthorized users)
+
 $AccesKeyID = Get-Content -path D:\SSH_Keys\AccessKeyID.txt
 $SecretAccessKey = Get-Content -path D:\SSH_Keys\AccessKey.txt
 
-
-# Option 1: Environment variables
 $Env:AWS_ACCESS_KEY_ID = $AccesKeyID
 $Env:AWS_SECRET_ACCESS_KEY = $SecretAccessKey
 
-# Option 2: Store in AWS credential store
 Set-AWSCredential -AccessKey $AccesKeyID -SecretKey $SecretAccessKey -StoreAs "mongo-backup"
 
 
@@ -55,6 +57,8 @@ Try {
     $InformationPreference = 'Continue'
     $ErrorActionPreference = "Continue"
     #endregion
+
+Write-Information "Starting MongoDB backup and upload process..." 
 
     #region Step 1: Execute MongoDB Backup on Remote Server
     # Connect to the MongoDB server and run mongodump to create a compressed backup
@@ -74,6 +78,8 @@ Try {
 
     } # End Invoke-Command ScriptBlock
     #endregion
+    
+Write-Information "Uploading backup files to AWS S3..."
 
     #region Step 2: Upload Backup Files to AWS S3
     # Get all backup folders from the network share (excludes root directory)
