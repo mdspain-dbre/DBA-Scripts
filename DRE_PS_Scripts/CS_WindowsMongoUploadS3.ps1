@@ -105,6 +105,20 @@ Write-Information "Uploading backup files to AWS S3..."
     } # End foreach loop
     #endregion
 
+    #region Step 3: Cleanup Old Backup Folders
+    # Remove backup folders older than 24 hours from the remote share
+    Write-Information "Cleaning up backup folders older than 24 hours..."
+    $CutoffDate = (Get-Date).AddHours(-24)
+    $BackupFolders = Get-ChildItem -Path "\\IP-0A74643F\FullBackup\MongoDB" -Directory
+    
+    foreach ($folder in $BackupFolders) {
+        if ($folder.CreationTime -lt $CutoffDate) {
+            Remove-Item -Path $folder.FullName -Recurse -Force
+            Write-Information "Removed: $($folder.FullName)"
+        }
+    }
+    #endregion
+
 } # End Try block
 catch [Exception] {
     # Log error message and exit with non-zero code for SQL Agent job failure detection
