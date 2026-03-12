@@ -17,7 +17,7 @@ try {
 
         Write-Host "Collecting DB space from $SQLInstance..."
 
-        $Results = Get-DbaDbSpace -SqlInstance $SQLInstance |
+        $Results = Get-DbaDbSpace -SqlInstance $SQLInstance -ExcludeDatabase 'Model'|
             Select-Object @{Name = 'ServerName'; Expression = { $SQLInstance } },
                 @{Name = 'DatabaseName'; Expression = { $_.Database } },
                 @{Name = 'FileName'; Expression = { $_.FileName } },
