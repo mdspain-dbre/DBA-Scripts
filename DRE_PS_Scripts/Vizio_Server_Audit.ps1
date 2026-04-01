@@ -5,7 +5,7 @@ $repo = "localhost"
 $servers = Invoke-DbaQuery -SqlInstance $repo  -Database dbstats -Query "select serverid, servername from servers.servers 
 WHERE decomm = 0 and is_SQL = 1 and is_rds = 0" 
 
-Invoke-DbaQuery -SqlInstance $repo -database dbstats -query "TRUNCATE TABLE servers.DB_services"
+##Invoke-DbaQuery -SqlInstance $repo -database dbstats -query "TRUNCATE TABLE servers.DB_services"
 
 $repodate = get-date
 
@@ -13,9 +13,12 @@ foreach($server in $servers){
 
  try{   
 
+    $password = ConvertTo-SecureString 'C#3&da&V#KSci8S$1Iy8LI*$w&3wJMv9' -AsPlainText -Force
+    $credential = New-Object System.Management.Automation.PSCredential('vizio', $password)
+
  Write-Host "Working on $($server.Servername)" -ForegroundColor White -BackgroundColor DarkGreen
 
-$audit = Invoke-DbaQuery -SqlInstance $($server.servername) -Database master -Query "--DROP TEMP TABLE IF ALREADY EXISTS
+$audit = Invoke-DbaQuery -SqlInstance "$($server.servername)"  -Database master -Query  "--DROP TEMP TABLE IF ALREADY EXISTS
 
 if OBJECT_ID('tempdb..#audit')is not null
 	drop table #audit
@@ -323,7 +326,7 @@ Write-Host "Gathering RDS DB metdata" -ForegroundColor Red -BackgroundColor whit
 $RDSservers = Invoke-DbaQuery -SqlInstance $repo  -Database dbstats -Query "
 select serverid, servername
 	from servers.servers 
-		WHERE decomm = 0 and is_SQL = 1 and is_rds = 1
+		WHERE decomm = 0 and is_SQL = 1 and is_rds = 1 and serverID = 3
 
             
 " 
