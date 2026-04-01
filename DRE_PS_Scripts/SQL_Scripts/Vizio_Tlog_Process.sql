@@ -1,18 +1,25 @@
 SET NOCOUNT ON;
 
---this doesnt work on RDS as the backup loc will be a virtual device
--- Get latest log backup location
+-- Get latest log backup location (returns NULL on RDS - backups use virtual devices)
 DECLARE @backuploc VARCHAR(200);
+DECLARE @isRDS BIT = 0;
 
-USE msdb;
-SELECT @backuploc = REVERSE(SUBSTRING(REVERSE(physical_device_name),
-                                     CHARINDEX('\', REVERSE(physical_device_name)),
-                                     LEN(physical_device_name)))
-FROM   msdb.dbo.backupmediafamily
-      INNER JOIN msdb.dbo.backupset 
-          ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id
-WHERE  type = 'L'
-      AND backup_start_date = (SELECT MAX(backup_start_date) FROM msdb.dbo.backupset);
+-- Detect RDS: RDS editions contain 'RDS'
+IF CAST(SERVERPROPERTY('Edition') AS VARCHAR(100)) LIKE '%RDS%'
+   SET @isRDS = 1;
+
+IF @isRDS = 0
+BEGIN
+   USE msdb;
+   SELECT @backuploc = REVERSE(SUBSTRING(REVERSE(physical_device_name),
+                                        CHARINDEX('\', REVERSE(physical_device_name)),
+                                        LEN(physical_device_name)))
+   FROM   msdb.dbo.backupmediafamily
+         INNER JOIN msdb.dbo.backupset 
+             ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id
+   WHERE  type = 'L'
+         AND backup_start_date = (SELECT MAX(backup_start_date) FROM msdb.dbo.backupset);
+END
 
 -- Results table with per-file detail
 IF OBJECT_ID('tempdb..#LogFileDetail') IS NOT NULL
@@ -30,8 +37,14 @@ CREATE TABLE #LogFileDetail
    GrowthSetting       VARCHAR(50),
    PhysicalName        VARCHAR(500),
    RecoveryModel       VARCHAR(20),
-   LogReuseWaitDesc    VARCHAR(60)
+   LogReuseWaitDesc    VARCHAR(60),
+   VLFCount            INT
 );
+
+-- Check if sys.dm_db_log_info is available (SQL 2016 SP2+ / SQL 2017+)
+DECLARE @hasDMV BIT = 0;
+IF EXISTS (SELECT 1 FROM sys.system_objects WHERE name = 'dm_db_log_info')
+   SET @hasDMV = 1;
 
 DECLARE @dbname SYSNAME;
 DECLARE @sql NVARCHAR(MAX);
@@ -48,6 +61,16 @@ FETCH NEXT FROM db_cursor INTO @dbname;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
+   -- Build the VLF subquery based on what's available
+   DECLARE @vlfJoin NVARCHAR(500);
+   IF @hasDMV = 1
+       SET @vlfJoin = 'LEFT JOIN (SELECT file_id, COUNT(*) AS VLFCount 
+                        FROM sys.dm_db_log_info(DB_ID()) GROUP BY file_id) v
+                        ON df.file_id = v.file_id';
+   ELSE
+       SET @vlfJoin = 'LEFT JOIN (SELECT 0 AS file_id, 0 AS VLFCount WHERE 1=0) v
+                        ON df.file_id = v.file_id';
+
    SET @sql = '
    USE ' + QUOTENAME(@dbname) + ';
    INSERT INTO #LogFileDetail
@@ -67,9 +90,11 @@ BEGIN
        END                                                 AS GrowthSetting,
        df.physical_name,
        d.recovery_model_desc,
-       d.log_reuse_wait_desc
+       d.log_reuse_wait_desc,
+       ISNULL(v.VLFCount, 0)
    FROM sys.database_files df
    CROSS JOIN sys.databases d
+   ' + @vlfJoin + '
    WHERE df.type_desc = ''LOG''
      AND d.database_id = DB_ID();
    ';
@@ -95,6 +120,7 @@ SELECT
    d.SpaceUsedGB                                           AS [Space Used (GB)],
    d.SpaceFreeGB                                           AS [Space Free (GB)],
    d.PctUsed                                               AS [Log Space Used (%)],
+   d.VLFCount                                              AS [VLF Count],
    d.GrowthSetting                                         AS [Current Growth],
    CASE WHEN d.IsPercentGrowth = 0 
         THEN 'Fixed growth - best practice'
@@ -117,9 +143,14 @@ SELECT
              THEN 'Replication is holding the log - see Repl_Flush --->'
         ELSE 'No log backup required'
    END                                                     AS Log_Backup_Action,
-   'BACKUP LOG ' + QUOTENAME(d.DatabaseName) 
-       + ' TO DISK = ''' + ISNULL(@backuploc, 'C:\') 
-       + d.DatabaseName + '_Tlog_backup.trn'' WITH STATS = 5' AS Backup_Statement,
+   CASE WHEN @isRDS = 0
+        THEN 'BACKUP LOG ' + QUOTENAME(d.DatabaseName) 
+             + ' TO DISK = ''' + ISNULL(@backuploc, 'C:\')
+             + d.DatabaseName + '_Tlog_backup.trn'' WITH STATS = 5'
+        ELSE 'EXEC msdb.dbo.rds_backup_database @source_db_name=''' 
+             + d.DatabaseName + ''', @s3_arn_to_backup_to=''arn:aws:s3:::your-bucket/' 
+             + d.DatabaseName + '_Tlog_backup.trn'', @type=''LOG'';'
+   END                                                     AS Backup_Statement,
    'USE ' + QUOTENAME(d.DatabaseName) + ';' + CHAR(13) 
        + 'DBCC SHRINKFILE (' + QUOTENAME(d.LogicalFileName, '''') 
        + ', 512)'                                          AS ShrinkFile_Statement,
