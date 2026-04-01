@@ -1,94 +1,136 @@
+SET NOCOUNT ON;
+
+--this doesnt work on RDS as the backup loc will be a virtual device
+-- Get latest log backup location
 DECLARE @backuploc VARCHAR(200);
 
 USE msdb;
-SELECT  @backuploc=  REVERSE(SUBSTRING(REVERSE(physical_device_name),
-                                       CHARINDEX('\',
-                                                 REVERSE(physical_device_name)),
-                                       LEN(physical_device_name)))
-FROM    msdb.dbo.backupmediafamily
-        INNER JOIN msdb.dbo.backupset ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id
-WHERE    type = 'L'
-        AND backup_start_date = ( SELECT    MAX(backup_start_date)
-                                  FROM      msdb.dbo.backupset
-                                );
+SELECT @backuploc = REVERSE(SUBSTRING(REVERSE(physical_device_name),
+                                     CHARINDEX('\', REVERSE(physical_device_name)),
+                                     LEN(physical_device_name)))
+FROM   msdb.dbo.backupmediafamily
+      INNER JOIN msdb.dbo.backupset 
+          ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id
+WHERE  type = 'L'
+      AND backup_start_date = (SELECT MAX(backup_start_date) FROM msdb.dbo.backupset);
 
-SET NOCOUNT ON 
+-- Results table with per-file detail
+IF OBJECT_ID('tempdb..#LogFileDetail') IS NOT NULL
+   DROP TABLE #LogFileDetail;
 
-IF OBJECT_ID('tempdb..#TempForLogSpace') IS NOT NULL
-    BEGIN
-        DROP TABLE #TempForLogSpace;
-    END;
+CREATE TABLE #LogFileDetail
+(
+   DatabaseName        VARCHAR(128),
+   LogicalFileName     VARCHAR(128),
+   FileSizeGB          DECIMAL(18,2),
+   SpaceUsedGB         DECIMAL(18,2),
+   SpaceFreeGB         DECIMAL(18,2),
+   PctUsed             DECIMAL(5,2),
+   IsPercentGrowth     BIT,
+   GrowthSetting       VARCHAR(50),
+   PhysicalName        VARCHAR(500),
+   RecoveryModel       VARCHAR(20),
+   LogReuseWaitDesc    VARCHAR(60)
+);
 
-CREATE TABLE #TempForLogSpace
-    (
-      DataBaseName VARCHAR(100) ,
-      LogSize NUMERIC(18, 4) ,
-      LOgPercentage NUMERIC(18, 4) ,
-      Status INT
-    );
+DECLARE @dbname SYSNAME;
+DECLARE @sql NVARCHAR(MAX);
 
-INSERT  INTO #TempForLogSpace
-        EXEC ( 'DBCC sqlperf(logspace) WITH NO_INFOMSGS'
-            );	
+DECLARE db_cursor CURSOR LOCAL FAST_FORWARD FOR
+   SELECT name 
+   FROM sys.databases 
+   WHERE state_desc = 'ONLINE'
+    -- AND name NOT IN ('tempdb')  -- tempdb log behaves differently
+   ORDER BY name;
 
-SELECT  sd.name AS dbName,
-		smf.name AS 'Logical Log File Name' ,
-        CASE WHEN smf.is_percent_growth = 0
-             THEN 'file is set to a fixed value and is considered best practice'
-             WHEN smf.is_percent_growth = 1
-             THEN 'See modify_log_file_statement---->'
-        END AS log_growth_setting ,
-        CASE WHEN smf.is_percent_growth = 0 THEN '--no alter DB statement needed'
-             WHEN smf.is_percent_growth = 1
-             THEN 'ALTER DATABASE '+sd.name + CHAR(13)
-                  + 'MODIFY FILE ' + CHAR(13) + '(NAME = ''' + smf.name
-                  + ''',' + CHAR(13) + 'FILEGROWTH = 512MB)'
-        END AS Modify_Log_File_statement ,
-        t.LogSize / 1024 AS 'Log Size (GB)' ,
-        t.LOgPercentage AS 'Log Space Used(%)' ,
-        CASE WHEN sd.log_reuse_wait_desc = 'LOG_BACKUP'
-             THEN 'please backup the log---->'
-  WHEN sd.log_reuse_wait_desc = 'ACTIVE_TRANSACTION'
-THEN 'you have an active transaction..it must complete or be killed before log will clear'
-ELSE 'no log backup required'
-        END AS Log_Backup_Action ,
-sd.log_reuse_wait_desc ,
-sd.recovery_model_desc,
-        'Backup log '+sd.name +' to disk = ''' + ISNULL(@backuploc,'c:\')
-        +sd.name +'_Tlog_backup.trn'' with stats = 5' AS Backup_Statement ,
-        'Use ' + t.DataBaseName + ';' + CHAR(13) + 'DBCC SHRINKFILE ('
-        + smf.name + ' , 512)' AS SHRINKFILE_statement ,
-		'Use ' + t.DataBaseName+';' + CHAR(13) +'EXEC sp_repldone @xactid = NULL, @xact_segno = NULL, @numtrans = 0, @time = 0, @reset = 1;'
-		+CHAR(13)+'EXEC sp_replflush;'+CHAR(13)+'checkpoint;' AS Repl_Flush,
-        'Alter Database '+sd.name+' SET Recovery Simple' AS Change_Recovery_Model_to_Clear_log ,
-        smf.physical_name AS Log_File_Location
-FROM    #TempForLogSpace AS t
-        INNER JOIN sys.databases AS sd ON t.DataBaseName = sd.name
-        INNER JOIN sys.master_files smf ON sd.database_id = smf.database_id
-WHERE   smf.type_desc <> 'rows'
-     --   AND sd.database_id > 4
-ORDER BY [Log Size (GB)] desc
+OPEN db_cursor;
+FETCH NEXT FROM db_cursor INTO @dbname;
 
+WHILE @@FETCH_STATUS = 0
+BEGIN
+   SET @sql = '
+   USE ' + QUOTENAME(@dbname) + ';
+   INSERT INTO #LogFileDetail
+   SELECT 
+       DB_NAME()                                           AS DatabaseName,
+       df.name                                             AS LogicalFileName,
+       CAST(df.size * 8.0 / 1024 / 1024 AS DECIMAL(18,2))        AS FileSizeGB,
+       CAST(FILEPROPERTY(df.name, ''SpaceUsed'') * 8.0 / 1024 / 1024 AS DECIMAL(18,2)) AS SpaceUsedGB,
+       CAST((df.size - FILEPROPERTY(df.name, ''SpaceUsed'')) * 8.0 / 1024 / 1024 AS DECIMAL(18,2)) AS SpaceFreeGB,
+       CASE WHEN df.size = 0 THEN 0
+            ELSE CAST(FILEPROPERTY(df.name, ''SpaceUsed'') * 100.0 / df.size AS DECIMAL(5,2))
+       END                                                 AS PctUsed,
+       df.is_percent_growth,
+       CASE WHEN df.is_percent_growth = 1 
+            THEN CAST(df.growth AS VARCHAR) + '' %''
+            ELSE CAST(CAST(df.growth * 8.0 / 1024 AS DECIMAL(10,0)) AS VARCHAR) + '' MB''
+       END                                                 AS GrowthSetting,
+       df.physical_name,
+       d.recovery_model_desc,
+       d.log_reuse_wait_desc
+   FROM sys.database_files df
+   CROSS JOIN sys.databases d
+   WHERE df.type_desc = ''LOG''
+     AND d.database_id = DB_ID();
+   ';
 
---select getdate()
---dbcc opentran
+   BEGIN TRY
+       EXEC sp_executesql @sql;
+   END TRY
+   BEGIN CATCH
+       PRINT 'Error on database: ' + @dbname + ' - ' + ERROR_MESSAGE();
+   END CATCH
 
---dbcc inputbuffer (161)
+   FETCH NEXT FROM db_cursor INTO @dbname;
+END
 
-/*
--- Create the temporary table to accept the results.
-Drop table if exists #OpenTranStatus;
+CLOSE db_cursor;
+DEALLOCATE db_cursor;
 
-CREATE TABLE #OpenTranStatus (
-   ActiveTransaction VARCHAR(25),
-   Details sql_variant
-   );
--- Execute the command, putting the results in the table.
-INSERT INTO #OpenTranStatus
-   EXEC ('DBCC OPENTRAN WITH TABLERESULTS, NO_INFOMSGS');
-  
--- Display the results.
-SELECT * FROM #OpenTranStatus;
-GO
+-- Final output with actionable statements
+SELECT 
+   d.DatabaseName,
+   d.LogicalFileName,
+   d.FileSizeGB                                            AS [Log Size (GB)],
+   d.SpaceUsedGB                                           AS [Space Used (GB)],
+   d.SpaceFreeGB                                           AS [Space Free (GB)],
+   d.PctUsed                                               AS [Log Space Used (%)],
+   d.GrowthSetting                                         AS [Current Growth],
+   CASE WHEN d.IsPercentGrowth = 0 
+        THEN 'Fixed growth - best practice'
+        ELSE 'Percent growth - see Modify statement --->'
+   END                                                     AS LogGrowthNote,
+   CASE WHEN d.IsPercentGrowth = 1
+        THEN 'ALTER DATABASE ' + QUOTENAME(d.DatabaseName) + CHAR(13)
+             + 'MODIFY FILE' + CHAR(13) 
+             + '(NAME = ''' + d.LogicalFileName + ''',' + CHAR(13) 
+             + 'FILEGROWTH = 512MB)'
+        ELSE '--no change needed'
+   END                                                     AS Modify_Log_File_Statement,
+   d.RecoveryModel,
+   d.LogReuseWaitDesc,
+   CASE WHEN d.LogReuseWaitDesc = 'LOG_BACKUP' 
+             THEN 'Please backup the log --->'
+        WHEN d.LogReuseWaitDesc = 'ACTIVE_TRANSACTION' 
+             THEN 'Active transaction must complete or be killed'
+        WHEN d.LogReuseWaitDesc = 'REPLICATION'
+             THEN 'Replication is holding the log - see Repl_Flush --->'
+        ELSE 'No log backup required'
+   END                                                     AS Log_Backup_Action,
+   'BACKUP LOG ' + QUOTENAME(d.DatabaseName) 
+       + ' TO DISK = ''' + ISNULL(@backuploc, 'C:\') 
+       + d.DatabaseName + '_Tlog_backup.trn'' WITH STATS = 5' AS Backup_Statement,
+   'USE ' + QUOTENAME(d.DatabaseName) + ';' + CHAR(13) 
+       + 'DBCC SHRINKFILE (' + QUOTENAME(d.LogicalFileName, '''') 
+       + ', 512)'                                          AS ShrinkFile_Statement,
+   'USE ' + QUOTENAME(d.DatabaseName) + ';' + CHAR(13)
+       + 'EXEC sp_repldone @xactid = NULL, @xact_segno = NULL, @numtrans = 0, @time = 0, @reset = 1;'
+       + CHAR(13) + 'EXEC sp_replflush;' 
+       + CHAR(13) + 'CHECKPOINT;'                          AS Repl_Flush,
+   'ALTER DATABASE ' + QUOTENAME(d.DatabaseName) 
+       + ' SET RECOVERY SIMPLE'                            AS Change_Recovery_to_Clear_Log,
+   d.PhysicalName                                          AS Log_File_Location
+FROM #LogFileDetail d
+ORDER BY d.DatabaseName, d.FileSizeGB DESC;
 
-*/
+DROP TABLE #LogFileDetail;
