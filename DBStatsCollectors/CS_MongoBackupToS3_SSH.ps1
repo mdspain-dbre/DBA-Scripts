@@ -15,6 +15,7 @@
                      - mongodump installed on remote server
                      - AWS CLI installed and configured on remote server (via IAM instance role)
                      - S3 bucket: prod-sql-1-backups
+                     -- the keyfile is on the DRE-Jumpbox.  this file must be executed from there unless you change the path to the keyfile to a location on your local machine and ensure it has access to the MongoDB server.
 
 .PARAMETER MongoHost
     The IP address or hostname of the MongoDB server. Default: 10.121.162.210
