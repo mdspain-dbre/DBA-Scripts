@@ -42,7 +42,7 @@
 
 param(
     [string]$MongoHost = "10.121.162.210",
-    [string]$KeyFile = "D:\SSH_Keys\mongodb-hosts-pipeline-v1.pem",
+    [string]$KeyFile = "D:\SSH_Keys\PS_SSHKey.pem",
     [string]$SSHUser = "ubuntu",
     [string]$S3Bucket = "prod-sql-1-backups",
     [string]$S3Prefix = "mongobackups",
@@ -70,7 +70,7 @@ Try {
 
     if (-not $SSHSession.Connected) {
         throw "Failed to establish SSH connection to $MongoHost"
-    }
+    } ## if SSHSession not connected
 
     Write-Information "SSH connection established (SessionId: $($SSHSession.SessionId))"
 
@@ -83,16 +83,16 @@ Try {
 
         if ($dbListResult.ExitStatus -ne 0) {
             throw "Failed to list databases: $($dbListResult.Error)"
-        }
+        } ## if dbListResult exit status check
 
         # Filter out system databases
         $Databases = $dbListResult.Output | Where-Object { $_ -notin @("admin", "local", "config") -and $_ -ne "" }
         Write-Information "Found databases: $($Databases -join ', ')"
-    }
+    } ## if no databases specified
 
     # Back up each database
     foreach ($db in $Databases) {
-        $s3Key = "s3://$S3Bucket/$S3Prefix/$db/${db}_${timestamp}.archive.gz"
+        $s3Key = "s3://$S3Bucket/$S3Prefix/$db/${timestamp}/${db}_${timestamp}.archive.gz"
         Write-Information "Backing up database '$db' to $s3Key ..."
 
         $backupCommand = "mongodump --db=$db --archive --gzip | aws s3 cp - $s3Key"
@@ -104,27 +104,27 @@ Try {
         if ($result.ExitStatus -ne 0) {
             Write-Warning "Backup of '$db' failed: $($result.Error)"
             Write-Warning "Output: $($result.Output -join "`n")"
-        }
+        } ## if backup failed
         else {
             Write-Information "Backup of '$db' completed successfully."
             if ($result.Output) {
                 Write-Information ($result.Output -join "`n")
-            }
-        }
-    }
+            } ## if result output
+        } ## else backup succeeded
+    } ## foreach database
 
     Write-Information "All backups completed at $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-}
+} ## try block
 catch [Exception] {
     Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
-}
+} ## catch block
 finally {
     # Clean up SSH session
     if ($SSHSession) {
         Remove-SSHSession -SSHSession (Get-SSHSession) -ErrorAction SilentlyContinue | Out-Null
         Write-Information "SSH session closed."
-    }
-}
+    } ## if SSHSession cleanup
+} ## finally block
 #endregion
