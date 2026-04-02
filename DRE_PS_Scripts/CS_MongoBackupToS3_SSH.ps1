@@ -47,7 +47,7 @@ param(
     [string]$SSHUser = "ubuntu",
     [string]$S3Bucket = "prod-sql-1-backups",
     [string]$S3Prefix = "mongobackups",
-    [string[]]$Databases = @('admin')
+    [string[]]$Databases = @()
 )
 
 #region Module Import
