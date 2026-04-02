@@ -42,12 +42,12 @@
 #>
 
 param(
-    [string]$MongoHost = "10.121.162.210",
+    [string]$MongoHost = "10.121.131.226",
     [string]$KeyFile = "D:\SSH_Keys\PS_SSHKey.pem",
     [string]$SSHUser = "ubuntu",
     [string]$S3Bucket = "prod-sql-1-backups",
     [string]$S3Prefix = "mongobackups",
-    [string[]]$Databases = @()
+    [string[]]$Databases = @('admin')
 )
 
 #region Module Import
