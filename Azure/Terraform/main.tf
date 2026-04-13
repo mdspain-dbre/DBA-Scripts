@@ -183,7 +183,7 @@ resource "azurerm_network_interface" "nic" {
   tags                = local.tags
 
   ip_configuration {
-    name                          = "internal"
+    name                          = "ipconfig1"
     subnet_id                     = data.azurerm_subnet.subnet.id  # Links to the looked-up subnet
     private_ip_address_allocation = "Dynamic"                      # Azure auto-assigns a private IP
   }
@@ -306,4 +306,107 @@ output "private_ip_address" {
 
 output "vm_id" {
   value = azurerm_windows_virtual_machine.vm.id
+}
+
+# =============================================================================
+# COSMOS DB ACCOUNT — MongoDB API (v7)
+# =============================================================================
+# Creates a new Cosmos DB account with the MongoDB API, matching the same
+# configuration as contentservicecosmosdbtestv6:
+#   - MongoDB server version 6.0
+#   - Single region: West US (no zone redundancy)
+#   - Automatic failover enabled
+#   - Session consistency
+#   - Periodic backup (every 4 hours, retained for 8 hours, geo-redundant)
+#   - VNet filtering with the existing dre-vnet1-subnet1
+#   - IP firewall rules for the same allowed addresses
+#   - Capabilities: retryable writes, rate-limit bypass, 16MB doc support
+#   - TLS 1.2 minimum
+#   - No databases or collections are created (empty account)
+# =============================================================================
+resource "azurerm_cosmosdb_account" "cosmosdb_v7" {
+  name                = "contentservicecosmosdbtestv7"
+  location            = "westus"                          # Matches v6 (West US)
+  resource_group_name = var.resource_group_name
+  offer_type          = "Standard"
+  kind                = "MongoDB"
+
+  # MongoDB wire protocol version
+  mongo_server_version = "6.0"
+
+  # Consistency policy — Session is the default and most common for MongoDB API
+  consistency_policy {
+    consistency_level       = "Session"
+    max_interval_in_seconds = 5
+    max_staleness_prefix    = 100
+  }
+
+  # Single geo-location: West US, failover priority 0 (primary)
+  geo_location {
+    location          = "westus"
+    failover_priority = 0
+    zone_redundant    = false
+  }
+
+  # Periodic backup: every 4 hours, retain 8 hours, geo-redundant storage
+  backup {
+    type                = "Periodic"
+    interval_in_minutes = 240
+    retention_in_hours  = 8
+    storage_redundancy  = "Geo"
+  }
+
+  # Capabilities matching v6
+  capabilities {
+    name = "EnableMongo"
+  }
+  capabilities {
+    name = "EnableMongoRetryableWrites"
+  }
+  capabilities {
+    name = "DisableRateLimitingResponses"
+  }
+  capabilities {
+    name = "EnableMongo16MBDocumentSupport"
+  }
+
+  # VNet firewall — restrict access to the existing subnet
+  is_virtual_network_filter_enabled = true
+
+  virtual_network_rule {
+    id                                   = data.azurerm_subnet.subnet.id
+    ignore_missing_vnet_service_endpoint = false
+  }
+
+  # IP firewall rules — same IPs allowed as v6
+  ip_range_filter = ["50.224.132.171", "4.37.49.82", "20.99.222.211"]
+
+  # Automatic failover (useful if you add regions later)
+  automatic_failover_enabled = true
+
+  # Public access and TLS
+  public_network_access_enabled = true
+  minimal_tls_version           = "Tls12"
+
+  # Analytical storage disabled, free tier disabled
+  analytical_storage_enabled = false
+  free_tier_enabled          = false
+
+  # Tags — same convention, updated name tag for v7
+  tags = merge(local.tags, {
+    name = "contentservicecosmosdbtestv7"
+  })
+}
+
+# =============================================================================
+# COSMOS DB v7 OUTPUTS
+# =============================================================================
+output "cosmosdb_v7_endpoint" {
+  description = "The MongoDB connection endpoint for the v7 Cosmos DB account"
+  value       = azurerm_cosmosdb_account.cosmosdb_v7.endpoint
+}
+
+output "cosmosdb_v7_id" {
+  description = "The Azure resource ID of the v7 Cosmos DB account"
+  value       = azurerm_cosmosdb_account.cosmosdb_v7.id
 }
