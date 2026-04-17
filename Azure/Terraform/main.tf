@@ -11,6 +11,10 @@ terraform {
       source  = "hashicorp/azurerm"   # Download from HashiCorp's registry
       version = "~> 4.0"              # Pin to major version 4.x
     }
+    azapi = {
+      source  = "azure/azapi"         # For resources not yet in azurerm
+      version = "~> 2.0"
+    }
   }
 }
 
@@ -66,6 +70,13 @@ variable "admin_username" {
 # display it in plan output or logs. Since there's no default, you MUST
 # supply it at runtime (e.g., -var="admin_password=YourP@ssw0rd!").
 variable "admin_password" {
+  sensitive = true
+}
+
+# SQL Managed Instance admin password. Marked "sensitive" so Terraform won't
+# display it in plan output or logs. Must meet Azure complexity requirements:
+# 16+ chars, upper, lower, number, special character.
+variable "sqlmi_admin_password" {
   sensitive = true
 }
 
@@ -290,6 +301,29 @@ resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attach" {
 }
 
 # =============================================================================
+# AZURE DATABASE MIGRATION SERVICE v2 (SQL Migration Service)
+# =============================================================================
+# Creates a DMS v2 (SqlMigrationServices) instance. Unlike the classic DMS,
+# v2 is a lightweight resource that does NOT deploy its own VNet-attached
+# compute or NICs — avoiding the Azure tagging policy violation that blocked
+# the classic DMS provisioning.
+#
+# - No SKU or subnet required — bring your own compute via a self-hosted
+#   integration runtime (SHIR) installed on an existing VM.
+# - Supports: SQL Server → Azure SQL DB, Azure SQL MI, SQL on Azure VMs.
+# - The Microsoft.DataMigration resource provider must be registered.
+# - Uses the azapi provider since azurerm has no native resource for this.
+# =============================================================================
+resource "azapi_resource" "dms_v2" {
+  type      = "Microsoft.DataMigration/SqlMigrationServices@2022-03-30-preview"
+  name      = "cs-dms-v2"
+  location  = var.location
+  parent_id = "/subscriptions/148f67ee-68bc-429e-916b-4ca8568f3c6d/resourceGroups/${var.resource_group_name}"
+  tags      = local.tags
+  body      = { properties = {} }
+}
+
+# =============================================================================
 # OUTPUTS
 # =============================================================================
 # Outputs are printed after "terraform apply" completes and can be queried
@@ -409,4 +443,101 @@ output "cosmosdb_v7_endpoint" {
 output "cosmosdb_v7_id" {
   description = "The Azure resource ID of the v7 Cosmos DB account"
   value       = azurerm_cosmosdb_account.cosmosdb_v7.id
+}
+
+# =============================================================================
+# AZURE SQL MANAGED INSTANCE — Business Critical
+# =============================================================================
+# Creates a SQL Managed Instance with a dedicated subnet, NSG, and route table.
+#
+# Requirements:
+#   - 50 GB database capacity → 256 GB storage allocated (room for growth)
+#   - 64 GB RAM minimum → 16 vCores on Business Critical Gen5 (~81.6 GB RAM)
+#   - Business Critical tier → zone-redundant, built-in HA with local SSD
+#
+# SQL MI requires:
+#   - A dedicated subnet delegated to Microsoft.Sql/managedInstances
+#   - An NSG and route table associated with the subnet
+#   - No other resources may share the SQL MI subnet
+#
+# Note: Initial provisioning can take 4-6 hours.
+# =============================================================================
+
+# --- SQL MI Subnet -----------------------------------------------------------
+resource "azurerm_subnet" "sqlmi_subnet" {
+  name                 = "dre-vnet1-sqlmi-subnet"
+  resource_group_name  = var.vnet_resource_group
+  virtual_network_name = var.vnet_name
+  address_prefixes     = ["10.18.16.192/26"]
+
+  delegation {
+    name = "sqlmi-delegation"
+    service_delegation {
+      name = "Microsoft.Sql/managedInstances"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      ]
+    }
+  }
+}
+
+# --- SQL MI Network Security Group -------------------------------------------
+resource "azurerm_network_security_group" "sqlmi_nsg" {
+  name                = "cs-sqlmi-nsg"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  tags                = merge(local.tags, { name = "cs-sqlmi-nsg" })
+}
+
+resource "azurerm_subnet_network_security_group_association" "sqlmi_nsg_assoc" {
+  subnet_id                 = azurerm_subnet.sqlmi_subnet.id
+  network_security_group_id = azurerm_network_security_group.sqlmi_nsg.id
+}
+
+# --- SQL MI Route Table ------------------------------------------------------
+resource "azurerm_route_table" "sqlmi_rt" {
+  name                = "cs-sqlmi-rt"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  tags                = merge(local.tags, { name = "cs-sqlmi-rt" })
+}
+
+resource "azurerm_subnet_route_table_association" "sqlmi_rt_assoc" {
+  subnet_id      = azurerm_subnet.sqlmi_subnet.id
+  route_table_id = azurerm_route_table.sqlmi_rt.id
+}
+
+# --- SQL Managed Instance ----------------------------------------------------
+resource "azurerm_mssql_managed_instance" "sqlmi" {
+  name                         = "cs-sqlmi-01"
+  location                     = var.location
+  resource_group_name          = var.resource_group_name
+  subnet_id                    = azurerm_subnet.sqlmi_subnet.id
+  administrator_login          = var.admin_username
+  administrator_login_password = var.sqlmi_admin_password
+  sku_name                     = "BC_Gen5"             # Business Critical, Gen5 hardware
+  vcores                       = 16                     # 16 vCores ≈ 81.6 GB RAM
+  storage_size_in_gb           = 256                    # Supports 50 GB DB with growth room
+  license_type                 = "BasePrice"            # Azure Hybrid Benefit (or "LicenseIncluded")
+  minimum_tls_version          = "1.2"
+  public_data_endpoint_enabled = false
+  tags                         = merge(local.tags, { name = "cs-sqlmi-01" })
+
+  depends_on = [
+    azurerm_subnet_network_security_group_association.sqlmi_nsg_assoc,
+    azurerm_subnet_route_table_association.sqlmi_rt_assoc,
+  ]
+}
+
+# --- SQL MI Outputs ----------------------------------------------------------
+output "sqlmi_fqdn" {
+  description = "The fully qualified domain name of the SQL Managed Instance"
+  value       = azurerm_mssql_managed_instance.sqlmi.fqdn
+}
+
+output "sqlmi_id" {
+  description = "The Azure resource ID of the SQL Managed Instance"
+  value       = azurerm_mssql_managed_instance.sqlmi.id
 }
