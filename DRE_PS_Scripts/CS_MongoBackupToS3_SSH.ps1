@@ -42,12 +42,12 @@
 #>
 
 param(
-    [string]$MongoHost = "10.121.131.226",
+    [string]$MongoHost = "10.121.162.210",
     [string]$KeyFile = "D:\SSH_Keys\PS_SSHKey.pem",
     [string]$SSHUser = "ubuntu",
     [string]$S3Bucket = "prod-sql-1-backups",
     [string]$S3Prefix = "mongobackups",
-    [string[]]$Databases = @()
+    [string[]]$Databases = @('admin', 'config','testing42','test44','ExtruderStateTest','ImageWarehouseProd','ImageWarehouseTest','WarehourseMirrorTest','HumanInteractionQueuesProd') # Default to system databases, but will be overridden if no databases specified
 )
 
 #region Module Import
@@ -87,9 +87,21 @@ Try {
         } ## if dbListResult exit status check
 
         # Filter out system databases
-        $Databases = $dbListResult.Output | Where-Object { $_ -notin @("admin", "local", "config") -and $_ -ne "" }
+        ##$Databases = $dbListResult.Output | Where-Object { $_ -notin @("admin", "local", "config") -and $_ -ne "" }
         Write-Information "Found databases: $($Databases -join ', ')"
     } ## if no databases specified
+
+    # Configure AWS CLI for multi-threaded multipart S3 uploads
+    Write-Information "Configuring AWS CLI for concurrent multipart uploads..."
+    $s3ConfigCommands = @(
+        "aws configure set default.s3.max_concurrent_requests 20",
+        "aws configure set default.s3.multipart_chunksize 64MB",
+        "aws configure set default.s3.multipart_threshold 64MB"
+    )
+    foreach ($cmd in $s3ConfigCommands) {
+        Invoke-SSHCommand -SessionId $SSHSession.SessionId -Command $cmd -TimeOut 30 | Out-Null
+    }
+    Write-Information "AWS CLI S3 transfer config set: max_concurrent_requests=20, multipart_chunksize=64MB"
 
     # Back up each database
     foreach ($db in $Databases) {
@@ -100,7 +112,7 @@ Try {
 
         $result = Invoke-SSHCommand -SessionId $SSHSession.SessionId `
             -Command $backupCommand `
-            -TimeOut 3600
+            -TimeOut 43200
 
         if ($result.ExitStatus -ne 0) {
             Write-Warning "Backup of '$db' failed: $($result.Error)"
