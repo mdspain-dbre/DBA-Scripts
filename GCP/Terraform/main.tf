@@ -1,15 +1,88 @@
+# #############################################################################
+# FILE:        main.tf
+# PURPOSE:     Provisions the DRE sandbox database environment in GCP.
+# AUTHOR:      Michael D'Spain (CPIE-DRE)
+# PROJECT:     dre-sandbox-471618
+# REGION:      us-west1 (Oregon) — chosen for low latency from PST and lower cost
+#              than us-central1 for sustained-use SQL workloads.
+#
+# RESOURCES MANAGED BY THIS FILE:
+#   1. google_sql_database_instance.sql_server
+#        Managed Cloud SQL for SQL Server 2022 Enterprise instance.
+#        Used as a managed alternative to a self-hosted VM — no patching, no
+#        OS access, automated backups, regional HA optional.
+#   2. google_compute_instance.sql_server_vm
+#        Self-managed Windows Server 2022 + SQL Server 2022 Standard VM.
+#        Used when full OS access is needed (e.g., Agent jobs, linked servers,
+#        SQLCLR, custom file system layout, third-party agents).
+#   3. google_compute_disk.sql_data_disk
+#        Dedicated PD-SSD attached to the SQL Server VM for user databases.
+#   4. google_compute_instance.mysql_vm
+#        Debian 12 + MySQL 8 VM with the Sakila sample DB pre-loaded for
+#        training, demos, and migration testing.
+#   5. google_compute_disk.mysql_data_disk
+#        Dedicated PD-SSD for the MySQL data directory (/var/lib/mysql).
+#   6. google_compute_firewall.* (RDP, SQL, MySQL, SSH)
+#        VPC firewall rules — currently open to 0.0.0.0/0 for sandbox use.
+#        TIGHTEN BEFORE PRODUCTION USE.
+#
+# USAGE:
+#   # First-time initialization (downloads providers, creates .terraform/):
+#   terraform init
+#
+#   # Preview changes — always run before apply:
+#   terraform plan \
+#     -var="sql_root_password=<strongpw>" \
+#     -var="sql_sa_password=<strongpw>" \
+#     -var="mysql_root_password=<strongpw>"
+#
+#   # Apply changes (will prompt for confirmation):
+#   terraform apply -var=...
+#
+#   # Tear down everything (subject to deletion_protection on Cloud SQL):
+#   terraform destroy -var=...
+#
+# COST NOTES:
+#   - Cloud SQL Enterprise db-custom-24-159744 is the largest cost driver
+#     (~$2,500+/month at on-demand rates). Stop the instance when idle.
+#   - The Windows SQL VM incurs Windows + SQL Server license cost on top of
+#     the underlying compute (n2-standard-8). Stop when not in use.
+#   - PD-SSD disks bill while allocated even when the VM is stopped.
+#
+# SECURITY TODOS BEFORE PRODUCTION:
+#   - Replace 0.0.0.0/0 firewall ranges with corporate VPN / office CIDRs.
+#   - Disable public IPs and use Private Service Connect / private IP only.
+#   - Move secrets to Secret Manager and read them via google_secret_manager_*.
+#   - Enable Cloud SQL IAM authentication and audit logging.
+#   - Enable VPC Service Controls / Org Policy guardrails on the project.
+# #############################################################################
+
 # =============================================================================
 # TERRAFORM CONFIGURATION
 # =============================================================================
-# This block tells Terraform which providers (plugins) are needed.
+# The `terraform` block declares settings for Terraform itself (as opposed to
+# the resources it manages). The two most common things that go here are:
+#   - required_providers: which plugins to download and what versions are OK.
+#   - backend:            where to store the state file (local vs. GCS, S3, etc.).
+#
+# We currently use the default LOCAL backend (terraform.tfstate is written next
+# to this file). For team use, switch to a remote backend such as GCS:
+#
+#   backend "gcs" {
+#     bucket = "dre-sandbox-tfstate"
+#     prefix = "gcp/dbms"
+#   }
+#
 # Providers are how Terraform talks to cloud APIs — in this case, Google Cloud.
-# "~> 6.0" means any version >= 6.0 and < 7.0 (pessimistic constraint).
+# "~> 6.0" is a pessimistic version constraint meaning >= 6.0.0 and < 7.0.0,
+# which lets us pick up bug fixes and new resources without an unexpected
+# breaking change from a major-version bump.
 # =============================================================================
 terraform {
   required_providers {
     google = {
-      source  = "hashicorp/google"    # Download from HashiCorp's registry
-      version = "~> 6.0"              # Pin to major version 6.x
+      source  = "hashicorp/google" # Official Google provider on the HashiCorp registry
+      version = "~> 6.0"           # Allow 6.x bug-fix and minor updates; block 7.x
     }
   }
 }
@@ -57,18 +130,27 @@ variable "sql_root_password" {
 # =============================================================================
 # LOCAL VALUES (Computed/Reusable Values)
 # =============================================================================
-# Locals let you define values once and reuse them across multiple resources.
+# `locals` let you define values once and reuse them across multiple resources,
+# similar to constants in a normal programming language. They are evaluated at
+# plan time and cannot be overridden from the CLI (unlike variables).
+#
 # GCP uses "labels" instead of Azure "tags" — same concept, different name.
-# Label keys/values must be lowercase, max 63 chars, letters/numbers/hyphens only.
+# Label rules (enforced by GCP):
+#   - Keys: 1-63 chars, lowercase letters/numbers/underscores/hyphens, must start
+#           with a lowercase letter.
+#   - Values: 0-63 chars, lowercase letters/numbers/underscores/hyphens.
+#   - Up to 64 labels per resource.
+# These labels feed cost reports, Resource Manager filters, and Cloud Asset
+# Inventory queries — keep them consistent across every resource in the file.
 # =============================================================================
 locals {
   labels = {
-    application = "content-services"
-    cost-center = "2650"
-    created-by  = "michael-dspain"
-    environment = "dev"
-    owner       = "cpie-dre"
-    service     = "content-services"
+    application = "content-services" # App/product these resources belong to
+    cost-center = "2650"             # Finance cost-center for chargeback reporting
+    created-by  = "michael-dspain"   # Human owner / point of contact
+    environment = "dev"              # dev | test | stage | prod
+    owner       = "cpie-dre"         # Owning team
+    service     = "content-services" # Logical service grouping
   }
 }
 
@@ -125,44 +207,78 @@ resource "google_sql_database_instance" "sql_server" {
   deletion_protection = true
 
   settings {
-    tier              = "db-custom-24-159744"   # 24 vCPUs, 156 GB RAM (max at 6.5 GB/vCPU)
-    edition           = "ENTERPRISE"             # Enterprise Plus is not available for SQL Server
-    availability_type = "ZONAL"                  
-    disk_type         = "PD_SSD"                 # PD_SSD is the correct disk for this tier
-    disk_size         = 1000                     
-    disk_autoresize   = true                     
-    disk_autoresize_limit = 2000             # Auto-grow when space is low
-  
+    # ---------------------------------------------------------------------
+    # Machine sizing
+    # ---------------------------------------------------------------------
+    # `tier` for SQL Server Enterprise uses the `db-custom-<vCPU>-<MB RAM>`
+    # format. SQL Server caps memory at 6.5 GB per vCPU, so 24 vCPUs * 6.5 GB
+    # = 156 GB (159,744 MB). Going higher requires more vCPUs.
+    tier              = "db-custom-24-159744" # 24 vCPUs, 156 GB RAM (max at 6.5 GB/vCPU)
+    edition           = "ENTERPRISE"          # Enterprise Plus is NOT available for SQL Server (Postgres/MySQL only)
+    availability_type = "ZONAL"               # Single-zone; switch to "REGIONAL" for HA standby + auto failover
+
+    # ---------------------------------------------------------------------
+    # Storage
+    # ---------------------------------------------------------------------
+    # PD_SSD = Persistent Disk SSD (high IOPS, low latency, required at this tier).
+    # Auto-resize grows the disk in 5 GB increments as it nears capacity, which
+    # prevents "out of space" outages but can quietly inflate costs — the
+    # autoresize_limit acts as a safety cap.
+    disk_type             = "PD_SSD" # PD_SSD is the correct disk for this tier
+    disk_size             = 1000     # Initial size in GB
+    disk_autoresize       = true     # Auto-grow when space is low
+    disk_autoresize_limit = 2000     # Hard ceiling in GB to prevent runaway growth
+
+    # Apply the standard label set defined in `locals` for cost reporting.
     user_labels = local.labels
 
     # Automated backup configuration
     backup_configuration {
       enabled                        = true
-      point_in_time_recovery_enabled = true       # PITR via transaction logs
-      start_time                     = "04:00"    # Daily backup window (UTC)
+      point_in_time_recovery_enabled = true    # PITR via transaction logs
+      start_time                     = "04:00" # Daily backup window (UTC)
       transaction_log_retention_days = 7
       backup_retention_settings {
-        retained_backups = 7                      # Keep 7 daily backups
+        retained_backups = 7 # Keep 7 daily backups
       }
     }
 
     # Maintenance window — Sunday 5 AM UTC
     maintenance_window {
-      day          = 7    # Sunday (1=Mon, 7=Sun)
-      hour         = 5    # 5 AM UTC
+      day          = 7 # Sunday (1=Mon, 7=Sun)
+      hour         = 5 # 5 AM UTC
       update_track = "stable"
     }
 
-    # IP configuration — public IP with no authorized networks by default.
-    # Add authorized_networks blocks to restrict access by IP/CIDR,
-    # or switch to private IP via private_network.
+    # ---------------------------------------------------------------------
+    # IP configuration
+    # ---------------------------------------------------------------------
+    # Public IP is enabled with NO authorized networks, which means the
+    # instance has a public IP but rejects all inbound TCP — you must add
+    # authorized_networks blocks (allow-list of CIDRs) before clients can
+    # connect over the public IP, OR connect via the Cloud SQL Auth Proxy
+    # which uses IAM and tunnels over an encrypted channel.
+    #
+    # For production: prefer private IP only (set ipv4_enabled = false and
+    # configure private_network with a VPC peering range).
     ip_configuration {
       ipv4_enabled = true
+      # Example allow-list (uncomment and edit to use):
+      # authorized_networks {
+      #   name  = "office-vpn"
+      #   value = "203.0.113.0/24"
+      # }
     }
 
+    # ---------------------------------------------------------------------
     # SQL Server-specific flags
+    # ---------------------------------------------------------------------
+    # `database_flags` is how Cloud SQL exposes SQL Server `sp_configure`
+    # options. Flags here are persisted across restarts. Only a curated
+    # subset of sp_configure options is supported by Cloud SQL — see:
+    # https://cloud.google.com/sql/docs/sqlserver/flags
     database_flags {
-      name  = "remote access"
+      name  = "remote access" # Allows remote stored procedure execution between linked servers
       value = "on"
     }
   }
@@ -249,7 +365,7 @@ resource "google_compute_instance" "sql_server_vm" {
   boot_disk {
     initialize_params {
       image = "windows-sql-cloud/sql-std-2022-win-2022"
-      size  = 200    # GB
+      size  = 200 # GB
       type  = "pd-ssd"
     }
   }
@@ -295,19 +411,42 @@ resource "google_compute_instance" "sql_server_vm" {
 # =============================================================================
 # DATA DISK — Separate SSD for SQL Server databases and logs
 # =============================================================================
+# Best practice: keep the OS, SQL binaries, system DBs, user DBs, and tempdb
+# on different disks. This file currently provisions ONE additional data disk
+# beyond the OS disk; for production you typically want three or more:
+#   - data:   user database files (.mdf / .ndf)
+#   - log:    transaction logs (.ldf) on its own disk for sequential write perf
+#   - tempdb: highly volatile, benefits from a Local SSD when available
+#
+# pd-ssd performance scales with size — 500 GB ≈ 15,000 read IOPS, 15,000 write
+# IOPS, and ~240 MB/s throughput. Increase `size` to scale performance even if
+# you don't need the capacity.
+# =============================================================================
 resource "google_compute_disk" "sql_data_disk" {
-  name  = "${var.vm_name}-data"
-  type  = "pd-ssd"
-  zone  = var.vm_zone
-  size  = 500    # GB
+  name   = "${var.vm_name}-data" # Conventional naming: <vm-name>-data
+  type   = "pd-ssd"              # pd-ssd | pd-balanced | pd-standard | pd-extreme
+  zone   = var.vm_zone           # Disk + VM must be in the same zone for attachment
+  size   = 500                   # GB — also drives IOPS/throughput limits
   labels = local.labels
 }
 
 # =============================================================================
 # FIREWALL RULES — RDP and SQL Server access
 # =============================================================================
-# These rules allow inbound traffic to the VM. Restrict source_ranges to your
-# office/VPN CIDR blocks for production use. 0.0.0.0/0 is open to the internet.
+# GCP firewall rules are VPC-level (not per-VM). They match traffic by:
+#   - direction (INGRESS by default)
+#   - protocol + port
+#   - source_ranges  (for INGRESS) or destination_ranges (for EGRESS)
+#   - target_tags    — only applies to VMs that carry the matching network tag
+#
+# IMPORTANT: target_tags below reference "sql-server", but the
+# google_compute_instance.sql_server_vm resource does NOT currently set a
+# `tags = ["sql-server"]` argument, so these rules will not match it. Either
+# add `tags = ["sql-server"]` to that VM or change target_tags here. The
+# MySQL VM correctly sets tags = ["mysql-server"].
+#
+# Restrict source_ranges to your office/VPN CIDR blocks for production use.
+# 0.0.0.0/0 means "the entire public Internet" — sandbox only.
 # =============================================================================
 resource "google_compute_firewall" "allow_rdp" {
   name    = "${var.vm_name}-allow-rdp"
@@ -318,7 +457,7 @@ resource "google_compute_firewall" "allow_rdp" {
     ports    = ["3389"]
   }
 
-  source_ranges = ["0.0.0.0/0"]    # TODO: Restrict to your IP/CIDR
+  source_ranges = ["0.0.0.0/0"] # TODO: Restrict to your IP/CIDR
   target_tags   = ["sql-server"]
 }
 
@@ -331,7 +470,7 @@ resource "google_compute_firewall" "allow_sql" {
     ports    = ["1433"]
   }
 
-  source_ranges = ["0.0.0.0/0"]    # TODO: Restrict to your IP/CIDR
+  source_ranges = ["0.0.0.0/0"] # TODO: Restrict to your IP/CIDR
   target_tags   = ["sql-server"]
 }
 
@@ -382,6 +521,25 @@ variable "mysql_root_password" {
   sensitive   = true
 }
 
+# Restricted ingress for the MySQL VM. Includes:
+#   - Admin workstation (75.71.182.151/32) for ad-hoc mysql/SSH access.
+#   - Service Networking VPC peering range (10.113.32.0/20) used by Google
+#     Cloud Database Migration Service to reach the VM at its private IP.
+#   - Internal VPC range (10.128.0.0/9) for in-VPC clients (other VMs, etc.).
+# Used by both google_compute_firewall.allow_mysql (3306) and the SSH rule
+# (which gets only the admin entry — see allow_mysql_ssh below).
+variable "mysql_allowed_cidrs" {
+  description = "CIDRs allowed to reach MySQL on tcp/3306 (admin + DMS peering + in-VPC)."
+  type        = list(string)
+  default     = ["75.71.182.151/32", "10.113.32.0/20", "10.128.0.0/9"]
+}
+
+variable "mysql_admin_cidrs" {
+  description = "CIDRs allowed to SSH (tcp/22) into the MySQL VM. Admin workstations only."
+  type        = list(string)
+  default     = ["75.71.182.151/32"]
+}
+
 # =============================================================================
 # DATA DISK — Separate SSD for MySQL data
 # =============================================================================
@@ -389,7 +547,7 @@ resource "google_compute_disk" "mysql_data_disk" {
   name   = "${var.mysql_vm_name}-data"
   type   = "pd-ssd"
   zone   = var.mysql_vm_zone
-  size   = 200    # GB
+  size   = 200 # GB
   labels = local.labels
 }
 
@@ -426,7 +584,7 @@ resource "google_compute_instance" "mysql_vm" {
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-12"
-      size  = 50     # GB
+      size  = 50 # GB
       type  = "pd-ssd"
     }
   }
@@ -596,7 +754,8 @@ resource "google_compute_firewall" "allow_mysql" {
     ports    = ["3306"]
   }
 
-  source_ranges = ["0.0.0.0/0"]    # TODO: Restrict to your IP/CIDR
+  # Restricted ingress — see var.mysql_allowed_cidrs for composition.
+  source_ranges = var.mysql_allowed_cidrs
   target_tags   = ["mysql-server"]
 }
 
@@ -609,7 +768,8 @@ resource "google_compute_firewall" "allow_mysql_ssh" {
     ports    = ["22"]
   }
 
-  source_ranges = ["0.0.0.0/0"]    # TODO: Restrict to your IP/CIDR
+  # Admin workstations only — DMS does not need SSH.
+  source_ranges = var.mysql_admin_cidrs
   target_tags   = ["mysql-server"]
 }
 
@@ -639,4 +799,252 @@ output "mysql_vm_ssh_command" {
 output "mysql_connection_command" {
   description = "Connect to MySQL from a remote client"
   value       = "mysql -h <EXTERNAL_IP> -u root -p"
+}
+
+# #############################################################################
+# DATABASE MIGRATION SERVICE (DMS) — REVERSE-ENGINEERED FROM LIVE PROJECT
+# #############################################################################
+# Reverse-engineered on 2026-05-11 from the live DMS configuration in
+# project `dre-sandbox-471618`, region `us-central1`, using:
+#   gcloud database-migration migration-jobs list/describe
+#   gcloud database-migration connection-profiles list/describe
+#
+# DISCOVERED RESOURCES
+# --------------------
+# Connection profiles (2):
+#   1. mdmysql        SOURCE      MySQL     @ 10.138.0.9:3306 (the GCE MySQL VM)
+#   2. sakilamysql    DESTINATION Cloud SQL MySQL 8.4 Enterprise Plus (REGIONAL HA)
+#
+# Migration jobs (1):
+#   1. mdmysql      MySQL    -> Cloud SQL    CONTINUOUS  (state: RUNNING, phase: CDC)
+#                   Uses VPC peering connectivity over the "default" network.
+#                   Logical dump, OPTIMAL parallelism, all objects.
+#
+# (The live SQL Server profile `stackoverflow` and job `gcdbmsmove` exist in
+# the project but are intentionally omitted from this file: the
+# hashicorp/google 6.x provider has no schema for SQL Server source profiles
+# or the SQL Server homogeneous job config. Manage those via gcloud/console.)
+#
+# IMPORTANT — IMPORT BEFORE APPLY
+# -------------------------------
+# These resources ALREADY EXIST in GCP. If you `terraform apply` without
+# importing first, Terraform will try to CREATE duplicates and fail (name
+# conflict). To bring the existing resources under management:
+#
+#   terraform import \
+#     google_database_migration_service_connection_profile.mdmysql \
+#     projects/dre-sandbox-471618/locations/us-central1/connectionProfiles/mdmysql
+#
+#   terraform import \
+#     google_database_migration_service_connection_profile.sakilamysql \
+#     projects/dre-sandbox-471618/locations/us-central1/connectionProfiles/sakilamysql
+#
+#   terraform import \
+#     google_database_migration_service_migration_job.mdmysql \
+#     projects/dre-sandbox-471618/locations/us-central1/migrationJobs/mdmysql
+#
+# The `stackoverflow` connection profile and `gcdbmsmove` migration job
+# CANNOT be imported — the hashicorp/google v6.x provider does not yet
+# support SQL Server source profiles or the SQL Server homogeneous job
+# config block. Manage those two resources via gcloud or the console.
+#
+# After import, run `terraform plan` and reconcile any drift between this file
+# and the actual config. Passwords are NEVER returned by the API (only
+# passwordSet=true is shown), so you MUST supply them via -var or a tfvars file.
+# #############################################################################
+
+# =============================================================================
+# DMS VARIABLES — passwords for source/destination connection profiles
+# =============================================================================
+# DMS connection profiles store credentials but the API never reads them back.
+# Terraform will therefore always show a "password" diff after import unless
+# you set `lifecycle { ignore_changes = [...] }` (see below). Supply real
+# passwords at apply time:
+#   terraform apply \
+#     -var="dms_source_mysql_password=..." \
+#     -var="dms_destination_cloudsql_root_password=..."
+# =============================================================================
+
+variable "dms_region" {
+  description = "GCP region where the DMS connection profiles and jobs live."
+  default     = "us-central1"
+}
+
+variable "dms_source_mysql_password" {
+  description = "Password for the SOURCE MySQL connection profile (mdmysql @ 10.138.0.9). Not returned by API after creation."
+  sensitive   = true
+  default     = ""
+}
+
+variable "dms_destination_cloudsql_root_password" {
+  description = "Root password for the DESTINATION Cloud SQL MySQL instance (sakilamysql). Not returned by API after creation."
+  sensitive   = true
+  default     = ""
+}
+
+# =============================================================================
+# DMS CONNECTION PROFILE — SOURCE MySQL (mdmysql)
+# =============================================================================
+# Points DMS at the self-managed MySQL 8 VM created earlier in this file.
+# Host 10.138.0.9 is the internal IP of `gcdbms-mysqlvm-01` on the default VPC
+# at the time of capture. If that VM is recreated, the IP may change — consider
+# reserving a static internal IP and referencing it via
+# `google_compute_instance.mysql_vm.network_interface[0].network_ip`.
+#
+# `ssl {}` is present in the live config but empty, meaning SSL is allowed but
+# not enforced. For production add `ssl { type = "SERVER_ONLY" }` or stronger.
+# =============================================================================
+resource "google_database_migration_service_connection_profile" "mdmysql" {
+  location              = var.dms_region
+  connection_profile_id = "mdmysql"
+  display_name          = "mdmysql"
+  labels                = local.labels
+
+  mysql {
+    host     = "10.138.0.9"
+    port     = 3306
+    username = "root"
+    password = var.dms_source_mysql_password
+
+    # Empty SSL block matches live config (SSL allowed but not enforced).
+    ssl {
+      type = "NONE"
+    }
+  }
+
+  # The GCP Database Migration API silently rewrites credential fields on every
+  # update and never returns them on read. Combined with the fact that label
+  # changes alone trigger a full update, leaving these attributes managed by
+  # Terraform will repeatedly clobber the live password and break the running
+  # CDC job. Manage labels and credentials out-of-band (gcloud / console) and
+  # ignore them here. The `mysql` block is ignored wholesale because any
+  # nested change forces the whole block to be re-sent.
+  lifecycle {
+    ignore_changes = [
+      mysql,
+      labels,
+      terraform_labels,
+      effective_labels,
+    ]
+  }
+}
+
+# =============================================================================
+# DMS CONNECTION PROFILE — DESTINATION Cloud SQL MySQL 8.4 (sakilamysql)
+# =============================================================================
+# REMOVED FROM TERRAFORM MANAGEMENT (2026-05-12).
+#
+# The GCP Database Migration API rejects updates to non-DRAFT CLOUDSQL
+# connection profiles with:
+#   Error 400: Updating a non-draft CLOUDSQL connection profile isn't supported yet
+# This means ANY terraform apply that touches this resource (even just a
+# label change) will fail. The block below is preserved for documentation
+# only — do NOT uncomment without first removing the live profile or until
+# Google adds update support.
+#
+# Live management of `sakilamysql`:
+#   - Read:    gcloud database-migration connection-profiles describe sakilamysql \
+#                --project=dre-sandbox-471618 --region=us-central1
+#   - Modify:  via the GCP Console (and only on a DRAFT profile, in practice).
+#
+# The migration job's `destination` attribute below now references the
+# resource by its full literal ID instead of via this resource block.
+# =============================================================================
+# resource "google_database_migration_service_connection_profile" "sakilamysql" {
+#   location              = var.dms_region
+#   connection_profile_id = "sakilamysql"
+#   display_name          = "sakilamysql"
+#   labels                = local.labels
+#
+#   cloudsql {
+#     settings {
+#       database_version      = "MYSQL_8_4"
+#       edition               = "ENTERPRISE_PLUS"
+#       tier                  = "db-perf-optimized-N-8"
+#       zone                  = "us-central1-f"
+#       data_disk_type        = "PD_SSD"
+#       data_disk_size_gb     = "100"
+#       auto_storage_increase = true
+#       root_password         = var.dms_destination_cloudsql_root_password
+#
+#       source_id = "projects/dre-sandbox-471618/locations/${var.dms_region}/connectionProfiles/mdmysql"
+#
+#       ip_config {
+#         enable_ipv4     = false
+#         private_network = "projects/dre-sandbox-471618/global/networks/default"
+#       }
+#     }
+#   }
+#
+#   lifecycle {
+#     ignore_changes = [cloudsql[0].settings[0].root_password]
+#   }
+#
+#   depends_on = [google_database_migration_service_connection_profile.mdmysql]
+# }
+
+# =============================================================================
+# DMS MIGRATION JOB — mdmysql (MySQL VM -> Cloud SQL MySQL, CONTINUOUS)
+# =============================================================================
+# Heterogeneous-shaped but actually homogeneous MySQL -> MySQL continuous
+# migration. Uses VPC peering connectivity over the `default` network so DMS
+# can reach the private IP of the source MySQL VM (10.138.0.9).
+#
+# Live state at capture: state=RUNNING, phase=CDC (already past initial dump
+# and streaming change data). Re-applying with `state` set explicitly can
+# disrupt the running job — the resource intentionally omits `state`/`phase`
+# so Terraform won't fight DMS over runtime status.
+#
+# Performance: dump_parallel_level = OPTIMAL lets DMS pick the parallelism
+# based on source size and tier. Override to MAX or MIN if needed.
+# =============================================================================
+resource "google_database_migration_service_migration_job" "mdmysql" {
+  location         = var.dms_region
+  migration_job_id = "mdmysql"
+  display_name     = "mdmysql"
+  labels           = local.labels
+
+  type      = "CONTINUOUS" # CONTINUOUS = initial dump + ongoing CDC; ONE_TIME = dump only
+  dump_type = "LOGICAL"    # LOGICAL = mysqldump-style; PHYSICAL not supported for MySQL here
+
+  source      = google_database_migration_service_connection_profile.mdmysql.id
+  # sakilamysql is no longer managed by Terraform (see comment above its
+  # removed resource block). Reference the live profile by its literal ID.
+  destination = "projects/dre-sandbox-471618/locations/${var.dms_region}/connectionProfiles/sakilamysql"
+
+  # NOTE — provider v6.x does NOT expose `source_database` or
+  # `destination_database` blocks on this resource. Engine info (MYSQL/CLOUDSQL)
+  # is inferred automatically from the linked connection profiles.
+
+  performance_config {
+    dump_parallel_level = "OPTIMAL"
+  }
+
+  vpc_peering_connectivity {
+    vpc = "projects/dre-sandbox-471618/global/networks/default"
+  }
+
+  # NOTE: `state` and `phase` are read-only/computed in the provider schema, so
+  # they don't need to be listed in `ignore_changes`. Terraform will never try
+  # to write them. To start/stop/promote a running job, use gcloud:
+  #   gcloud database-migration migration-jobs start  mdmysql --region=us-central1
+  #   gcloud database-migration migration-jobs promote mdmysql --region=us-central1
+}
+
+# =============================================================================
+# OUTPUTS — DMS
+# =============================================================================
+output "dms_source_mysql_profile" {
+  description = "Resource name of the source MySQL connection profile."
+  value       = google_database_migration_service_connection_profile.mdmysql.name
+}
+
+output "dms_destination_cloudsql_profile" {
+  description = "Resource name of the destination Cloud SQL connection profile (managed out-of-band; not in Terraform state)."
+  value       = "projects/dre-sandbox-471618/locations/${var.dms_region}/connectionProfiles/sakilamysql"
+}
+
+output "dms_mysql_migration_job" {
+  description = "Resource name of the running MySQL -> Cloud SQL migration job."
+  value       = google_database_migration_service_migration_job.mdmysql.name
 }

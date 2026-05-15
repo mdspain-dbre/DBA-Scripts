@@ -8,7 +8,13 @@
 		"chat.tools.terminal.autoApprove": {
 			"azcopy": true,
 			"az": true,
-			"aws": true
+			"aws": true,
+			"gcloud": true,
+			"/^cd \"/Users/michael\\.dspain/Documents/DBA-Scripts/Content Services\" && \\(python3 -c \"import openpyxl; print\\(openpyxl\\.__version__\\)\" 2>&1 \\|\\| python3 -m pip install --user openpyxl\\) && python3 sqlserverreceiver_metrics\\.py && ls -lh sqlserverreceiver_metrics\\.xlsx$/": {
+				"approve": true,
+				"matchCommandLine": true
+			},
+			"pip": true
 		}
 	}
 }

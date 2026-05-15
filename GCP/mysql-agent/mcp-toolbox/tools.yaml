@@ -1,0 +1,184 @@
+# MCP Toolbox for Databases — MySQL DBA Troubleshooting
+# Docs: https://googleapis.github.io/genai-toolbox/
+#
+# Run locally:
+#   toolbox --config tools.yaml --port 5000
+#
+# Environment variables expected:
+#   MYSQL_USER, MYSQL_PASSWORD  (omit if using IAM auth on Cloud SQL)
+
+sources:
+  # Cloud SQL for MySQL (preferred when targeting GCP-managed MySQL)
+  cloudsql-mysql:
+    kind: cloud-sql-mysql
+    project: dre-sandbox-471618
+    region: us-central1
+    instance: sakilamysql
+    database: sakila
+    user: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+  # Generic MySQL (e.g. self-managed on a VM, RDS, on-prem)
+  # Uncomment and use this source kind if not on Cloud SQL.
+  # generic-mysql:
+  #   kind: mysql
+  #   host: 127.0.0.1
+  #   port: 3306
+  #   database: REPLACE_WITH_DB_NAME
+  #   user: ${MYSQL_USER}
+  #   password: ${MYSQL_PASSWORD}
+
+tools:
+  # ---------- Server health & sessions ----------
+  show-global-status:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Returns key MySQL global status counters (connections, threads, traffic, InnoDB).
+    statement: |
+      SHOW GLOBAL STATUS WHERE Variable_name IN (
+        'Uptime','Threads_connected','Threads_running','Max_used_connections',
+        'Aborted_clients','Aborted_connects','Slow_queries','Questions',
+        'Innodb_row_lock_waits','Innodb_row_lock_time','Innodb_buffer_pool_wait_free',
+        'Innodb_buffer_pool_reads','Innodb_buffer_pool_read_requests',
+        'Created_tmp_disk_tables','Created_tmp_tables','Open_files','Open_tables'
+      );
+
+  show-processlist:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Lists currently running MySQL sessions, longest-running first.
+    statement: |
+      SELECT id, user, host, db, command, time, state, LEFT(info, 500) AS query
+      FROM information_schema.processlist
+      WHERE command <> 'Sleep'
+      ORDER BY time DESC
+      LIMIT 100;
+
+  show-replica-status:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Returns replication status (lag, errors, IO/SQL thread state). Empty if not a replica.
+    statement: SHOW REPLICA STATUS;
+
+  # ---------- Query performance ----------
+  top-slow-queries:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Top 20 slowest query digests by average latency from performance_schema.
+    statement: |
+      SELECT
+        LEFT(DIGEST_TEXT, 300)                           AS query,
+        COUNT_STAR                                       AS exec_count,
+        ROUND(AVG_TIMER_WAIT/1e9, 2)                     AS avg_ms,
+        ROUND(MAX_TIMER_WAIT/1e9, 2)                     AS max_ms,
+        SUM_ROWS_EXAMINED                                AS rows_examined,
+        SUM_ROWS_SENT                                    AS rows_sent,
+        SUM_NO_INDEX_USED                                AS no_index_used,
+        SUM_CREATED_TMP_DISK_TABLES                      AS tmp_disk_tables
+      FROM performance_schema.events_statements_summary_by_digest
+      WHERE SCHEMA_NAME IS NOT NULL
+      ORDER BY AVG_TIMER_WAIT DESC
+      LIMIT 20;
+
+  full-table-scan-queries:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Statements that performed full table scans (uses sys schema).
+    statement: |
+      SELECT query, db, exec_count, total_latency, rows_examined_avg, rows_sent_avg
+      FROM sys.statements_with_full_table_scans
+      ORDER BY exec_count DESC
+      LIMIT 25;
+
+  unused-indexes:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Indexes that have not been used since the last server restart.
+    statement: SELECT * FROM sys.schema_unused_indexes LIMIT 100;
+
+  redundant-indexes:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Redundant or duplicate indexes that can likely be dropped.
+    statement: |
+      SELECT table_schema, table_name, redundant_index_name, dominant_index_name,
+             subpart_exists, sql_drop_index
+      FROM sys.schema_redundant_indexes
+      LIMIT 100;
+
+  explain-query:
+    kind: mysql-execute-sql
+    source: cloudsql-mysql
+    description: |
+      Executes a read-only SQL statement against MySQL. Use this ONLY for
+      EXPLAIN, EXPLAIN ANALYZE, SHOW, or SELECT statements. The agent must
+      never invoke this with INSERT/UPDATE/DELETE/DDL.
+
+  # ---------- Locks & transactions ----------
+  innodb-active-transactions:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Currently active InnoDB transactions, longest-running first.
+    statement: |
+      SELECT trx_id, trx_state, trx_started,
+             TIMESTAMPDIFF(SECOND, trx_started, NOW()) AS age_seconds,
+             trx_mysql_thread_id AS thread_id, trx_rows_locked, trx_rows_modified,
+             LEFT(trx_query, 500) AS query
+      FROM information_schema.innodb_trx
+      ORDER BY trx_started ASC
+      LIMIT 50;
+
+  innodb-lock-waits:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Sessions currently blocked by InnoDB row locks (uses sys schema).
+    statement: |
+      SELECT wait_age, locked_table, locked_index, locked_type,
+             waiting_pid, waiting_query, blocking_pid, blocking_query
+      FROM sys.innodb_lock_waits
+      LIMIT 50;
+
+  # ---------- Schema & storage ----------
+  largest-tables:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Top 25 largest tables by total size (data + indexes).
+    statement: |
+      SELECT table_schema, table_name, engine,
+             ROUND((data_length + index_length) / 1024 / 1024, 2) AS total_mb,
+             ROUND(data_length / 1024 / 1024, 2)  AS data_mb,
+             ROUND(index_length / 1024 / 1024, 2) AS index_mb,
+             table_rows
+      FROM information_schema.tables
+      WHERE table_schema NOT IN ('mysql','performance_schema','information_schema','sys')
+      ORDER BY (data_length + index_length) DESC
+      LIMIT 25;
+
+  table-fragmentation:
+    kind: mysql-sql
+    source: cloudsql-mysql
+    description: Tables with significant free/fragmented space (candidates for OPTIMIZE TABLE).
+    statement: |
+      SELECT table_schema, table_name,
+             ROUND(data_free / 1024 / 1024, 2) AS free_mb,
+             ROUND((data_length + index_length) / 1024 / 1024, 2) AS total_mb
+      FROM information_schema.tables
+      WHERE data_free > 100 * 1024 * 1024
+        AND table_schema NOT IN ('mysql','performance_schema','information_schema','sys')
+      ORDER BY data_free DESC
+      LIMIT 25;
+
+toolsets:
+  mysql-troubleshooting:
+    - show-global-status
+    - show-processlist
+    - show-replica-status
+    - top-slow-queries
+    - full-table-scan-queries
+    - unused-indexes
+    - redundant-indexes
+    - explain-query
+    - innodb-active-transactions
+    - innodb-lock-waits
+    - largest-tables
+    - table-fragmentation

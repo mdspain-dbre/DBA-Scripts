@@ -49,3 +49,5 @@ Azure/AzCopyBackups.ps1
 Azure/RestoreMongoToCosmosV6.ps1
 Azure/start_migration.sh
 Azure/DMS_Setup.ps1
+secrets.auto.tfvars
+*.auto.tfvars
