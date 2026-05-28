@@ -1,15 +1,21 @@
 # Example tfvars. Copy to terraform.tfvars or secrets.auto.tfvars and edit.
-# DO NOT commit real passwords to source control.
 
-project_id    = "inscape-dev"
+project_id    = "vz-inscape-portfolio-dev"
 region        = "us-west1"
-zone          = "us-west1-a"
 instance_name = "auxdb-qa"
 
 # Sizing
 tier              = "db-custom-2-7680"
-availability_type = "ZONAL"
-disk_size_gb      = 100
+availability_type = "ZONAL" # or REGIONAL for HA
 
-# Secrets — leave blank here and set in secrets.auto.tfvars instead.
-# mysql_root_password = "CHANGE_ME"
+# Safety
+deletion_protection = true
+
+# -----------------------------------------------------------------------------
+# Shared VPC networking — host project: vz-inscape-dev
+# -----------------------------------------------------------------------------
+consumer_vpc_self_link    = "projects/vz-inscape-dev/global/networks/vz-inscape-dev-vpc-01"
+consumer_subnet_self_link = "projects/vz-inscape-dev/regions/us-west1/subnetworks/vz-inscape-dev-us-west1-psc-01"
+
+# Only flip to true if no sql.goog. private DNS zone exists in the shared VPC.
+create_psc_dns = false

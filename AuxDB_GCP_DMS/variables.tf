@@ -5,7 +5,8 @@
 variable "project_id" {
   description = "GCP project ID that will host the Cloud SQL instance."
   type        = string
-  default     = "inscape-dev"
+  ##default     = "inscape-dev"
+  default = "vz-inscape-portfolio-dev"
 }
 
 variable "region" {
@@ -14,56 +15,73 @@ variable "region" {
   default     = "us-west1"
 }
 
-variable "zone" {
-  description = "Preferred zone for ZONAL instances. Ignored for REGIONAL availability."
+# -----------------------------------------------------------------------------
+# Per-instance Cloud SQL configuration
+# -----------------------------------------------------------------------------
+# Each map entry creates one Cloud SQL instance plus its own PSC endpoint
+# (internal IP + forwarding rule + optional DNS A record).
+#
+# Map key (e.g. "qa", "dre_test3") is used internally by Terraform as the
+# for_each key — keep it short, lowercase, and stable (renaming the key
+# forces a destroy/create unless you `terraform state mv`).
+# -----------------------------------------------------------------------------
+variable "instances" {
+  description = "Map of Cloud SQL for MySQL instances to create."
+  type = map(object({
+    instance_name       = string
+    sub_service         = string # Vizio module sub_service label — drives derived names (svc accts, IAM, SQL users). DO NOT change for existing instances or they will be destroyed/recreated.
+    environment         = string
+    tier                = string
+    database_version    = string
+    availability_type   = string # ZONAL or REGIONAL
+    deletion_protection = bool
+  }))
+  default = {
+    qa = {
+      instance_name       = "auxdb-qa-dre-test"
+      sub_service         = "auxdb-qa" # MUST stay as-is — matches original hardcoded value in state.
+      environment         = "qa"
+      tier                = "db-custom-2-7680"
+      database_version    = "MYSQL_8_0"
+      availability_type   = "ZONAL"
+      deletion_protection = true
+    }
+    dre_test3 = {
+      instance_name       = "auxdb-dre-test3"
+      sub_service         = "auxdb-dre-test3"
+      environment         = "qa"
+      tier                = "db-custom-2-7680"
+      database_version    = "MYSQL_8_0"
+      availability_type   = "ZONAL"
+      deletion_protection = true
+    }
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Private Service Connect (PSC) consumer-side networking
+# -----------------------------------------------------------------------------
+variable "consumer_vpc_self_link" {
+  description = <<-EOT
+    Self link of the consumer VPC network where the PSC endpoint (forwarding
+    rule) will be created. Example:
+      projects/vz-inscape-portfolio-dev/global/networks/inscape-dev-vpc
+  EOT
   type        = string
-  default     = "us-west1-a"
 }
 
-variable "instance_name" {
-  description = "Cloud SQL instance name. Cannot be reused for ~7 days after deletion."
+variable "consumer_subnet_self_link" {
+  description = <<-EOT
+    Self link of the subnet (in var.region) where the PSC endpoint's internal
+    IP will be allocated. Must live in the same VPC as var.consumer_vpc_self_link.
+    Example:
+      projects/vz-inscape-portfolio-dev/regions/us-west1/subnetworks/inscape-dev-usw1
+  EOT
   type        = string
-  default     = "auxdb-qa-dre-test"
 }
 
-variable "database_version" {
-  description = "MySQL engine version (e.g. MYSQL_8_0, MYSQL_8_0_36)."
-  type        = string
-  default     = "MYSQL_8_0"
-}
-
-variable "tier" {
-  description = "Machine tier (e.g. db-custom-2-7680, db-n1-standard-2)."
-  type        = string
-  default     = "db-custom-2-7680" # 2 vCPU / 7.5 GB RAM — sensible QA default
-}
-
-variable "availability_type" {
-  description = "ZONAL (single zone) or REGIONAL (HA with standby)."
-  type        = string
-  default     = "ZONAL"
-}
-
-variable "disk_size_gb" {
-  description = "Initial PD-SSD size in GB."
-  type        = number
-  default     = 100
-}
-
-variable "disk_autoresize_limit_gb" {
-  description = "Hard cap (GB) on disk autoresize to prevent runaway growth. 0 = no limit."
-  type        = number
-  default     = 500
-}
-
-variable "mysql_root_password" {
-  description = "Root password for the MySQL instance. Provide via tfvars or -var."
-  type        = string
-  sensitive   = true
-}
-
-variable "deletion_protection" {
-  description = "When true, both API and Terraform deletion protection are enabled."
+variable "create_psc_dns" {
+  description = "When true, create a private Cloud DNS zone for sql.goog. and an A record mapping the instance's PSC DNS name to the endpoint IP. Set to false if a sql.goog. zone already exists in the VPC (you can only have one)."
   type        = bool
   default     = true
 }
