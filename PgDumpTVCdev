@@ -1,0 +1,67 @@
+# clean up any partial repo attempt
+sudo dnf remove -y pgdg-redhat-repo || true
+sudo dnf clean all
+
+# show what postgres packages are available
+dnf list --showduplicates "postgresql*"
+
+# replace 16 client with 17 client
+sudo dnf swap -y postgresql16 postgresql17
+
+# if swap does not work, do explicit remove/install
+sudo dnf remove -y "postgresql16*"
+sudo dnf install -y postgresql17
+
+# refresh shell command cache and verify
+hash -r
+pg_dump --version
+psql --version
+
+
+export AWS_REGION=us-east-1
+export CLUSTER_ID=tvc-development-cluster
+export S3_BUCKET=tvc-db-dump
+export PGUSER=root
+export PGPASSWORD='7dkcib3gl9'
+
+export PGHOST="$(aws rds describe-db-clusters \
+  --region "$AWS_REGION" \
+  --db-cluster-identifier "$CLUSTER_ID" \
+  --query 'DBClusters[0].Endpoint' \
+  --output text)"
+
+export PGPORT="$(aws rds describe-db-clusters \
+  --region "$AWS_REGION" \
+  --db-cluster-identifier "$CLUSTER_ID" \
+  --query 'DBClusters[0].Port' \
+  --output text)"
+
+DBS=$(psql "host=$PGHOST port=$PGPORT user=$PGUSER dbname=postgres sslmode=require" -Atc "select datname from pg_database where datistemplate=false and datallowconn=true and datname not in ('rdsadmin');")
+
+echo "$DBS"
+
+
+
+set -euo pipefail
+
+TS=$(date +%Y%m%d-%H%M%S)
+mkdir -p "/tmp/$TS"
+
+for db in $DBS; do
+  echo "Dumping $db ..."
+  pg_dump "host=$PGHOST port=$PGPORT user=$PGUSER dbname=$db sslmode=require" --format=plain --no-owner --no-acl \
+    > "/tmp/$TS/${db}.sql"
+  gzip -f "/tmp/$TS/${db}.sql"
+  aws s3 cp "/tmp/$TS/${db}.sql.gz" "s3://$S3_BUCKET/$CLUSTER_ID/$TS/${db}.sql.gz"
+done
+
+
+CREATE DATABASE test_dai_engine_map; 
+CREATE DATABASE tvevents; 
+CREATE DATABASE tvlocation; 
+CREATE DATABASE app_whitelist; 
+CREATE DATABASE dai_demapping; 
+CREATE DATABASE dai_engine_map; 
+CREATE DATABASE new_dai_engine_map_temp; 
+CREATE DATABASE pmm; 
+CREATE DATABASE optout;

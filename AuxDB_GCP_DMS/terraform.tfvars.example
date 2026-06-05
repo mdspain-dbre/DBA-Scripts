@@ -1,15 +1,20 @@
 # Example tfvars. Copy to terraform.tfvars or secrets.auto.tfvars and edit.
 
-project_id    = "vz-inscape-portfolio-dev"
-region        = "us-west1"
-instance_name = "auxdb-qa"
+project_id = "vz-inscape-portfolio-dev"
+region     = "us-west1"
 
-# Sizing
-tier              = "db-custom-2-7680"
-availability_type = "ZONAL" # or REGIONAL for HA
-
-# Safety
-deletion_protection = true
+# One map entry creates one Cloud SQL instance and one PSC endpoint.
+instances = {
+	qa = {
+		instance_name       = "auxdb-qa-dre-test"
+		sub_service         = "auxdb-qa"
+		environment         = "qa"
+		tier                = "db-custom-2-7680"
+		database_version    = "MYSQL_8_0"
+		availability_type   = "ZONAL" # Use REGIONAL for HA.
+		deletion_protection = true
+	}
+}
 
 # -----------------------------------------------------------------------------
 # Shared VPC networking — host project: vz-inscape-dev
