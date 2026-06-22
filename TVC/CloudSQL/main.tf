@@ -8,13 +8,11 @@ module "cloudsql" {
   region                   = var.region
   instance_name            = var.instance_name
   dbms_engine              = local.dbms_engine
+  machine_tier             = "db-f1-micro" # pin to live; do not let the module default change this
   psc_host_project         = var.psc_host_project
   psc_host_project_network = var.psc_host_project_network
 
-  # pgAudit cannot be installed via google_sql_provision_script because the ADC
-  # caller identity is not cloudsqlsuperuser. Install it manually via gcloud sql
-  # import sql (Admin API) after first apply, then this suppresses the re-run.
-  pg_extensions = []
+  user_labels = local.labels
 
   google_cloudsql_module_config = {
     root_password = {
