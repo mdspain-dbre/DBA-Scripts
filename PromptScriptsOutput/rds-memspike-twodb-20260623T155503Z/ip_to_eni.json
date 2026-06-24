@@ -1,0 +1,2362 @@
+{
+  "172.17.129.158": [
+    {
+      "eni_id": "eni-027e2468b0c8d1dfe",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-063678a08e0d73e51",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-control-plane-dts"
+      ]
+    }
+  ],
+  "172.17.154.141": [
+    {
+      "eni_id": "eni-059741d649f18b516",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-034819121158b697a",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.145.111": [
+    {
+      "eni_id": "eni-0dfedcbec86bdcb01",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0fc91e9e01b1bd547",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-ps",
+        "prod-pm2",
+        "prod-rds-cure-clients",
+        "mbah-development-iad",
+        "prod-ump"
+      ]
+    }
+  ],
+  "172.17.146.1": [
+    {
+      "eni_id": "eni-0a72951e7fd941e9c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-083ef1c32dfa15095",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-sla-status-clients",
+        "fileingest-delete-notifier-qa-iad-sg"
+      ]
+    }
+  ],
+  "172.17.151.86": [
+    {
+      "eni_id": "eni-0be525510e0f613e7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d6df6a80ffacb079",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.157.254": [
+    {
+      "eni_id": "eni-03efcfe22f2e54168",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01f6082a4c5db2f0b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.150.206": [
+    {
+      "eni_id": "eni-0a107988362d4d6a2",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00bb87eb731707c4a",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.148.123": [
+    {
+      "eni_id": "eni-0e4487e4024e26607",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0dec9fe16f1e857c7",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-dcm",
+        "prod-route53-checkers",
+        "dcm-qa-iad-sg"
+      ]
+    }
+  ],
+  "172.17.142.225": [
+    {
+      "eni_id": "eni-0002960101f3527c0",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ffb2044e2a9cd3a1",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-periscope-remote-access",
+        "prod-tableau-remote-access",
+        "prod-dbproxy"
+      ]
+    }
+  ],
+  "172.17.133.11": [
+    {
+      "eni_id": "eni-0c35b96442d103325",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-06860b8ecfae3b3d1",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-fileingest",
+        "prod-admin-portal-access",
+        "fileingest-qa-iad-sg"
+      ]
+    }
+  ],
+  "172.17.150.66": [
+    {
+      "eni_id": "eni-0078efa06365a2521",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-08dbe80ec66dff19f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "cicd-docker-production-iad-sg",
+        "prod-jenkins-node",
+        "prod-coverity-clients-sg"
+      ]
+    }
+  ],
+  "172.17.157.80": [
+    {
+      "eni_id": "eni-00209b064013b03ce",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0881c508b16924c9c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.23.170": [
+    {
+      "eni_id": "eni-0cb32ee3f8d19d726",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b521156b3a310189",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.26.1": [
+    {
+      "eni_id": "eni-08e5b294afe7fe63e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-051bb4a6644c2faf8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.18.145": [
+    {
+      "eni_id": "eni-01300cdca86803b5d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0972049d0d1ff865b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.26.168": [
+    {
+      "eni_id": "eni-0f02d71565f414f01",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a6f0f36ac43c5765",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.16.126": [
+    {
+      "eni_id": "eni-076c6b0896ddbc880",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-08e2513d044bd10a0",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.0.227": [
+    {
+      "eni_id": "eni-08e4a3995ab94d1c7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01753120d5cc90e8c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-ump"
+      ]
+    }
+  ],
+  "172.17.18.146": [
+    {
+      "eni_id": "eni-0fe5bb232662e5c85",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0baf44fddfc0c28b9",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.23.167": [
+    {
+      "eni_id": "eni-0a5a2094fe7787faf",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-041f0b3615c473270",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.17.121": [
+    {
+      "eni_id": "eni-02c430e3de33ac115",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0db05e2ee37e90ba6",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.27.128": [
+    {
+      "eni_id": "eni-0f3c99dfd6d8a7f95",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0fa7a641b8c07aa22",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.21.119": [
+    {
+      "eni_id": "eni-0f85e3546786af69c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0314ea147b8f857c8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.22.18": [
+    {
+      "eni_id": "eni-0c1987729d4a8be1c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d468ec379d1a7260",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.24.19": [
+    {
+      "eni_id": "eni-04b5ca4db9af4f404",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0c89005acef1b8c82",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.26.234": [
+    {
+      "eni_id": "eni-04321d7ffee6c381a",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00e77433aee445f57",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.20.11": [
+    {
+      "eni_id": "eni-071cd2ea4ac07b35f",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-06b85013c5d4d89db",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.20.244": [
+    {
+      "eni_id": "eni-09a9a032bc499180c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f978bc8a3a149f00",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.26.252": [
+    {
+      "eni_id": "eni-0fcfac6eb5b3b03fc",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f197447dc61784ea",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.21.162": [
+    {
+      "eni_id": "eni-0fdd314a2b2ca2e24",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00c55690b8280ea93",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.23.107": [
+    {
+      "eni_id": "eni-0839354450cedf46d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b0e8811c55bbce55",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.13.228": [
+    {
+      "eni_id": "eni-0bc2fb23687ccee7c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01631376281252fc0",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-control-plane-monitor"
+      ]
+    }
+  ],
+  "172.17.25.145": [
+    {
+      "eni_id": "eni-06f532240a127cf59",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-02482f119314d25b3",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.23.174": [
+    {
+      "eni_id": "eni-0012ef2f8a01f3121",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-040a7f425c78da558",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.20.166": [
+    {
+      "eni_id": "eni-05d53de914abae627",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0cccf294ef08fe9ee",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.24.18": [
+    {
+      "eni_id": "eni-0045d584be4213045",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0149e9bb5e6167cb2",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.16.236": [
+    {
+      "eni_id": "eni-046acc8e9b2c35aab",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0122592f0edfb7554",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.22.52": [
+    {
+      "eni_id": "eni-0e445d319433681c1",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0636d5f87b5468af2",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.26.31": [
+    {
+      "eni_id": "eni-079eeeca27bc607ff",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-04148226445662361",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.18.132": [
+    {
+      "eni_id": "eni-083105c472276201a",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-06570d1adb8b8ff59",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.24.165": [
+    {
+      "eni_id": "eni-044e557aa3a2f8915",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-009805e29b80ad051",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.20.143": [
+    {
+      "eni_id": "eni-05456e1f727e452bf",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-068ecdfe79d22b534",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.16.43": [
+    {
+      "eni_id": "eni-0cdce410f712db8b7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a28e44931338bb33",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.24.202": [
+    {
+      "eni_id": "eni-0f9eb61f9fb40608c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00beaf70043437e5c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.18.19": [
+    {
+      "eni_id": "eni-0a6486179af64d4c5",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-09c9fdc8aabadb982",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.18.221": [
+    {
+      "eni_id": "eni-08189f2c659925a40",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0208cd8c5f00f607f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.17.89": [
+    {
+      "eni_id": "eni-0c642e0aa1332901e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-070417929c4e67f70",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.23.226": [
+    {
+      "eni_id": "eni-04f90e924b863eea0",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0aa9e624757f1e789",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.25.173": [
+    {
+      "eni_id": "eni-01a3041f82f4cae17",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f6089938b8071fe4",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.25.231": [
+    {
+      "eni_id": "eni-069d6c7f5f4274a40",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-09778b16c9eeae136",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.35.221": [
+    {
+      "eni_id": "eni-0f3f6c0a3b356fb2d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0c8c8e68345834dec",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.32.4": [
+    {
+      "eni_id": "eni-0fe8c1f019fdb69a8",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0042f1ab8c03a4610",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.104": [
+    {
+      "eni_id": "eni-056a05804ed72b9af",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a2984c06e4c3c675",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.220": [
+    {
+      "eni_id": "eni-0e167b598129355c8",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-085edd758a4f9721b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.33.139": [
+    {
+      "eni_id": "eni-0e3a716b93ce37cc0",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-08ecbea1aae3a49dc",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.179": [
+    {
+      "eni_id": "eni-08c05bc31c3420da3",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00bc2adfb6eb5689a",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.82": [
+    {
+      "eni_id": "eni-08f9a895c872b1b48",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-046115fc6f0360da9",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.169": [
+    {
+      "eni_id": "eni-0f8d0f78d84dc663b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-02a6326d4a6a3a3ec",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.201": [
+    {
+      "eni_id": "eni-0a5fcecf647032bfa",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-06f47ff202d6b1ec3",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.158": [
+    {
+      "eni_id": "eni-0b77f75f8693046cf",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f8c2685745c08f7c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-datadog"
+      ]
+    }
+  ],
+  "172.17.35.46": [
+    {
+      "eni_id": "eni-0a478dd66e14ce5f9",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0148d85e7138551a5",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.32.53": [
+    {
+      "eni_id": "eni-0635e02cba643b3c1",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d8a323c1f47f9ca8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.3": [
+    {
+      "eni_id": "eni-0ae1e02abf4a0f513",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-07716b5dcea9939e3",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-imc"
+      ]
+    }
+  ],
+  "172.17.32.146": [
+    {
+      "eni_id": "eni-032caf6322efb3c88",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0bbb2b4b159ffe030",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.8": [
+    {
+      "eni_id": "eni-08d23b45c8a834ab5",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a95af78c49b7cd04",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.33.52": [
+    {
+      "eni_id": "eni-0f4bf46ba663433ef",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d0011aa09ed1ceb7",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.244": [
+    {
+      "eni_id": "eni-00fd299c1bb18ac2f",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01319a79dc1fbef9e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.33.209": [
+    {
+      "eni_id": "eni-0e51d92f43847e68b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0531a208a8a6e49ca",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.103": [
+    {
+      "eni_id": "eni-098f1dac859dc770a",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f01018443d44bf2f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.155": [
+    {
+      "eni_id": "eni-001fdca973862f733",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-084221467843d4fd8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.32.126": [
+    {
+      "eni_id": "eni-0de70c113c0ec9b39",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b461ff305a3d4b40",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.32.110": [
+    {
+      "eni_id": "eni-014ff8954a2224266",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b0d7d56c86c9531d",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.32.171": [
+    {
+      "eni_id": "eni-0d9efac288db241fa",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0cfba0821e4217a5b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.83": [
+    {
+      "eni_id": "eni-91312140",
+      "interface_type": "interface",
+      "description": "Primary network interface",
+      "instance_id": "i-0709ec9f6c5eaf5ea",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-redis-asrun-client",
+        "prod-jenkins-node",
+        "prod-redis-fileingest-access"
+      ]
+    }
+  ],
+  "172.17.34.79": [
+    {
+      "eni_id": "eni-0598da22da27603ce",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-08df7d82776516d62",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.33.15": [
+    {
+      "eni_id": "eni-0dbebe444ff50c12d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00e4cfd29923835be",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.33.235": [
+    {
+      "eni_id": "eni-098dd066250d5a038",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d1f75dd9ecd7eb26",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.70": [
+    {
+      "eni_id": "eni-0ea5814d5c7a340fa",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-017321b56b20db587",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.203": [
+    {
+      "eni_id": "eni-06979744375833b97",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0631b3873399ce9b8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.88": [
+    {
+      "eni_id": "eni-0eae3eafa4c8e8796",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-001578faf35e0bf99",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.96": [
+    {
+      "eni_id": "eni-0f10e70b43b316857",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b471f22f9ccb1294",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.50": [
+    {
+      "eni_id": "eni-06f317bebf1124934",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01aa22c899119d200",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.65": [
+    {
+      "eni_id": "eni-08993a48026c47213",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-06b50798a7b8d552d",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.34.159": [
+    {
+      "eni_id": "eni-076f238b82091dd19",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0c32a2ce7f298a212",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.35.109": [
+    {
+      "eni_id": "eni-00ccf777466fdd7e2",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b81ae20be9fe1d39",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.29.194": [
+    {
+      "eni_id": "eni-01caa7f722de56648",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-09b3db88350a9e30b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.27.54": [
+    {
+      "eni_id": "eni-09bb0dacefa55cb81",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f559c597d73cc390",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.27.81": [
+    {
+      "eni_id": "eni-06f6d0100a8f7050e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-012fc46148dc19bee",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.30.151": [
+    {
+      "eni_id": "eni-0fd4f7a223ef147c7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-02f3fc557c9a2470d",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.27.144": [
+    {
+      "eni_id": "eni-034e684f46586065b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-062a14dbcdcac2eec",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.30.199": [
+    {
+      "eni_id": "eni-0f81b042ea3b28135",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0021f47a34cc6a638",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.31.78": [
+    {
+      "eni_id": "eni-0ff37804f21d7a89e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b9277c5ed05e5a25",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.31.171": [
+    {
+      "eni_id": "eni-0828a5c9195daffd6",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00f3cb6dd75b07d66",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.31.75": [
+    {
+      "eni_id": "eni-0c2f0527e48e6c055",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0c55b946728708877",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.28.241": [
+    {
+      "eni_id": "eni-0d2282fc60cf62953",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01d81a4e8aca19b2f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.27.94": [
+    {
+      "eni_id": "eni-054149c6a6153b984",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-053a6cfd998c80837",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.29.88": [
+    {
+      "eni_id": "eni-035947c90e1012349",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-08bd5c0bbb8a9529e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.37.218": [
+    {
+      "eni_id": "eni-0c2719b0daffb0154",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0dfe49c77c5ec78d8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.225": [
+    {
+      "eni_id": "eni-013ecfcf93ef5d276",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f7a91cb1674dcb4e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.39.190": [
+    {
+      "eni_id": "eni-03d06a7e38a70748b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-09df9c8211c2ff43c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.37.165": [
+    {
+      "eni_id": "eni-0bb99bdaba2aeb481",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-020c66a36fcab11c4",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-control-plane-dts"
+      ]
+    }
+  ],
+  "172.17.40.18": [
+    {
+      "eni_id": "eni-00bdf766e19bb95ff",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-02424a8f710be6dcd",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.41.252": [
+    {
+      "eni_id": "eni-01dbaf16baec2061b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0e0a3b1f0ade587ef",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.42.227": [
+    {
+      "eni_id": "eni-0bc957fb8341725f5",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01b5cbcea57f03e32",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.179": [
+    {
+      "eni_id": "eni-01adb9f7820666726",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00ae17960f5f6b494",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.37.61": [
+    {
+      "eni_id": "eni-08fb71c4fa4ead412",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01da87997efebcfdb",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.167": [
+    {
+      "eni_id": "eni-049c171eb644d6628",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0e5c964a433cf5312",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.41.106": [
+    {
+      "eni_id": "eni-0478c330c38ddf829",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f71f680cbd52a829",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.41.236": [
+    {
+      "eni_id": "eni-06eae3b953039a66f",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-009689cc1d9490a1d",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.8": [
+    {
+      "eni_id": "eni-0256f81a0dc92a643",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a56904977c4ecd38",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.85": [
+    {
+      "eni_id": "eni-07c05f9ec5a8fbb17",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-058b1da1862c06e33",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.37.33": [
+    {
+      "eni_id": "eni-0d78b4246abefab4d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a645f8846ed6e683",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.37.247": [
+    {
+      "eni_id": "eni-059fac9f2059e11eb",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-042fde66770ed2289",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.63": [
+    {
+      "eni_id": "eni-0305863644ccc2982",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ec3541f439b41665",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.44.32": [
+    {
+      "eni_id": "eni-00d43ef115fc04630",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-059de850330577370",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.148": [
+    {
+      "eni_id": "eni-0590ddc99664fb013",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0aa5c87127d07f889",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.44.44": [
+    {
+      "eni_id": "eni-0b9737f377b98f731",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-067aa7114e2059124",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.125": [
+    {
+      "eni_id": "eni-0ad6b1bc357b90e6c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0794510f08b7d8ba5",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.142": [
+    {
+      "eni_id": "eni-0b957b34f27e731dc",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0dafaeb6090f30f06",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.41.15": [
+    {
+      "eni_id": "eni-087f8b09dc893062e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ded9df7f4da6a35a",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.37.70": [
+    {
+      "eni_id": "eni-016139fcfdd83fbe4",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-04e81e0ddfea8f040",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.39.136": [
+    {
+      "eni_id": "eni-0e89a9cc0c461060a",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-054b7ef0d4d73afa2",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.44.55": [
+    {
+      "eni_id": "eni-08c7ab94d6c76b544",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-098b5ebf2537aa9a1",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.252": [
+    {
+      "eni_id": "eni-045465bee336c5357",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0df898fab25959a58",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.76": [
+    {
+      "eni_id": "eni-0e42d72910d601419",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a8b2055f12c0ca18",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.43.10": [
+    {
+      "eni_id": "eni-0de5b2cc96efc8a91",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01c18c732a83b3ed8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.248": [
+    {
+      "eni_id": "eni-0fa152d87399c77b9",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00be35ceff073e9d1",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.42.244": [
+    {
+      "eni_id": "eni-0e34ef74a63485d9f",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-085acd52c765f5d88",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.151": [
+    {
+      "eni_id": "eni-0f8f3217a89135501",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-004a270dec4d46644",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.37.66": [
+    {
+      "eni_id": "eni-0e97eab27c6f22f05",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-04339f632dca165a1",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.41.54": [
+    {
+      "eni_id": "eni-0e08e9e18e93793a0",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-034fae8cb06bdb00b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redshift-hot-access",
+        "master-ingest-qa-iad-sg",
+        "stage-redshift-access"
+      ]
+    }
+  ],
+  "172.17.36.222": [
+    {
+      "eni_id": "eni-09987f3a06f902f55",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-032fec4845d3c533f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.39.25": [
+    {
+      "eni_id": "eni-07811e7734b2aaff3",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0af7e921ba81cb21e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.36.78": [
+    {
+      "eni_id": "eni-07e1a3bcabbc9b5e2",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0117370215a693d73",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.238": [
+    {
+      "eni_id": "eni-07c6fb05de5dde73b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-04442f6f1470d3cbc",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.232": [
+    {
+      "eni_id": "eni-03a856d34f51cddcf",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00b526ad88fd5b05d",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.40.181": [
+    {
+      "eni_id": "eni-00100772bb6611c42",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-081af6c82d712c06c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.43.140": [
+    {
+      "eni_id": "eni-0116f28fcfa86d258",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0666e89adf9656c05",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.42.144": [
+    {
+      "eni_id": "eni-08e024a3713a8c556",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f87889772dad4cfb",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.42.187": [
+    {
+      "eni_id": "eni-085025f6b4499070c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-09b9bc527017bc09e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.140": [
+    {
+      "eni_id": "eni-0c2e5166520b108df",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-04f16a45cedb6db00",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.38.43": [
+    {
+      "eni_id": "eni-08dd4c102db67194c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b1f5498da6d3f851",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.44.244": [
+    {
+      "eni_id": "eni-0504f830b9e89bbdd",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-00e6429841bb7f380",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.42.82": [
+    {
+      "eni_id": "eni-0464fa7b1f812e39b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0e4cf8904dc7d2c5f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.39.193": [
+    {
+      "eni_id": "eni-077bac4ae911b6914",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0b4c967eaf11aabfb",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.43.135": [
+    {
+      "eni_id": "eni-04f18b28d90e39e06",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0883af0788d3982fb",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.78.76": [
+    {
+      "eni_id": "eni-0813807fbd56c55d7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-034741c647d5cc882",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-fileingest",
+        "prod-admin-portal-access",
+        "fileingest-qa-iad-sg"
+      ]
+    }
+  ],
+  "172.17.83.71": [
+    {
+      "eni_id": "eni-07af50bee16909873",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0251d3135e0bca3d8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.66.2": [
+    {
+      "eni_id": "eni-077ef7cbbe6e4ac73",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-01a3fa557c41b095a",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "gateway-production-iad-sg",
+        "gateway"
+      ]
+    }
+  ],
+  "172.17.89.124": [
+    {
+      "eni_id": "eni-0feb4f9158de66a2b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-052c8333db9e3f166",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.94.182": [
+    {
+      "eni_id": "eni-042eeff38e0d190e7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ee5ce299268658d6",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.91.144": [
+    {
+      "eni_id": "eni-08c31baa2211811c0",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-032deb77e9ea99a65",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.95.8": [
+    {
+      "eni_id": "eni-0081f033ab29c1b20",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-006d74e3cefe8cc79",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-qa-iad-sg"
+      ]
+    }
+  ],
+  "172.17.89.84": [
+    {
+      "eni_id": "eni-0e089247f0a3b8fe5",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0c5296bdafecb4e0e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.46.206": [
+    {
+      "eni_id": "eni-0af429e358e8c2120",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-070d3051ec3496109",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.46.71": [
+    {
+      "eni_id": "eni-0d59e45dfc854989c",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-079859748ec1061ed",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-ump"
+      ]
+    }
+  ],
+  "172.17.46.243": [
+    {
+      "eni_id": "eni-0b9ad4e2d4c227313",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0050c2a133394fcb2",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.47.165": [
+    {
+      "eni_id": "eni-0dc2ba61e07f4f91d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f51d9f77a615d69e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.60.26": [
+    {
+      "eni_id": "eni-02df66bdb16041cea",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0e9127c0d1b0b3959",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.58.24": [
+    {
+      "eni_id": "eni-0507e442fd565ec32",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0055228c259bf2930",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.46.72": [
+    {
+      "eni_id": "eni-00cd2504efde90464",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0707e645b5df00ec0",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.47.50": [
+    {
+      "eni_id": "eni-03db9c1c07df1097b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-07ea84dceb717483f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.45.150": [
+    {
+      "eni_id": "eni-06761082dd2d19d03",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-053fa5b4e23d60858",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.63.54": [
+    {
+      "eni_id": "eni-00fb04acd17170eb3",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0716ec94e43bcb7ee",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-vpn"
+      ]
+    }
+  ],
+  "172.17.47.196": [
+    {
+      "eni_id": "eni-0d5606b59983982a7",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a780942b8ea210d5",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.50.8": [
+    {
+      "eni_id": "eni-004aba8f26e6b25c4",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-07bf02f0c9213b97f",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.46.49": [
+    {
+      "eni_id": "eni-0cc98cfbf1ce2965a",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0bae0317afe74fd07",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.58.151": [
+    {
+      "eni_id": "eni-0cc0126c4e79cb984",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0fcc57b49a389fe4e",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.46.46": [
+    {
+      "eni_id": "eni-07b816650a5a1547a",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ac48d3e718078819",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.48.96": [
+    {
+      "eni_id": "eni-01d5c6c352ad8881d",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0071dc6a44a2d48c4",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.46.84": [
+    {
+      "eni_id": "eni-0e30594ebfafe5dcc",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ba408913715e31a8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-datadog"
+      ]
+    }
+  ],
+  "172.17.46.171": [
+    {
+      "eni_id": "eni-0421f735ee5b40ce1",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-04a3702ce06911cca",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.46.248": [
+    {
+      "eni_id": "eni-00290a17dd566a456",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ed3636b6a81a12e3",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-ump"
+      ]
+    }
+  ],
+  "172.17.45.190": [
+    {
+      "eni_id": "eni-0812dc1c3d5d89be3",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-02d6f180ddf25c8d8",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.47.45": [
+    {
+      "eni_id": "eni-0714316043a619078",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-03d604f950c013f1b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.47.77": [
+    {
+      "eni_id": "eni-088ed7fa3ad571f6e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0245909ef53dc1dfe",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.46.204": [
+    {
+      "eni_id": "eni-0bad15602ad5fcff1",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0370a41ad79f7dded",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.46.116": [
+    {
+      "eni_id": "eni-0defb92bd74625e2b",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d5b6ea7b5eae7e82",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.46.203": [
+    {
+      "eni_id": "eni-0d5f459cb7dba7497",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-084f06f8cc1dc98cf",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.49.223": [
+    {
+      "eni_id": "eni-0672a38e6d72ee875",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0ea2735614af7e3fa",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.45.175": [
+    {
+      "eni_id": "eni-08cbaca5ff9a270fc",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0fefebe7fe17abbf3",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.58.51": [
+    {
+      "eni_id": "eni-02062b3076d5b0886",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-037d31f1810ab7709",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-dts-cdetector"
+      ]
+    }
+  ],
+  "172.17.54.111": [
+    {
+      "eni_id": "eni-041d73e62e91df73e",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0a5cfd481a382a87b",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.45.160": [
+    {
+      "eni_id": "eni-0da318b2f6d6c29c8",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0d0047f866edae47a",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.63.40": [
+    {
+      "eni_id": "eni-0543f9c8dac421c90",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0f3abd1967ba4d571",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-rds-auxdb-clients",
+        "prod-redis-control-redis-client",
+        "prod-redis-data-redis-client",
+        "prod-redis-retargeting-redis",
+        "retargeting-staging-iad-sg"
+      ]
+    }
+  ],
+  "172.17.44.77": [
+    {
+      "eni_id": "eni-0f69175d71a7d16cc",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0cc10ac22fc4d6ead",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.5.131": [
+    {
+      "eni_id": "eni-081d1c0f01ecbfa59",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-0e09e21e40021547c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-pm2"
+      ]
+    }
+  ],
+  "172.17.7.97": [
+    {
+      "eni_id": "eni-0c89fbd186be77de4",
+      "interface_type": "interface",
+      "description": "",
+      "instance_id": "i-034d2bc202c04745c",
+      "instance_owner_id": "788724168120",
+      "groups": [
+        "prod-imc"
+      ]
+    }
+  ]
+}

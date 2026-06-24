@@ -1,0 +1,175 @@
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:15:05.668888Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062184
+# Query_time: 1.151156  Lock_time: 0.000002 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782245704;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:20:18.803512Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062204
+# Query_time: 1.150436  Lock_time: 0.000003 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782246017;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:25:49.827623Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062231
+# Query_time: 1.152201  Lock_time: 0.000003 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782246348;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:30:35.568637Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062251
+# Query_time: 1.118460  Lock_time: 0.000003 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782246634;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:35:45.964557Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062274
+# Query_time: 1.142895  Lock_time: 0.000002 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782246944;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:40:16.564772Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062294
+# Query_time: 1.132703  Lock_time: 0.000002 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782247215;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+# Time: 2026-06-23T20:41:51.983504Z
+# User@Host: root[root] @  [172.17.37.165]  Id: 1062301
+# Query_time: 1.051109  Lock_time: 0.000000 Rows_sent: 0  Rows_examined: 1029585
+SET timestamp=1782247311;
+call build_file_persistence(-1, @success);
+# Time: 2026-06-23T20:41:53.040952Z
+# User@Host: root[root] @  [172.17.37.165]  Id: 1062301
+# Query_time: 1.052710  Lock_time: 0.000000 Rows_sent: 0  Rows_examined: 1029587
+SET timestamp=1782247313;
+call build_file_persistence(1, @success);
+# Time: 2026-06-23T20:41:54.301437Z
+# User@Host: root[root] @  [172.17.37.165]  Id: 1062301
+# Query_time: 1.054048  Lock_time: 0.000000 Rows_sent: 0  Rows_examined: 778403
+SET timestamp=1782247314;
+call build_file_persistence(2, @success);
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:45:53.172541Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062322
+# Query_time: 1.125926  Lock_time: 0.000002 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782247552;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:50:13.645135Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062340
+# Query_time: 1.120031  Lock_time: 0.000002 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782247812;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+# Time: 2026-06-23T20:55:52.380288Z
+# User@Host: root[root] @  [172.17.13.228]  Id: 1062365
+# Query_time: 1.120068  Lock_time: 0.000003 Rows_sent: 2  Rows_examined: 7421269
+use ingest_qa;
+SET timestamp=1782248151;
+SELECT Count(ifq.state) AS cnt, s.state
+FROM
+        (SELECT 'pending' AS state
+        UNION ALL
+        SELECT 'ingesting' AS state) AS s
+        LEFT JOIN ingest_file_queue ifq
+        ON CONVERT(s.state USING utf8) = ifq.state
+        AND last_update >= Date(Now() - INTERVAL 1 DAY)
+GROUP BY s.state;
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+/rdsdbbin/mysql/bin/mysqld, Version: 8.4.5 (Source distribution). started with:
+Tcp port: 3306  Unix socket: /tmp/mysql.sock
+Time                 Id Command    Argument
+

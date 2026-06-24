@@ -1,0 +1,3252 @@
+[
+  {
+    "Attachment": {
+      "AttachTime": "2026-02-14T00:03:40+00:00",
+      "AttachmentId": "eni-attach-0737e844ecea754db",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-01f6082a4c5db2f0b",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1f",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "16:ff:e6:ae:1b:dd",
+    "NetworkInterfaceId": "eni-03efcfe22f2e54168",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-157-254.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.157.254",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-157-254.ec2.internal",
+        "PrivateIpAddress": "172.17.157.254"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-ce11abc1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0434bfde261324ebf",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0881c508b16924c9c",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1f",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "16:ff:ed:62:28:8d",
+    "NetworkInterfaceId": "eni-00209b064013b03ce",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-157-80.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.157.80",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-157-80.ec2.internal",
+        "PrivateIpAddress": "172.17.157.80"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-ce11abc1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Association": {
+      "AllocationId": "eipalloc-0db2a51e3a02e6a41",
+      "AssociationId": "eipassoc-0e3e0d53df2d76988",
+      "IpOwnerId": "788724168120",
+      "PublicDnsName": "ec2-34-224-146-149.compute-1.amazonaws.com",
+      "PublicIp": "34.224.146.149"
+    },
+    "Attachment": {
+      "AttachTime": "2025-12-09T08:52:59+00:00",
+      "AttachmentId": "eni-attach-088d795421e28ee2f",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0ffb2044e2a9cd3a1",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1f",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-0a40c264699819212",
+        "GroupName": "prod-periscope-remote-access"
+      },
+      {
+        "GroupId": "sg-06b54edd0362ea611",
+        "GroupName": "prod-tableau-remote-access"
+      },
+      {
+        "GroupId": "sg-015e83e6a3205fdc9",
+        "GroupName": "prod-dbproxy"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "16:ff:c6:16:6c:d1",
+    "NetworkInterfaceId": "eni-0002960101f3527c0",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-142-225.ec2.internal",
+    "PublicDnsName": "ec2-34-224-146-149.compute-1.amazonaws.com",
+    "PublicIpDnsNameOptions": {
+      "DnsHostnameType": "public-ipv4-dns-name",
+      "PublicIpv4DnsName": "ec2-34-224-146-149.compute-1.amazonaws.com"
+    },
+    "PrivateIpAddress": "172.17.142.225",
+    "PrivateIpAddresses": [
+      {
+        "Association": {
+          "AllocationId": "eipalloc-0db2a51e3a02e6a41",
+          "AssociationId": "eipassoc-0e3e0d53df2d76988",
+          "IpOwnerId": "788724168120",
+          "PublicDnsName": "ec2-34-224-146-149.compute-1.amazonaws.com",
+          "PublicIp": "34.224.146.149"
+        },
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-142-225.ec2.internal",
+        "PrivateIpAddress": "172.17.142.225"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-311fa53e",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-05cd854042f5c0de7",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-034819121158b697a",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1f",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "16:ff:fd:20:96:a9",
+    "NetworkInterfaceId": "eni-059741d649f18b516",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-154-141.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.154.141",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-154-141.ec2.internal",
+        "PrivateIpAddress": "172.17.154.141"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-ce11abc1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Association": {
+      "IpOwnerId": "amazon",
+      "PublicDnsName": "ec2-44-220-58-157.compute-1.amazonaws.com",
+      "PublicIp": "44.220.58.157"
+    },
+    "Attachment": {
+      "AttachTime": "2025-02-19T11:29:59+00:00",
+      "AttachmentId": "eni-attach-09a0c13473f7a9bec",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-063678a08e0d73e51",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1f",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-089249d8fe1d2dbca",
+        "GroupName": "prod-control-plane-dts"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "16:ff:ff:21:dc:f5",
+    "NetworkInterfaceId": "eni-027e2468b0c8d1dfe",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-129-158.ec2.internal",
+    "PublicDnsName": "ec2-44-220-58-157.compute-1.amazonaws.com",
+    "PublicIpDnsNameOptions": {
+      "DnsHostnameType": "public-ipv4-dns-name",
+      "PublicIpv4DnsName": "ec2-44-220-58-157.compute-1.amazonaws.com"
+    },
+    "PrivateIpAddress": "172.17.129.158",
+    "PrivateIpAddresses": [
+      {
+        "Association": {
+          "IpOwnerId": "amazon",
+          "PublicDnsName": "ec2-44-220-58-157.compute-1.amazonaws.com",
+          "PublicIp": "44.220.58.157"
+        },
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-129-158.ec2.internal",
+        "PrivateIpAddress": "172.17.129.158"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-311fa53e",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-03649807d0fd050fa",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0f197447dc61784ea",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:98:4c:86:be:1b",
+    "NetworkInterfaceId": "eni-0fcfac6eb5b3b03fc",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-26-252.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.26.252",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-26-252.ec2.internal",
+        "PrivateIpAddress": "172.17.26.252"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-08c571dac767cb439",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0baf44fddfc0c28b9",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:27:47:5c:c6:fd",
+    "NetworkInterfaceId": "eni-0fe5bb232662e5c85",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-18-146.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.18.146",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-18-146.ec2.internal",
+        "PrivateIpAddress": "172.17.18.146"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-046cc5437391707ac",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-041f0b3615c473270",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:5c:24:63:a2:85",
+    "NetworkInterfaceId": "eni-0a5a2094fe7787faf",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-23-167.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.23.167",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-23-167.ec2.internal",
+        "PrivateIpAddress": "172.17.23.167"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0247f290386bedfed",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-09778b16c9eeae136",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:b9:a1:46:65:c5",
+    "NetworkInterfaceId": "eni-069d6c7f5f4274a40",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-25-231.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.25.231",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-25-231.ec2.internal",
+        "PrivateIpAddress": "172.17.25.231"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0d61bd1f5a3107ef8",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0f6089938b8071fe4",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:21:cc:b6:7c:a9",
+    "NetworkInterfaceId": "eni-01a3041f82f4cae17",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-25-173.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.25.173",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-25-173.ec2.internal",
+        "PrivateIpAddress": "172.17.25.173"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T08:02:57+00:00",
+      "AttachmentId": "eni-attach-0dcea65876ee47ce0",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-068ecdfe79d22b534",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:54:f8:5e:82:53",
+    "NetworkInterfaceId": "eni-05456e1f727e452bf",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-20-143.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.20.143",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-20-143.ec2.internal",
+        "PrivateIpAddress": "172.17.20.143"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0100e6fa417f24366",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-00beaf70043437e5c",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:11:80:36:25:bb",
+    "NetworkInterfaceId": "eni-0f9eb61f9fb40608c",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-24-202.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.24.202",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-24-202.ec2.internal",
+        "PrivateIpAddress": "172.17.24.202"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T22:18:46+00:00",
+      "AttachmentId": "eni-attach-024a39941405ab128",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0149e9bb5e6167cb2",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:b9:02:40:a6:09",
+    "NetworkInterfaceId": "eni-0045d584be4213045",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-24-18.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.24.18",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-24-18.ec2.internal",
+        "PrivateIpAddress": "172.17.24.18"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0716769dbc8ffb213",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0122592f0edfb7554",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:d3:48:54:17:b9",
+    "NetworkInterfaceId": "eni-046acc8e9b2c35aab",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-16-236.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.16.236",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-16-236.ec2.internal",
+        "PrivateIpAddress": "172.17.16.236"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-08c8ed2fa7006d3d7",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-003d803e5decb09e2",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:e0:12:51:c2:47",
+    "NetworkInterfaceId": "eni-0a16bc4bd5c1f90c1",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-26-126.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.26.126",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-26-126.ec2.internal",
+        "PrivateIpAddress": "172.17.26.126"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0737d4c6335cf9746",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0db05e2ee37e90ba6",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:c2:22:31:0b:d5",
+    "NetworkInterfaceId": "eni-02c430e3de33ac115",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-17-121.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.17.121",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-17-121.ec2.internal",
+        "PrivateIpAddress": "172.17.17.121"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0dd4aca7e40240969",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-01d81a4e8aca19b2f",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:31:c1:0b:a7:19",
+    "NetworkInterfaceId": "eni-0d2282fc60cf62953",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-28-241.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.28.241",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-28-241.ec2.internal",
+        "PrivateIpAddress": "172.17.28.241"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-18T23:40:46+00:00",
+      "AttachmentId": "eni-attach-0f47503ce10cb412f",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-04148226445662361",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:c5:6c:c5:fd:29",
+    "NetworkInterfaceId": "eni-079eeeca27bc607ff",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-26-31.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.26.31",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-26-31.ec2.internal",
+        "PrivateIpAddress": "172.17.26.31"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0fc206a7256463047",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-08bd5c0bbb8a9529e",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:da:cf:18:2c:c9",
+    "NetworkInterfaceId": "eni-035947c90e1012349",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-29-88.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.29.88",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-29-88.ec2.internal",
+        "PrivateIpAddress": "172.17.29.88"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0002b5defa3276356",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0c89005acef1b8c82",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:de:1e:6f:3d:35",
+    "NetworkInterfaceId": "eni-04b5ca4db9af4f404",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-24-19.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.24.19",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-24-19.ec2.internal",
+        "PrivateIpAddress": "172.17.24.19"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-18T07:54:44+00:00",
+      "AttachmentId": "eni-attach-0c1881e800430fcf4",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-051bb4a6644c2faf8",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:44:8a:6d:8c:9b",
+    "NetworkInterfaceId": "eni-08e5b294afe7fe63e",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-26-1.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.26.1",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-26-1.ec2.internal",
+        "PrivateIpAddress": "172.17.26.1"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0ed2fdf279b294aac",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0aa9e624757f1e789",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:78:d9:04:a5:49",
+    "NetworkInterfaceId": "eni-04f90e924b863eea0",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-23-226.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.23.226",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-23-226.ec2.internal",
+        "PrivateIpAddress": "172.17.23.226"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-08d201cec88480a79",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-06570d1adb8b8ff59",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:df:8a:39:35:f5",
+    "NetworkInterfaceId": "eni-083105c472276201a",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-18-132.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.18.132",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-18-132.ec2.internal",
+        "PrivateIpAddress": "172.17.18.132"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0bf21f9c05283762f",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-02482f119314d25b3",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:45:18:f4:f0:a5",
+    "NetworkInterfaceId": "eni-06f532240a127cf59",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-25-145.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.25.145",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-25-145.ec2.internal",
+        "PrivateIpAddress": "172.17.25.145"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T21:32:42+00:00",
+      "AttachmentId": "eni-attach-0ac9059b7f4fbe78f",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-09c9fdc8aabadb982",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:0c:91:f2:f7:fb",
+    "NetworkInterfaceId": "eni-0a6486179af64d4c5",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-18-19.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.18.19",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-18-19.ec2.internal",
+        "PrivateIpAddress": "172.17.18.19"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T22:30:46+00:00",
+      "AttachmentId": "eni-attach-0cd4035ee913c4162",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-009805e29b80ad051",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:35:23:08:48:37",
+    "NetworkInterfaceId": "eni-044e557aa3a2f8915",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-24-165.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.24.165",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-24-165.ec2.internal",
+        "PrivateIpAddress": "172.17.24.165"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0aca3effabefe09da",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0636d5f87b5468af2",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:da:68:68:06:17",
+    "NetworkInterfaceId": "eni-0e445d319433681c1",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-22-52.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.22.52",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-22-52.ec2.internal",
+        "PrivateIpAddress": "172.17.22.52"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T02:52:16+00:00",
+      "AttachmentId": "eni-attach-051d63bce0e5d7ba8",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0a28e44931338bb33",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:91:55:bd:84:f5",
+    "NetworkInterfaceId": "eni-0cdce410f712db8b7",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-16-43.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.16.43",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-16-43.ec2.internal",
+        "PrivateIpAddress": "172.17.16.43"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0c67c3be092731da9",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0f978bc8a3a149f00",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:9f:12:7b:21:41",
+    "NetworkInterfaceId": "eni-09a9a032bc499180c",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-20-244.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.20.244",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-20-244.ec2.internal",
+        "PrivateIpAddress": "172.17.20.244"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-036e6abc53b86b75a",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-09b3db88350a9e30b",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:f6:05:6d:35:89",
+    "NetworkInterfaceId": "eni-01caa7f722de56648",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-29-194.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.29.194",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-29-194.ec2.internal",
+        "PrivateIpAddress": "172.17.29.194"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-030b2cc19ef605380",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-053a6cfd998c80837",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:37:78:31:3f:17",
+    "NetworkInterfaceId": "eni-054149c6a6153b984",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-27-94.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.27.94",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-27-94.ec2.internal",
+        "PrivateIpAddress": "172.17.27.94"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T22:22:50+00:00",
+      "AttachmentId": "eni-attach-00dfa087608a92c96",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0b0e8811c55bbce55",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:75:40:0d:89:9b",
+    "NetworkInterfaceId": "eni-0839354450cedf46d",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-23-107.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.23.107",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-23-107.ec2.internal",
+        "PrivateIpAddress": "172.17.23.107"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-17T07:03:42+00:00",
+      "AttachmentId": "eni-attach-0df200145e6bfa20f",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0f559c597d73cc390",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:a5:93:94:a7:35",
+    "NetworkInterfaceId": "eni-09bb0dacefa55cb81",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-27-54.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.27.54",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-27-54.ec2.internal",
+        "PrivateIpAddress": "172.17.27.54"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-20T04:18:23+00:00",
+      "AttachmentId": "eni-attach-0bcb597babf9f4192",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0d468ec379d1a7260",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:94:7f:f7:9c:45",
+    "NetworkInterfaceId": "eni-0c1987729d4a8be1c",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-22-18.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.22.18",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-22-18.ec2.internal",
+        "PrivateIpAddress": "172.17.22.18"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-057e60bf719e607c7",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0314ea147b8f857c8",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:ad:86:b0:53:3b",
+    "NetworkInterfaceId": "eni-0f85e3546786af69c",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-21-119.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.21.119",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-21-119.ec2.internal",
+        "PrivateIpAddress": "172.17.21.119"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-07bf954a065fb56de",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-062a14dbcdcac2eec",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:fd:43:c4:1b:3b",
+    "NetworkInterfaceId": "eni-034e684f46586065b",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-27-144.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.27.144",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-27-144.ec2.internal",
+        "PrivateIpAddress": "172.17.27.144"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Association": {
+      "AllocationId": "eipalloc-d61790e7",
+      "AssociationId": "eipassoc-0a3db701e785697b9",
+      "IpOwnerId": "788724168120",
+      "PublicDnsName": "ec2-34-199-86-177.compute-1.amazonaws.com",
+      "PublicIp": "34.199.86.177"
+    },
+    "Attachment": {
+      "AttachTime": "2023-11-27T09:00:49+00:00",
+      "AttachmentId": "eni-attach-09aec050e36f270ea",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-01631376281252fc0",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-07f6b86a65fe888e9",
+        "GroupName": "prod-control-plane-monitor"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:5a:5d:40:3c:6f",
+    "NetworkInterfaceId": "eni-0bc2fb23687ccee7c",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-13-228.ec2.internal",
+    "PublicDnsName": "ec2-34-199-86-177.compute-1.amazonaws.com",
+    "PublicIpDnsNameOptions": {
+      "DnsHostnameType": "public-ipv4-dns-name",
+      "PublicIpv4DnsName": "ec2-34-199-86-177.compute-1.amazonaws.com"
+    },
+    "PrivateIpAddress": "172.17.13.228",
+    "PrivateIpAddresses": [
+      {
+        "Association": {
+          "AllocationId": "eipalloc-d61790e7",
+          "AssociationId": "eipassoc-0a3db701e785697b9",
+          "IpOwnerId": "788724168120",
+          "PublicDnsName": "ec2-34-199-86-177.compute-1.amazonaws.com",
+          "PublicIp": "34.199.86.177"
+        },
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-13-228.ec2.internal",
+        "PrivateIpAddress": "172.17.13.228"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-5786027a",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0f46ab7908a3fe3eb",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0fa7a641b8c07aa22",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:a7:64:03:e5:35",
+    "NetworkInterfaceId": "eni-0f3c99dfd6d8a7f95",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-27-128.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.27.128",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-27-128.ec2.internal",
+        "PrivateIpAddress": "172.17.27.128"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-024e7b8cbf6be5a80",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0972049d0d1ff865b",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:cf:93:87:ae:c9",
+    "NetworkInterfaceId": "eni-01300cdca86803b5d",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-18-145.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.18.145",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-18-145.ec2.internal",
+        "PrivateIpAddress": "172.17.18.145"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0089f807feb84fc79",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-040a7f425c78da558",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:15:8b:4c:df:e7",
+    "NetworkInterfaceId": "eni-0012ef2f8a01f3121",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-23-174.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.23.174",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-23-174.ec2.internal",
+        "PrivateIpAddress": "172.17.23.174"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-18T13:27:27+00:00",
+      "AttachmentId": "eni-attach-057c54d08c7e13e8d",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-00e77433aee445f57",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:bb:b5:7c:86:53",
+    "NetworkInterfaceId": "eni-04321d7ffee6c381a",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-26-234.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.26.234",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-26-234.ec2.internal",
+        "PrivateIpAddress": "172.17.26.234"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-012d184a806d91fb6",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-00c55690b8280ea93",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:4d:09:5a:90:2f",
+    "NetworkInterfaceId": "eni-0fdd314a2b2ca2e24",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-21-162.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.21.162",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-21-162.ec2.internal",
+        "PrivateIpAddress": "172.17.21.162"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0b8fa8e8ec4c92807",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-06b85013c5d4d89db",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:61:35:4f:31:b7",
+    "NetworkInterfaceId": "eni-071cd2ea4ac07b35f",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-20-11.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.20.11",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-20-11.ec2.internal",
+        "PrivateIpAddress": "172.17.20.11"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0205de313ac70bba4",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0a6f0f36ac43c5765",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:08:34:00:95:33",
+    "NetworkInterfaceId": "eni-0f02d71565f414f01",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-26-168.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.26.168",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-26-168.ec2.internal",
+        "PrivateIpAddress": "172.17.26.168"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-19T10:56:12+00:00",
+      "AttachmentId": "eni-attach-01f3abd35fcfa9311",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0cccf294ef08fe9ee",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:6e:ae:90:83:51",
+    "NetworkInterfaceId": "eni-05d53de914abae627",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-20-166.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.20.166",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-20-166.ec2.internal",
+        "PrivateIpAddress": "172.17.20.166"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0a1481e9afbeb79c8",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-08e2513d044bd10a0",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:c4:10:e4:c4:0b",
+    "NetworkInterfaceId": "eni-076c6b0896ddbc880",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-16-126.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.16.126",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-16-126.ec2.internal",
+        "PrivateIpAddress": "172.17.16.126"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-068e00cb2f8dd596c",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0208cd8c5f00f607f",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:b7:7a:6f:b5:57",
+    "NetworkInterfaceId": "eni-08189f2c659925a40",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-18-221.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.18.221",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-18-221.ec2.internal",
+        "PrivateIpAddress": "172.17.18.221"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-00b2ccc50baba1ef4",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0b521156b3a310189",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:26:ed:3e:5a:23",
+    "NetworkInterfaceId": "eni-0cb32ee3f8d19d726",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-23-170.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.23.170",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-23-170.ec2.internal",
+        "PrivateIpAddress": "172.17.23.170"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-03ec8ad695072adf7",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-012fc46148dc19bee",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:2b:6b:22:8b:8b",
+    "NetworkInterfaceId": "eni-06f6d0100a8f7050e",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-27-81.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.27.81",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-27-81.ec2.internal",
+        "PrivateIpAddress": "172.17.27.81"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0bb96a5931d76f83c",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-070417929c4e67f70",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:0b:f4:be:2f:3f",
+    "NetworkInterfaceId": "eni-0c642e0aa1332901e",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-17-89.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.17.89",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-17-89.ec2.internal",
+        "PrivateIpAddress": "172.17.17.89"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0feeac09d35b1477c",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-032deb77e9ea99a65",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1d",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0e:3c:0c:33:c7:9f",
+    "NetworkInterfaceId": "eni-08c31baa2211811c0",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-91-144.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.91.144",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-91-144.ec2.internal",
+        "PrivateIpAddress": "172.17.91.144"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2e6c8872",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-02-13T19:20:48+00:00",
+      "AttachmentId": "eni-attach-010f1aa4b02e25d5a",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-052c8333db9e3f166",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1d",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0e:c3:0c:ab:52:0d",
+    "NetworkInterfaceId": "eni-0feb4f9158de66a2b",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-89-124.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.89.124",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-89-124.ec2.internal",
+        "PrivateIpAddress": "172.17.89.124"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2e6c8872",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-09c5786f9ccd83c38",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0251d3135e0bca3d8",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1d",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0e:5c:6b:57:91:db",
+    "NetworkInterfaceId": "eni-07af50bee16909873",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-83-71.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.83.71",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-83-71.ec2.internal",
+        "PrivateIpAddress": "172.17.83.71"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2e6c8872",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-04893ee0186afb47d",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0c5296bdafecb4e0e",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1d",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0e:ed:78:5e:4f:83",
+    "NetworkInterfaceId": "eni-0e089247f0a3b8fe5",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-89-84.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.89.84",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-89-84.ec2.internal",
+        "PrivateIpAddress": "172.17.89.84"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2e6c8872",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0640b740beca8a927",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0ee5ce299268658d6",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1d",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0e:30:6d:d5:34:e5",
+    "NetworkInterfaceId": "eni-042eeff38e0d190e7",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-94-182.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.94.182",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-94-182.ec2.internal",
+        "PrivateIpAddress": "172.17.94.182"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2e6c8872",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-01018a75d9e518de3",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0055228c259bf2930",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0a:ff:f6:91:c0:7b",
+    "NetworkInterfaceId": "eni-0507e442fd565ec32",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-58-24.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.58.24",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-58-24.ec2.internal",
+        "PrivateIpAddress": "172.17.58.24"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2d2c5b64",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-014b590217f3a55dc",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0e9127c0d1b0b3959",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0a:ff:eb:f5:d3:2d",
+    "NetworkInterfaceId": "eni-02df66bdb16041cea",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-60-26.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.60.26",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-60-26.ec2.internal",
+        "PrivateIpAddress": "172.17.60.26"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2d2c5b64",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-01T22:42:42+00:00",
+      "AttachmentId": "eni-attach-09d88a89ef0e0224c",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-07bf02f0c9213b97f",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0a:ff:e7:6e:15:01",
+    "NetworkInterfaceId": "eni-004aba8f26e6b25c4",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-50-8.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.50.8",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-50-8.ec2.internal",
+        "PrivateIpAddress": "172.17.50.8"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2d2c5b64",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0996264edd49fd3b1",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0a5cfd481a382a87b",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0a:ff:e2:15:4a:23",
+    "NetworkInterfaceId": "eni-041d73e62e91df73e",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-54-111.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.54.111",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-54-111.ec2.internal",
+        "PrivateIpAddress": "172.17.54.111"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2d2c5b64",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-00e089730f79c8383",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0f3abd1967ba4d571",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0a:ff:f7:8a:49:91",
+    "NetworkInterfaceId": "eni-0543f9c8dac421c90",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-63-40.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.63.40",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-63-40.ec2.internal",
+        "PrivateIpAddress": "172.17.63.40"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2d2c5b64",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-05-27T23:06:26+00:00",
+      "AttachmentId": "eni-attach-0a9799342ed4c5024",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0071dc6a44a2d48c4",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-750d9c02",
+        "GroupName": "prod-rds-auxdb-clients"
+      },
+      {
+        "GroupId": "sg-34f0b547",
+        "GroupName": "prod-redis-control-redis-client"
+      },
+      {
+        "GroupId": "sg-b799e5c4",
+        "GroupName": "prod-redis-data-redis-client"
+      },
+      {
+        "GroupId": "sg-04585676",
+        "GroupName": "prod-redis-retargeting-redis"
+      },
+      {
+        "GroupId": "sg-4c25c03a",
+        "GroupName": "retargeting-staging-iad-sg"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "0a:ff:c0:71:7b:4d",
+    "NetworkInterfaceId": "eni-01d5c6c352ad8881d",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-48-96.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.48.96",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-48-96.ec2.internal",
+        "PrivateIpAddress": "172.17.48.96"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-2d2c5b64",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0c62fadab08e0002f",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0c55b946728708877",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:61:fa:ae:e3:d5",
+    "NetworkInterfaceId": "eni-0c2f0527e48e6c055",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-31-75.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.31.75",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-31-75.ec2.internal",
+        "PrivateIpAddress": "172.17.31.75"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-02868f3697465b58c",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-02f3fc557c9a2470d",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:0e:0f:37:74:31",
+    "NetworkInterfaceId": "eni-0fd4f7a223ef147c7",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-30-151.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.30.151",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-30-151.ec2.internal",
+        "PrivateIpAddress": "172.17.30.151"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-0b7467997ef8a65d4",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0b9277c5ed05e5a25",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:40:d8:ce:ad:11",
+    "NetworkInterfaceId": "eni-0ff37804f21d7a89e",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-31-78.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.31.78",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-31-78.ec2.internal",
+        "PrivateIpAddress": "172.17.31.78"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2026-06-17T07:17:45+00:00",
+      "AttachmentId": "eni-attach-0842104d9fc35e2ae",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-00f3cb6dd75b07d66",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:4c:42:dd:c5:27",
+    "NetworkInterfaceId": "eni-0828a5c9195daffd6",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-31-171.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.31.171",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-31-171.ec2.internal",
+        "PrivateIpAddress": "172.17.31.171"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  },
+  {
+    "Attachment": {
+      "AttachTime": "2025-11-25T16:09:06+00:00",
+      "AttachmentId": "eni-attach-00d116f69d6a93d60",
+      "DeleteOnTermination": true,
+      "DeviceIndex": 0,
+      "NetworkCardIndex": 0,
+      "InstanceId": "i-0021f47a34cc6a638",
+      "InstanceOwnerId": "788724168120",
+      "Status": "attached"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "Description": "",
+    "Groups": [
+      {
+        "GroupId": "sg-1cea9761",
+        "GroupName": "prod-dts-cdetector"
+      }
+    ],
+    "InterfaceType": "interface",
+    "Ipv6Addresses": [],
+    "MacAddress": "12:93:84:91:57:15",
+    "NetworkInterfaceId": "eni-0f81b042ea3b28135",
+    "OwnerId": "788724168120",
+    "PrivateDnsName": "ip-172-17-30-199.ec2.internal",
+    "PublicDnsName": "",
+    "PrivateIpAddress": "172.17.30.199",
+    "PrivateIpAddresses": [
+      {
+        "Primary": true,
+        "PrivateDnsName": "ip-172-17-30-199.ec2.internal",
+        "PrivateIpAddress": "172.17.30.199"
+      }
+    ],
+    "RequesterManaged": false,
+    "SourceDestCheck": true,
+    "Status": "in-use",
+    "SubnetId": "subnet-fc8602d1",
+    "TagSet": [],
+    "VpcId": "vpc-afa258c9",
+    "Operator": {
+      "Managed": false
+    }
+  }
+]

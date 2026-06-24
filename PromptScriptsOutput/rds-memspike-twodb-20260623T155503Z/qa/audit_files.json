@@ -1,0 +1,54 @@
+{
+    "DescribeDBLogFiles": [
+        {
+            "LogFileName": "audit/server_audit.log",
+            "LastWritten": 1782232072000,
+            "Size": 209180
+        },
+        {
+            "LogFileName": "audit/server_audit.log.1",
+            "LastWritten": 1782229457000,
+            "Size": 1000080
+        },
+        {
+            "LogFileName": "audit/server_audit.log.2",
+            "LastWritten": 1782217984000,
+            "Size": 1000159
+        },
+        {
+            "LogFileName": "audit/server_audit.log.3",
+            "LastWritten": 1782211477000,
+            "Size": 1000041
+        },
+        {
+            "LogFileName": "audit/server_audit.log.4",
+            "LastWritten": 1782203914000,
+            "Size": 1000002
+        },
+        {
+            "LogFileName": "audit/server_audit.log.5",
+            "LastWritten": 1782203487000,
+            "Size": 1000095
+        },
+        {
+            "LogFileName": "audit/server_audit.log.6",
+            "LastWritten": 1782193699000,
+            "Size": 1000041
+        },
+        {
+            "LogFileName": "audit/server_audit.log.7",
+            "LastWritten": 1782181887000,
+            "Size": 1000102
+        },
+        {
+            "LogFileName": "audit/server_audit.log.8",
+            "LastWritten": 1782170269000,
+            "Size": 1000073
+        },
+        {
+            "LogFileName": "audit/server_audit.log.9",
+            "LastWritten": 1782157541000,
+            "Size": 1000050
+        }
+    ]
+}

@@ -1,0 +1,304 @@
+{
+    "Rules": [
+        {
+            "Name": "AutoScalingManagedRule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/AutoScalingManagedRule",
+            "EventPattern": "{\"source\":[\"aws.ec2\"],\"detail-type\":[\"EC2 Instance Rebalance Recommendation\",\"EC2 Spot Instance Interruption Warning\"]}",
+            "State": "ENABLED",
+            "Description": "This rule is used to route Instance notifications to EC2 Auto Scaling",
+            "ManagedBy": "autoscaling.amazonaws.com",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "DO-NOT-DELETE-AmazonInspectorEc2ManagedRule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/DO-NOT-DELETE-AmazonInspectorEc2ManagedRule",
+            "EventPattern": "{\"source\": [\"aws.ec2\"], \"detail-type\": [\"EC2 Instance State-change Notification\"], \"detail\": {\"state\":[\"running\", \"stopped\", \"terminated\"]}}",
+            "State": "ENABLED",
+            "Description": "Managed rule used to route EC2 Events to Inspector",
+            "ManagedBy": "inspector2.amazonaws.com",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "DO-NOT-DELETE-AmazonInspectorEc2TagManagedRule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/DO-NOT-DELETE-AmazonInspectorEc2TagManagedRule",
+            "EventPattern": "{\"source\": [\"aws.tag\"], \"detail-type\": [\"Tag Change on Resource\"], \"detail\": {\"service\":[\"ec2\"], \"resource-type\":[\"instance\"]}}",
+            "State": "ENABLED",
+            "Description": "Managed rule used to route EC2 Tag Change Events to Inspector",
+            "ManagedBy": "inspector2.amazonaws.com",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "DO-NOT-DELETE-AmazonInspectorEcrManagedRule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/DO-NOT-DELETE-AmazonInspectorEcrManagedRule",
+            "EventPattern": "{\"source\": [\"aws.ecr\", \"aws.ecs\"], \"detail-type\": [\"ECR Image Action\", \"ECR Scan Resource Change\", \"ECS Task State Change\"]}",
+            "State": "ENABLED",
+            "Description": "Managed rule used to route ECR and ECS Events to Inspector",
+            "ManagedBy": "inspector2.amazonaws.com",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "LimitMonitor-QueuePollSchedule-7XJWMUX12WQ7",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/LimitMonitor-QueuePollSchedule-7XJWMUX12WQ7",
+            "State": "ENABLED",
+            "Description": "Limit Monitor Solution - Schedule to poll SQS queue",
+            "ScheduleExpression": "rate(5 minutes)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "LimitMonitor-TARefreshSchedule-IFPLDFBIFGY8",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/LimitMonitor-TARefreshSchedule-IFPLDFBIFGY8",
+            "State": "ENABLED",
+            "Description": "Limit Monitor Solution - Schedule to refresh TA checks",
+            "ScheduleExpression": "rate(1 day)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "LimitMonitor-TASNSRule-1IYVDG55GXO3E",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/LimitMonitor-TASNSRule-1IYVDG55GXO3E",
+            "EventPattern": "{\"account\":[\"788724168120\"],\"source\":[\"aws.trustedadvisor\"],\"detail-type\":[\"Trusted Advisor Check Item Refresh Notification\"],\"detail\":{\"status\":[\"WARN\",\"ERROR\"],\"check-item-detail\":{\"Service\":[\"AutoScaling\",\"CloudFormation\",\"EBS\",\"EC2\",\"ELB\",\"IAM\",\"Kinesis\",\"RDS\",\"SES\",\"VPC\"]}}}",
+            "State": "ENABLED",
+            "Description": "Limit Monitor Solution - Rule for TA SNS events",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "LimitMonitor-TASQSRule-1NSAVD3YHKCKP",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/LimitMonitor-TASQSRule-1NSAVD3YHKCKP",
+            "EventPattern": "{\"account\":[\"788724168120\"],\"source\":[\"aws.trustedadvisor\"],\"detail-type\":[\"Trusted Advisor Check Item Refresh Notification\"],\"detail\":{\"status\":[\"OK\",\"WARN\",\"ERROR\"],\"check-item-detail\":{\"Service\":[\"AutoScaling\",\"CloudFormation\",\"EBS\",\"EC2\",\"ELB\",\"IAM\",\"Kinesis\",\"RDS\",\"SES\",\"VPC\"]}}}",
+            "State": "ENABLED",
+            "Description": "Limit Monitor Solution - Rule for TA SQS events",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "LimitMonitor-TASlackRule-BE3HHCARV382",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/LimitMonitor-TASlackRule-BE3HHCARV382",
+            "EventPattern": "{\"account\":[\"788724168120\"],\"source\":[\"aws.trustedadvisor\"],\"detail-type\":[\"Trusted Advisor Check Item Refresh Notification\"],\"detail\":{\"status\":[\"WARN\",\"ERROR\"],\"check-item-detail\":{\"Service\":[\"AutoScaling\",\"CloudFormation\",\"EBS\",\"EC2\",\"ELB\",\"IAM\",\"Kinesis\",\"RDS\",\"SES\",\"VPC\"]}}}",
+            "State": "ENABLED",
+            "Description": "Limit Monitor Solution - Rule for TA Slack events",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-Autoscaling-instance-launch-failure",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-Autoscaling-instance-launch-failure",
+            "EventPattern": "{\n  \"source\": [ \"aws.autoscaling\" ],\n  \"detail-type\": [ \"EC2 Instance Launch Unsuccessful\"],\n  \"detail\": {\n    \"StatusCode\": [\"Failed\"]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems when EC2 Auto Scaling instance launch failed",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-Autoscaling-instance-termination-failure",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-Autoscaling-instance-termination-failure",
+            "EventPattern": "{\n  \"source\": [ \"aws.autoscaling\" ],\n  \"detail-type\": [ \"EC2 Instance Terminate Unsuccessful\"],\n  \"detail\": {\n    \"StatusCode\": [\"Failed\"]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems when EC2 Auto Scaling instance termination failed",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-EBS-snapshot-copy-failed",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-EBS-snapshot-copy-failed",
+            "EventPattern": "{\n  \"source\": [ \"aws.ec2\" ],\n  \"detail-type\": [\"EBS Snapshot Notification\"],\n  \"detail\": {\n    \"event\": [\"copySnapshot\"],\n    \"result\": [\"failed\"]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems when EBS snapshot copy failed",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-EBS-snapshot-creation-failed",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-EBS-snapshot-creation-failed",
+            "EventPattern": "{\n  \"source\": [ \"aws.ec2\" ],\n  \"detail-type\": [\"EBS Snapshot Notification\"],\n  \"detail\": {\n    \"event\": [\"createSnapshot\"],\n    \"result\": [\"failed\"]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems when EBS snapshot creation failed",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-EBS-volume-performance-issue",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-EBS-volume-performance-issue",
+            "EventPattern": "{\n  \"source\": [ \"aws.health\" ],\n  \"detail-type\": [ \"AWS Health Event\" ],\n  \"detail\": {\n    \"service\": [ \"EBS\" ],\n    \"eventTypeCategory\": [ \"issue\" ],\n    \"eventTypeCode\": [ \"AWS_EBS_DEGRADED_EBS_VOLUME_PERFORMANCE\" ]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems for EBS volume performance issue",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-EC2-issue",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-EC2-issue",
+            "EventPattern": "{\n  \"source\": [ \"aws.health\" ],\n  \"detail-type\": [ \"AWS Health Event\" ],\n  \"detail\": {\n    \"service\": [ \"EC2\" ],\n    \"eventTypeCategory\": [ \"issue\" ]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems for any EC2 issue",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-EC2-scheduled-change",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-EC2-scheduled-change",
+            "EventPattern": "{\n  \"source\": [ \"aws.health\" ],\n  \"detail-type\": [ \"AWS Health Event\" ],\n  \"detail\": {\n    \"service\": [ \"EC2\" ],\n    \"eventTypeCategory\": [ \"scheduledChange\" ]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems for EC2 scheduled changes",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-RDS-issue",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-RDS-issue",
+            "EventPattern": "{\n  \"source\": [ \"aws.health\" ],\n  \"detail-type\": [ \"AWS Health Event\"],\n  \"detail\": {\n    \"service\": [\"RDS\"],\n    \"eventTypeCategory\": [\"issue\"]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems for any RDS issue",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-RDS-scheduled-change",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-RDS-scheduled-change",
+            "EventPattern": "{\n  \"source\": [ \"aws.health\" ],\n  \"detail-type\": [ \"AWS Health Event\"],\n  \"detail\": {\n    \"service\": [\"RDS\"],\n    \"eventTypeCategory\": [\"scheduledChange\"]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems for RDS scheduled changes",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-SSM-maintenance-window-execution-failed",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-SSM-maintenance-window-execution-failed",
+            "EventPattern": "{\n  \"source\": [ \"aws.ssm\" ],\n  \"detail-type\": [ \"Maintenance Window Execution State-change Notification\"],\n  \"detail\": {\n    \"status\": [ \"FAILED\" ]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems when SSM maintenance window execution failed",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "SSMOpsItems-SSM-maintenance-window-execution-timedout",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/SSMOpsItems-SSM-maintenance-window-execution-timedout",
+            "EventPattern": "{\n  \"source\": [ \"aws.ssm\" ],\n  \"detail-type\": [ \"Maintenance Window Execution State-change Notification\"],\n  \"detail\": {\n    \"status\": [ \"TIMED_OUT\" ]\n  }\n}",
+            "State": "ENABLED",
+            "Description": "Rule for SSM OpsCenter to create OpsItems when SSM maintenance window execution timedout",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "StepFunctionsGetEventsForStepFunctionsExecutionRule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/StepFunctionsGetEventsForStepFunctionsExecutionRule",
+            "EventPattern": "{\n  \"source\": [\n    \"aws.states\"\n  ],\n  \"detail-type\": [\n    \"Step Functions Execution Status Change\"\n  ],\n  \"detail\": {\n    \"status\": [\n      \"FAILED\",\n      \"SUCCEEDED\",\n      \"TIMED_OUT\",\n      \"ABORTED\"\n    ]\n  }\n}\n",
+            "State": "ENABLED",
+            "Description": "This rule is used to notify Step Functions regarding integrated workflow executions",
+            "ManagedBy": "states.amazonaws.com",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "cn_sessions_dai_queue_check",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/cn_sessions_dai_queue_check",
+            "State": "DISABLED",
+            "Description": "check for cn_sessions_dai_populate queue",
+            "ScheduleExpression": "rate(1 minute)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "ecs-managed-capacity-provider-rule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/ecs-managed-capacity-provider-rule",
+            "EventPattern": "{\"source\":[\"aws.ec2\",\"aws.autoscaling\"],\"detail-type\":[\"EC2 Spot Instance Interruption Warning\",\"EC2 Instance-terminate Lifecycle Action\",\"EC2 Instance Launch Successful\"],\"detail\":{\"LifecycleHookName\":[\"ecs-managed-draining-termination-hook\", {\"exists\": false}]}}",
+            "State": "ENABLED",
+            "Description": "An Amazon ECS managed rule that supports capacity provider",
+            "ManagedBy": "ecs.amazonaws.com",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "gtplus-labeling-rule",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/gtplus-labeling-rule",
+            "State": "ENABLED",
+            "Description": "Rule requested by GT+ engineer - Will trigger an event once a day to pull data from S3 (2 AM UTC)",
+            "ScheduleExpression": "cron(0 2 * * ? *)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "gtplus-labeling-rule-time",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/gtplus-labeling-rule-time",
+            "State": "ENABLED",
+            "Description": "Rule requested by GT+ engineer - Will trigger an event once a day to pull data from S3 (2 PM UTC)",
+            "ScheduleExpression": "cron(0 14 * * ? *)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "james-test",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/james-test",
+            "State": "ENABLED",
+            "Description": "nothing",
+            "ScheduleExpression": "rate(1 minute)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "overwatch-hour-dtsstage-trigger",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/overwatch-hour-dtsstage-trigger",
+            "State": "ENABLED",
+            "Description": "Trigger the \"overwatch-hour-dtsstage\" Lambda.",
+            "ScheduleExpression": "rate(11 minutes)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "overwatch-hour-qa-trigger",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/overwatch-hour-qa-trigger",
+            "State": "ENABLED",
+            "Description": "Trigger for overwatch-hour-qa Lambda Function.",
+            "ScheduleExpression": "rate(11 minutes)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "overwatch-hour-sofiazoo-trigger",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/overwatch-hour-sofiazoo-trigger",
+            "State": "ENABLED",
+            "Description": "Trigger for overwatch-hour-sofiazoo Lambda Function.",
+            "ScheduleExpression": "rate(11 minutes)",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "serverlessrepo-sumologic-CloudWatchEventFunctionC-13KV2EONE5B1V",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/serverlessrepo-sumologic-CloudWatchEventFunctionC-13KV2EONE5B1V",
+            "EventPattern": "{\"source\":[\"aws.guardduty\"]}",
+            "State": "ENABLED",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "springserve-production",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/springserve-production",
+            "EventPattern": "{\"source\":[\"aws.emr\"],\"detail-type\":[\"EMR Step Status Change\"],\"detail\":{\"state\":[\"FAILED\",\"CANCELLED\"]}}",
+            "State": "ENABLED",
+            "Description": "Triggering alerts when EMR job change to FAILED or CANCELLED.",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "springserve-production-emr",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/springserve-production-emr",
+            "EventPattern": "{\"source\":[\"aws.emr\"],\"detail-type\":[\"EMR Cluster State Change\"],\"detail\":{\"state\":[\"TERMINATED_WITH_ERRORS\"]}}",
+            "State": "ENABLED",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "springserve-qa",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/springserve-qa",
+            "EventPattern": "{\"source\":[\"aws.emr\"],\"detail-type\":[\"EMR Step Status Change\"],\"detail\":{\"state\":[\"FAILED\",\"CANCELLED\"]}}",
+            "State": "ENABLED",
+            "Description": "Triggering alerts when EMR job change to FAILED or CANCELLED.",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "springserve-staging",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/springserve-staging",
+            "EventPattern": "{\"source\":[\"aws.emr\"],\"detail-type\":[\"EMR Step Status Change\"],\"detail\":{\"state\":[\"FAILED\",\"CANCELLED\"]}}",
+            "State": "ENABLED",
+            "Description": "Triggering alerts when EMR job change to FAILED or CANCELLED.",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "tags-validation",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/tags-validation",
+            "EventPattern": "{\"detail\":{\"configurationItem\":{\"configurationItemStatus\":[\"ResourceDiscovered\",\"OK\",\"ResourceDeleted\"],\"resourceType\":[{\"anything-but\":[\"AWS::Config::ResourceCompliance\",\"AWS::SSM::AssociationCompliance\",\"AWS::Config::ConformancePackCompliance\"]}]}},\"detail-type\":[\"Config Configuration Item Change\"],\"source\":[\"aws.config\"]}",
+            "State": "ENABLED",
+            "Description": "CloudWatch Event Rule that captures Configuration Change Items and send to SQS.",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "tags-validation-oversized",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/tags-validation-oversized",
+            "EventPattern": "{\"detail\":{\"configurationItemSummary\":{\"configurationItemStatus\":[\"ResourceDiscovered\",\"OK\",\"ResourceDeleted\"],\"resourceType\":[{\"anything-but\":[\"AWS::Config::ResourceCompliance\",\"AWS::SSM::AssociationCompliance\",\"AWS::Config::ConformancePackCompliance\"]}]}},\"detail-type\":[\"Config Configuration Item Change\"],\"source\":[\"aws.config\"]}",
+            "State": "ENABLED",
+            "Description": "CloudWatch Event Rule that captures Configuration Change Items and send to SQS.",
+            "EventBusName": "default"
+        },
+        {
+            "Name": "ump_watcher_trigger",
+            "Arn": "arn:aws:events:us-east-1:788724168120:rule/ump_watcher_trigger",
+            "State": "ENABLED",
+            "Description": "Kick off the ump watcher lambda function",
+            "ScheduleExpression": "rate(15 minutes)",
+            "EventBusName": "default"
+        }
+    ]
+}

@@ -1,0 +1,154 @@
+{
+    "DBInstances": [
+        {
+            "DBInstanceIdentifier": "prod-rds-auxdb-qa-84-20260226",
+            "DBInstanceClass": "db.r6i.xlarge",
+            "Engine": "mysql",
+            "DBInstanceStatus": "available",
+            "MasterUsername": "master",
+            "DBName": "ingest",
+            "Endpoint": {
+                "Address": "prod-rds-auxdb-qa-84-20260226.cujpo2r0mujo.us-east-1.rds.amazonaws.com",
+                "Port": 3306,
+                "HostedZoneId": "Z2R2ITUGPM61AM"
+            },
+            "AllocatedStorage": 300,
+            "InstanceCreateTime": "2026-02-26T19:02:39.213000+00:00",
+            "PreferredBackupWindow": "04:57-05:27",
+            "BackupRetentionPeriod": 1,
+            "DBSecurityGroups": [],
+            "VpcSecurityGroups": [
+                {
+                    "VpcSecurityGroupId": "sg-750d9c02",
+                    "Status": "active"
+                },
+                {
+                    "VpcSecurityGroupId": "sg-3b793046",
+                    "Status": "active"
+                }
+            ],
+            "DBParameterGroups": [
+                {
+                    "DBParameterGroupName": "aux-qa-8-4-5-feb-26-readonly",
+                    "ParameterApplyStatus": "in-sync"
+                }
+            ],
+            "AvailabilityZone": "us-east-1c",
+            "DBSubnetGroup": {
+                "DBSubnetGroupName": "prod-rds-subnet",
+                "DBSubnetGroupDescription": "rds-ipdb-20160628",
+                "VpcId": "vpc-afa258c9",
+                "SubnetGroupStatus": "Complete",
+                "Subnets": [
+                    {
+                        "SubnetIdentifier": "subnet-2d2c5b64",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1c"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-fc8602d1",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1b"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    }
+                ]
+            },
+            "PreferredMaintenanceWindow": "mon:10:00-mon:10:30",
+            "PendingModifiedValues": {},
+            "LatestRestorableTime": "2026-06-23T15:48:18+00:00",
+            "MultiAZ": true,
+            "EngineVersion": "8.4.5",
+            "AutoMinorVersionUpgrade": false,
+            "ReadReplicaDBInstanceIdentifiers": [
+                "prod-rds-auxdb-qa-84-20260226-replica"
+            ],
+            "LicenseModel": "general-public-license",
+            "Iops": 3000,
+            "OptionGroupMemberships": [
+                {
+                    "OptionGroupName": "custom-audit-log-nonprod-84",
+                    "Status": "in-sync"
+                }
+            ],
+            "SecondaryAvailabilityZone": "us-east-1b",
+            "PubliclyAccessible": false,
+            "StorageType": "gp3",
+            "DbInstancePort": 0,
+            "StorageEncrypted": false,
+            "DbiResourceId": "db-V3WTGWOTG7BLXCBOTSLZ77LDG4",
+            "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+            "DomainMemberships": [],
+            "CopyTagsToSnapshot": true,
+            "MonitoringInterval": 60,
+            "EnhancedMonitoringResourceArn": "arn:aws:logs:us-east-1:788724168120:log-group:RDSOSMetrics:log-stream:db-V3WTGWOTG7BLXCBOTSLZ77LDG4",
+            "MonitoringRoleArn": "arn:aws:iam::788724168120:role/rds-monitoring-role",
+            "DBInstanceArn": "arn:aws:rds:us-east-1:788724168120:db:prod-rds-auxdb-qa-84-20260226",
+            "IAMDatabaseAuthenticationEnabled": false,
+            "DatabaseInsightsMode": "standard",
+            "PerformanceInsightsEnabled": true,
+            "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:788724168120:key/de2276b9-c4c8-4168-90c1-d2fc99e242fb",
+            "PerformanceInsightsRetentionPeriod": 7,
+            "DeletionProtection": true,
+            "AssociatedRoles": [],
+            "TagList": [
+                {
+                    "Key": "OPP-5465_db_cost_resource_name",
+                    "Value": "prod-rds-auxdb-qa-80-20240808"
+                },
+                {
+                    "Key": "role",
+                    "Value": "auxdb"
+                },
+                {
+                    "Key": "createdby",
+                    "Value": "ops"
+                },
+                {
+                    "Key": "resource",
+                    "Value": "rds"
+                },
+                {
+                    "Key": "service",
+                    "Value": "auxdb"
+                },
+                {
+                    "Key": "function",
+                    "Value": "infrastructure"
+                },
+                {
+                    "Key": "zoo",
+                    "Value": "qa"
+                },
+                {
+                    "Key": "env",
+                    "Value": "stage"
+                },
+                {
+                    "Key": "monitoring",
+                    "Value": "staging"
+                },
+                {
+                    "Key": "Name",
+                    "Value": "prod-ads-auxdb-qa-20210205"
+                }
+            ],
+            "CustomerOwnedIpEnabled": false,
+            "ActivityStreamStatus": "stopped",
+            "BackupTarget": "region",
+            "NetworkType": "IPV4",
+            "StorageThroughput": 125,
+            "CertificateDetails": {
+                "CAIdentifier": "rds-ca-rsa2048-g1",
+                "ValidTill": "2027-02-26T19:00:31+00:00"
+            },
+            "DedicatedLogVolume": false,
+            "IsStorageConfigUpgradeAvailable": true,
+            "EngineLifecycleSupport": "open-source-rds-extended-support-disabled"
+        }
+    ]
+}

@@ -1,0 +1,86 @@
+{
+    "AlignedStartTime": "2026-06-17T18:00:00-06:00",
+    "AlignedEndTime": "2026-06-18T18:00:00-06:00",
+    "Keys": [
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "4df27575fa093ba2ed99bd678feafb1b",
+                "db.sql_tokenized.id": "BA9A33140E9D183FCE30B30A046CF9337B426852",
+                "db.sql_tokenized.statement": "UPDATE `master_autocommercial_index` `mai` INNER JOIN `autocommercial_hit_updates` `ahc` ON `mai` . `mci_idx` = `ahc` . `mci_idx` SET `mai` . `last_seen` = NOW ( )"
+            },
+            "Total": 0.034394535772169485
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "6c82bf17027dd3c8e9f452f0d16e21dd",
+                "db.sql_tokenized.id": "EE824635BB51642AF38D1D3CA05B17E69DE7189C",
+                "db.sql_tokenized.statement": "INSERT INTO `master_content_index` ( `state` , `last_updated` , TYPE ) VALUES ( ? , NOW ( ) , ? )"
+            },
+            "Total": 0.01893956934475573
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "f2399e333ac426e76e2fcfd66d3582d7",
+                "db.sql_tokenized.id": "D417EA20DB4DE64FBF265F23E3CC3F814309A34F",
+                "db.sql_tokenized.statement": "CALL `build_live_persistence_audio` ( ? , @? )"
+            },
+            "Total": 0.01367214633016902
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "e360cca4bba731acef7d14c13c0c994d",
+                "db.sql_tokenized.id": "375AD3C158D8BD8E120CBCAFCA817D55521F03A0",
+                "db.sql_tokenized.statement": "SELECT SUM ( `tf_duration` ) FROM `master_live_index` `mli` JOIN SCHEDULE `pg` ON `pg` . `tf_database_key` = `mli` . `air_id` JOIN `master_content_index` `mci` ON `mci` . `mci_idx` = `mli` . `mci_idx` WHERE `audio_state` = ?"
+            },
+            "Total": 0.009956008335262792
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "0ae35c3a53c65bb5d67a2e84853e3646",
+                "db.sql_tokenized.id": "5EDD256AA5D6BF2F27D4E9E3D59917B0CDB3F205",
+                "db.sql_tokenized.statement": "SELECT COUNT ( * ) FROM `master_live_index` `mli` JOIN SCHEDULE `pg` ON `pg` . `tf_database_key` = `mli` . `air_id` JOIN `master_content_index` `mci` ON `mci` . `mci_idx` = `mli` . `mci_idx` WHERE `audio_state` = ?"
+            },
+            "Total": 0.006239870340356564
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "c0760802329bda8e89ac279bc1cb5514",
+                "db.sql_tokenized.id": "D30295F4A0B4D39FCF85F5D60BF7922A45752B7F",
+                "db.sql_tokenized.statement": "CALL `build_file_persistence` ( ? , @? )"
+            },
+            "Total": 0.005475804584394536
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "8dec0122ad24c63b425d8732e28a814c",
+                "db.sql_tokenized.id": "9CC5B9A0CF31248630EF7B952C16D2A80B8EFFF1",
+                "db.sql_tokenized.statement": "UPDATE `master_content_index` SET `state` = ? , `last_updated` = NOW ( ) WHERE `mci_idx` = ? AND `UNIX_TIMESTAMP` ( `last_updated` ) >= ?"
+            },
+            "Total": 0.0038897893030794164
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "d3add33d8e6c0eec928700cd52b691cd",
+                "db.sql_tokenized.id": "98FBE0588D2F56506C1C816EA6DC4878DD3EC07D",
+                "db.sql_tokenized.statement": "SELECT `tms_schedule` . `tf_database_key` , `tms_schedule` . `tf_station_num` , `CONCAT` ( `STR_TO_DATE` ( `tf_air_date` , ? ) , ? , `STR_TO_DATE` ( `tf_air_time` , ? ) , ? ) , `FLOOR` ( `UNIX_TIMESTAMP` ( `CONCAT` ( `STR_TO_DATE` ( `tf_air_date` , ? ) , ? , `STR_TO_DATE` ( `tf_air_time` , ? ) , ? ) ) ) AS `airtime` , `TIME_FORMAT` ( `STR_TO_DATE` ( `tf_duration` , ? ) , ? ) , `CONCAT` ( `STR_TO_DATE` ( `tf_air_date` , ? ) , ? , `STR_TO_DATE` ( `tf_air_time` , ? ) ) , `program` . `tf_show_type` "
+            },
+            "Total": 0.0031141467932391757
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "2b9727e0bdc6d65cde5fad7625c4f2a6",
+                "db.sql_tokenized.id": "325FACE3E473869846BA0007195B19ACCCA4841F",
+                "db.sql_tokenized.statement": "SELECT COUNT (?) FROM `schedule_restore`"
+            },
+            "Total": 0.0030215327622134754
+        },
+        {
+            "Dimensions": {
+                "db.sql_tokenized.db_id": "09ca02fa07aa4523e2762fe5ca073ffa",
+                "db.sql_tokenized.id": "988FF1FC4490EECA042ECA3770A8A9BEE373E483",
+                "db.sql_tokenized.statement": "SELECT `tms_schedule` . `tf_database_key` , REPLACE ( REPLACE ( REPLACE ( REPLACE ( REPLACE ( `program` . `tf_title` , ?, ... ) , ?, ... ) , ?, ... ) , ?, ... ) , ?, ... ) , REPLACE ( REPLACE ( REPLACE ( REPLACE ( REPLACE ( `program` . `tf_epi_title` , ?, ... ) , ?, ... ) , ?, ... ) , ?, ... ) , ?, ... ) , `STR_TO_DATE` ( `program` . `tf_org_air_date` , ? ) , `program` . `tf_show_type` FROM `tms_schedule` , `program` , `signals` WHERE `site_id` = ? AND `tms_schedule` . `tf_station_num` = `signal"
+            },
+            "Total": 0.0027899976846492243
+        }
+    ]
+}

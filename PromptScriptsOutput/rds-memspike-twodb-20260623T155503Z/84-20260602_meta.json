@@ -1,0 +1,17 @@
+{
+    "Id": "prod-rds-auxdb-stage-84-20260602",
+    "Engine": "mysql",
+    "Ver": "8.4.5",
+    "Class": "db.r6i.xlarge",
+    "AZ": "us-east-1b",
+    "MultiAZ": false,
+    "Storage": 1001,
+    "PG": "aux-stg-8-4-5-apr-28",
+    "OG": "custom-audit-log-stg-84",
+    "Endpoint": "prod-rds-auxdb-stage-84-20260602.cujpo2r0mujo.us-east-1.rds.amazonaws.com",
+    "Created": "2026-06-02T21:30:08.873000+00:00",
+    "Logs": [
+        "error"
+    ],
+    "PI": true
+}

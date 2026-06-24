@@ -1,0 +1,62 @@
+{
+    "AlignedStartTime": "2026-06-18T11:20:00-06:00",
+    "AlignedEndTime": "2026-06-18T11:35:00-06:00",
+    "Keys": [
+        {
+            "Dimensions": {
+                "db.wait_event.name": "executing",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 1.55
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "waiting for handler commit",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.02666666666666667
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "updating reference tables",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.0044444444444444444
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "freeing items",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.0022222222222222222
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "Opening tables",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.0022222222222222222
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "updating",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.0011111111111111111
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "query end",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.0011111111111111111
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "creating table",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.0011111111111111111
+        }
+    ]
+}
