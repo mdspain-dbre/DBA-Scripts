@@ -28,22 +28,7 @@ JOIN performance_schema.global_status gs3 ON gs3.VARIABLE_NAME = 'Aborted_connec
 JOIN performance_schema.global_status gs4 ON gs4.VARIABLE_NAME = 'Threads_running'
 WHERE gs1.VARIABLE_NAME = 'Threads_connected';
 
--- 3. INNODB BUFFER POOL
-SELECT
-  ROUND(@@innodb_buffer_pool_size / 1024 / 1024 / 1024, 2) AS buffer_pool_gb,  -- Total memory allocated to the InnoDB buffer pool (in GB)
-  gs1.VARIABLE_VALUE AS bp_read_requests,       -- Total logical read requests served from the buffer pool (cumulative since startup)
-  gs2.VARIABLE_VALUE AS bp_reads_from_disk,     -- Reads that could NOT be satisfied from the buffer pool and required disk I/O
-  ROUND((1 - gs2.VARIABLE_VALUE / NULLIF(gs1.VARIABLE_VALUE, 0)) * 100, 2) AS bp_hit_ratio_pct,  -- Cache hit ratio; target >= 99%. Lower means too many disk reads (buffer pool too small or working set too large)
-  gs3.VARIABLE_VALUE AS bp_pages_dirty,         -- Pages in the buffer pool that have been modified but not yet flushed to disk
-  gs4.VARIABLE_VALUE AS bp_pages_total,         -- Total number of pages allocated in the buffer pool
-  ROUND(gs3.VARIABLE_VALUE / NULLIF(gs4.VARIABLE_VALUE, 0) * 100, 2) AS pct_dirty  -- Percentage of buffer pool pages that are dirty; sustained high values may indicate I/O bottleneck or aggressive write load
-FROM performance_schema.global_status gs1
-JOIN performance_schema.global_status gs2 ON gs2.VARIABLE_NAME = 'Innodb_buffer_pool_reads'
-JOIN performance_schema.global_status gs3 ON gs3.VARIABLE_NAME = 'Innodb_buffer_pool_pages_dirty'
-JOIN performance_schema.global_status gs4 ON gs4.VARIABLE_NAME = 'Innodb_buffer_pool_pages_total'
-WHERE gs1.VARIABLE_NAME = 'Innodb_buffer_pool_read_requests';
-
--- 4. INNODB ROW OPERATIONS & HISTORY LIST
+-- 3. INNODB ROW OPERATIONS & HISTORY LIST
 -- Shows workload profile (read vs write mix) and purge health.
 -- MySQL 8.0: Innodb_history_list_length in global_status
 -- MySQL 8.4: removed; must use information_schema.innodb_metrics
@@ -82,7 +67,7 @@ PREPARE stmt FROM @sql;  -- Compile the version-appropriate query
 EXECUTE stmt;            -- Run it
 DEALLOCATE PREPARE stmt; -- Clean up
 
--- 5. SLOW QUERIES & TABLE LOCKS
+-- 4. SLOW QUERIES & TABLE LOCKS
 -- Measures query performance and table-level lock contention.
 SELECT
   gs1.VARIABLE_VALUE AS slow_queries,          -- Queries exceeding long_query_time threshold (cumulative)
@@ -97,7 +82,7 @@ JOIN performance_schema.global_status gs3 ON gs3.VARIABLE_NAME = 'Table_locks_wa
 JOIN performance_schema.global_status gs4 ON gs4.VARIABLE_NAME = 'Table_locks_immediate'
 WHERE gs1.VARIABLE_NAME = 'Slow_queries';
 
--- 6. TEMP TABLES (disk vs memory)
+-- 5. TEMP TABLES (disk vs memory)
 -- High disk temp table ratio = queries with large sorts/groups spilling to disk (slow).
 SELECT
   gs1.VARIABLE_VALUE AS tmp_tables_created,        -- Total internal temp tables created (memory + disk, cumulative)
@@ -107,7 +92,7 @@ FROM performance_schema.global_status gs1
 JOIN performance_schema.global_status gs2 ON gs2.VARIABLE_NAME = 'Created_tmp_disk_tables'
 WHERE gs1.VARIABLE_NAME = 'Created_tmp_tables';
 
--- 7. REPLICATION STATUS (run on replica)
+-- 6. REPLICATION STATUS (run on replica)
 -- Key columns to check:
 --   Replica_IO_Running: must be 'Yes' (fetching binlogs from source)
 --   Replica_SQL_Running: must be 'Yes' (applying relay logs)
@@ -118,7 +103,7 @@ WHERE gs1.VARIABLE_NAME = 'Created_tmp_tables';
 -- Note: \G is mysql CLI only (vertical output). In DataGrip/Workbench, use semicolon instead.
 SHOW REPLICA STATUS;
 
--- 8. ACTIVE LONG-RUNNING QUERIES (>5 seconds)
+-- 7. ACTIVE LONG-RUNNING QUERIES (>5 seconds)
 -- Identifies queries that may be causing locks, CPU pressure, or blocking other sessions.
 SELECT
   id,                          -- Connection/thread ID; use KILL <id> to terminate if needed
@@ -135,10 +120,10 @@ WHERE command != 'Sleep'       -- Exclude idle connections
   AND id != CONNECTION_ID()    -- Exclude this health check session
 ORDER BY time DESC;
 
--- 9. INNODB DEADLOCKS & LOCK WAITS
+-- 8. INNODB DEADLOCKS & LOCK WAITS
 -- Cumulative lock contention metrics; compare across snapshots to detect trends.
 
--- 9a. Cumulative counters (since startup)
+-- 8a. Cumulative counters (since startup)
 SELECT
   gs1.VARIABLE_VALUE AS innodb_deadlocks,        -- Total deadlocks detected since startup; frequent = app/schema issue
   gs2.VARIABLE_VALUE AS innodb_row_lock_waits,   -- Times a row lock request had to wait (cumulative)
@@ -149,7 +134,7 @@ JOIN performance_schema.global_status gs2 ON gs2.VARIABLE_NAME = 'Innodb_row_loc
 JOIN performance_schema.global_status gs3 ON gs3.VARIABLE_NAME = 'Innodb_row_lock_time'
 WHERE gs1.VARIABLE_NAME = 'Innodb_deadlocks';
 
--- 9b. Deadlock count & last occurrence (time-aware)
+-- 8b. Deadlock count & last occurrence (time-aware)
 -- Use LAST_SEEN to determine if deadlocks are recent (within the last hour).
 -- SUM_ERROR_RAISED is cumulative since startup or last TRUNCATE of this table.
 SELECT
@@ -159,7 +144,7 @@ SELECT
 FROM performance_schema.events_errors_summary_global_by_error
 WHERE ERROR_NUMBER = 1213;
 
--- 9c. Recent deadlocked statements (from statement history buffer)
+-- 8c. Recent deadlocked statements (from statement history buffer)
 -- Buffer size is limited by performance_schema_events_statements_history_long_size (default ~10000).
 -- Not time-windowed — shows whatever is still in the ring buffer.
 SELECT
@@ -176,7 +161,7 @@ WHERE MYSQL_ERRNO = 1213
 ORDER BY TIMER_END DESC
 LIMIT 20;
 
--- 10. CURRENT INNODB LOCK WAITS (who's blocking whom)
+-- 9. CURRENT INNODB LOCK WAITS (who's blocking whom)
 -- Real-time view of blocked transactions; empty result = no current lock waits.
 SELECT
   r.trx_id AS waiting_trx_id,              -- Transaction ID of the session that is waiting/blocked
@@ -190,7 +175,7 @@ FROM performance_schema.data_lock_waits w
 JOIN information_schema.innodb_trx r ON r.trx_id = w.REQUESTING_ENGINE_TRANSACTION_ID
 JOIN information_schema.innodb_trx b ON b.trx_id = w.BLOCKING_ENGINE_TRANSACTION_ID;
 
--- 11. TABLE CACHE EFFICIENCY
+-- 10. TABLE CACHE EFFICIENCY
 -- Tracks whether MySQL can keep table file descriptors open or must repeatedly open/close.
 SELECT
   gs1.VARIABLE_VALUE AS open_tables,           -- Tables currently open in the cache
@@ -201,7 +186,7 @@ FROM performance_schema.global_status gs1
 JOIN performance_schema.global_status gs2 ON gs2.VARIABLE_NAME = 'Opened_tables'
 WHERE gs1.VARIABLE_NAME = 'Open_tables';
 
--- 12. LARGEST TABLES BY SIZE
+-- 11. LARGEST TABLES BY SIZE
 -- Identifies disk space consumers and fragmentation candidates for OPTIMIZE TABLE.
 SELECT
   table_schema,                                          -- Database name
@@ -218,7 +203,7 @@ WHERE table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 
 ORDER BY (data_length + index_length) DESC
 LIMIT 20;
 
--- 13. DISK I/O (file-level)
+-- 12. DISK I/O (file-level)
 -- Reveals I/O latency on critical InnoDB files; high latency = storage bottleneck.
 -- Thresholds (avg per op = total_latency / count):
 --   Healthy: < 1 ms read, < 1 ms write
@@ -240,7 +225,7 @@ WHERE file_name LIKE '%ibdata%'      -- System tablespace
 ORDER BY (sum_timer_read + sum_timer_write) DESC
 LIMIT 10;
 
--- 14. KEY GLOBAL VARIABLES CHECK
+-- 13. KEY GLOBAL VARIABLES CHECK
 -- Snapshot of critical configuration; verify expected values after changes or failovers.
 SELECT VARIABLE_NAME, VARIABLE_VALUE
 FROM performance_schema.global_variables
@@ -263,10 +248,26 @@ WHERE VARIABLE_NAME IN (
 )
 ORDER BY VARIABLE_NAME;
 
--- 15. MEMORY
--- Memory configuration, allocation, and pressure indicators.
+-- 14. MEMORY
+-- Buffer pool efficiency, memory configuration, and pressure indicators.
 
--- 15a. Memory & Temp Table Configuration
+-- 14a. InnoDB Buffer Pool
+-- Cache hit ratio and dirty page pressure; low hit ratio = buffer pool too small for working set.
+SELECT
+  ROUND(@@innodb_buffer_pool_size / 1024 / 1024 / 1024, 2) AS buffer_pool_gb,  -- Total memory allocated to the InnoDB buffer pool (in GB)
+  gs1.VARIABLE_VALUE AS bp_read_requests,       -- Total logical read requests served from the buffer pool (cumulative since startup)
+  gs2.VARIABLE_VALUE AS bp_reads_from_disk,     -- Reads that could NOT be satisfied from the buffer pool and required disk I/O
+  ROUND((1 - gs2.VARIABLE_VALUE / NULLIF(gs1.VARIABLE_VALUE, 0)) * 100, 2) AS bp_hit_ratio_pct,  -- Cache hit ratio; target >= 99%. Lower means too many disk reads (buffer pool too small or working set too large)
+  gs3.VARIABLE_VALUE AS bp_pages_dirty,         -- Pages in the buffer pool that have been modified but not yet flushed to disk
+  gs4.VARIABLE_VALUE AS bp_pages_total,         -- Total number of pages allocated in the buffer pool
+  ROUND(gs3.VARIABLE_VALUE / NULLIF(gs4.VARIABLE_VALUE, 0) * 100, 2) AS pct_dirty  -- Percentage of buffer pool pages that are dirty; sustained high values may indicate I/O bottleneck or aggressive write load
+FROM performance_schema.global_status gs1
+JOIN performance_schema.global_status gs2 ON gs2.VARIABLE_NAME = 'Innodb_buffer_pool_reads'
+JOIN performance_schema.global_status gs3 ON gs3.VARIABLE_NAME = 'Innodb_buffer_pool_pages_dirty'
+JOIN performance_schema.global_status gs4 ON gs4.VARIABLE_NAME = 'Innodb_buffer_pool_pages_total'
+WHERE gs1.VARIABLE_NAME = 'Innodb_buffer_pool_read_requests';
+
+-- 14b. Memory & Temp Table Configuration
 -- Per-session and global memory allocation settings that affect temp table spills and sort performance.
 -- VARIABLE_VALUE is in bytes; value_mb converts to MB for readability.
 -- Non-memory variables (counts, percentages) show 0.00 in value_mb — ignore for those rows.
@@ -295,7 +296,7 @@ WHERE VARIABLE_NAME IN (
 )
 ORDER BY VARIABLE_NAME;
 
--- 15b. Memory Pressure Indicators
+-- 14c. Memory Pressure Indicators
 -- Direct signals that the instance is running low on memory or buffer pool headroom.
 -- bp_wait_free > 0 is the single strongest indicator of memory pressure (InnoDB stalled waiting for a free page).
 -- pct_bp_free < 5% means the buffer pool is nearly full and approaching eviction pressure.
@@ -319,7 +320,7 @@ JOIN performance_schema.global_status wait_free ON wait_free.VARIABLE_NAME = 'In
 JOIN performance_schema.global_status ra_evict ON ra_evict.VARIABLE_NAME = 'Innodb_buffer_pool_read_ahead_evicted'
 WHERE bp_free.VARIABLE_NAME = 'Innodb_buffer_pool_pages_free';
 
--- 16. BINARY LOG DISK USAGE
+-- 15. BINARY LOG DISK USAGE
 -- Shows all binary log files and their sizes.
 -- Watch for: total size consuming significant disk, too many files retained.
 -- Controlled by: binlog_expire_logs_seconds (8.0+) or expire_logs_days (deprecated).
