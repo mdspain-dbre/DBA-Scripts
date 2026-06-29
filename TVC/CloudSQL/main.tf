@@ -1,5 +1,5 @@
 module "cloudsql" {
-  source = "git::https://github.com/vizio-terraform-marketplace/gcp-cloudsql.git?ref=main"
+  source = "git::https://github.com/vizio-terraform-marketplace/gcp-cloudsql.git?ref=v1.1.0"
 
   service                  = var.service
   sub_service              = var.sub_service
@@ -11,12 +11,14 @@ module "cloudsql" {
   machine_tier             = "db-f1-micro" # pin to live; do not let the module default change this
   psc_host_project         = var.psc_host_project
   psc_host_project_network = var.psc_host_project_network
-
+  psc_allowed_consumer_projects = ["vz-inscape-dev"]
   user_labels = local.labels
-
+dns_a_records = {
+    "public-zone-dev-gcp-cognet" = ["tvcdb-development"]
+  }
   google_cloudsql_module_config = {
     root_password = {
       password = var.root_user_password
-    }
   }
+}
 }

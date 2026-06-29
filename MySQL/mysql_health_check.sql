@@ -320,8 +320,57 @@ JOIN performance_schema.global_status wait_free ON wait_free.VARIABLE_NAME = 'In
 JOIN performance_schema.global_status ra_evict ON ra_evict.VARIABLE_NAME = 'Innodb_buffer_pool_read_ahead_evicted'
 WHERE bp_free.VARIABLE_NAME = 'Innodb_buffer_pool_pages_free';
 
+-- 14d. InnoDB Buffer Pool Utilization Snapshot (quick operator view)
+-- Purpose:
+--   Provide a compact, human-readable snapshot of InnoDB buffer pool occupancy
+--   and write pressure to support fast triage during incidents and daily checks.
+--
+-- How to read:
+--   data_pct  = share of buffer pool currently holding data pages.
+--   dirty_pct = share of dirty pages waiting to be flushed; sustained elevation can
+--               indicate flush lag or checkpoint pressure on write-heavy workloads.
+--   free_pct  = immediate eviction headroom; persistently low values imply churn and
+--               higher risk of synchronous evictions under read pressure.
+--
+-- Status thresholds (free_pct):
+--   < 0.5%  -> CRITICAL: near-zero headroom; expect elevated latency risk.
+--   < 2.0%  -> LOW: constrained headroom; monitor closely for spikes.
+--   < 5.0%  -> OK: workable but limited margin.
+--   >= 5.0% -> HEALTHY: comfortable operating headroom.
+SELECT
+  FORMAT(pages_total, 0)                          AS pages_total,  -- Total allocated buffer pool pages
+  FORMAT(pages_data,  0)                          AS pages_data,   -- Pages currently used for data/index contents
+  FORMAT(pages_dirty, 0)                          AS pages_dirty,  -- Modified pages pending flush to disk
+  FORMAT(pages_free,  0)                          AS pages_free,   -- Free pages immediately available
+  ROUND(pages_data  * 100.0 / pages_total, 2)     AS `data_pct (utilization)`,
+  ROUND(pages_dirty * 100.0 / pages_total, 2)     AS `dirty_pct (write pressure / flush lag)`,
+  ROUND(pages_free  * 100.0 / pages_total, 3)     AS `free_pct (eviction headroom)`,
+  CASE
+    WHEN pages_free * 100.0 / pages_total < 0.5 THEN '🔴 CRITICAL'
+    WHEN pages_free * 100.0 / pages_total < 2.0 THEN '🟡 LOW'
+    WHEN pages_free * 100.0 / pages_total < 5.0 THEN '🟢 OK'
+    ELSE                                             '🟢 HEALTHY'
+  END                                              AS status
+FROM (
+  SELECT
+    MAX(CASE WHEN VARIABLE_NAME='Innodb_buffer_pool_pages_total' THEN VARIABLE_VALUE END) +0 AS pages_total,
+    MAX(CASE WHEN VARIABLE_NAME='Innodb_buffer_pool_pages_data'  THEN VARIABLE_VALUE END) +0 AS pages_data,
+    MAX(CASE WHEN VARIABLE_NAME='Innodb_buffer_pool_pages_dirty' THEN VARIABLE_VALUE END) +0 AS pages_dirty,
+    MAX(CASE WHEN VARIABLE_NAME='Innodb_buffer_pool_pages_free'  THEN VARIABLE_VALUE END) +0 AS pages_free
+  FROM performance_schema.global_status
+  WHERE VARIABLE_NAME IN (
+    'Innodb_buffer_pool_pages_total',
+    'Innodb_buffer_pool_pages_data',
+    'Innodb_buffer_pool_pages_dirty',
+    'Innodb_buffer_pool_pages_free'
+  )
+) bp;
+
+
 -- 15. BINARY LOG DISK USAGE
 -- Shows all binary log files and their sizes.
 -- Watch for: total size consuming significant disk, too many files retained.
 -- Controlled by: binlog_expire_logs_seconds (8.0+) or expire_logs_days (deprecated).
 SHOW BINARY LOGS;
+
+

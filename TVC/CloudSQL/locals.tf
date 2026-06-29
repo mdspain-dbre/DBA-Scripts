@@ -8,10 +8,8 @@ locals {
     environment = var.environment
     team        = "cpie-dre"
     owner       = "cpie-dre"
-    function    = "tvc"                                       # TODO: confirm
+    function    = "tvc" # TODO: confirm
     service     = var.service
-    monitoring  = "cpie-dre@vizio.com"
-    repo        = "CognitiveNetworks/evergreen-inscape-iac"   # TODO: confirm app repo
-    "iac-repo"  = "CognitiveNetworks/DBA-Scripts"             # TODO: confirm IaC repo
+    repo        = "cognitivenetworks_evergreen-inscape-iac" # TODO: confirm app repo
   }
 }

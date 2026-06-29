@@ -8,7 +8,7 @@ data "google_sql_database_instance" "this" {
   project = var.project_id
   name    = var.instance_name
 }
-
+/*
 locals {
   # The active PSC consumer IP for the instance (e.g. 10.234.255.246).
   cloudsql_psc_ip = one([
@@ -23,7 +23,8 @@ locals {
     ]) : ip if ip != null && ip != "NONE"
   ])
 }
-
+*/
+/*
 resource "google_dns_record_set" "tvcdb_development" {
   project      = var.project_id
   managed_zone = "public-zone-dev-gcp-cognet"
@@ -32,3 +33,4 @@ resource "google_dns_record_set" "tvcdb_development" {
   ttl          = 300
   rrdatas      = [local.cloudsql_psc_ip]
 }
+*/
