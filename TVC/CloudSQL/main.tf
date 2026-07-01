@@ -15,6 +15,7 @@ module "cloudsql" {
   user_labels = local.labels
 dns_a_records = {
     "public-zone-dev-gcp-cognet" = ["tvcdb-development"]
+    "inscape-dev-sql-goog-portfolio-dev-use4"=["60215c4afd18"]
   }
   google_cloudsql_module_config = {
     root_password = {
