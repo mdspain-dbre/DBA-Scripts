@@ -65,6 +65,14 @@ function Invoke-RdsToCloudSqlBackup {
         When 1 and -GcsObjectUri is not supplied, the newest
         gs://<GcsBucket>/<SourceDb>_*.sql.gz object is auto-selected and printed.
 
+    .PARAMETER ProgressBarColor
+        ANSI color used for the pv progress bar during the dump/upload stream.
+        Default: 'brightBlue'. Ignored when running with -ImportOnly 1 (no pv stage).
+        Valid values (standard + bright variants):
+          black, red, green, yellow, blue, magenta, cyan, white,
+          brightBlack, brightRed, brightGreen, brightYellow,
+          brightBlue, brightMagenta, brightCyan, brightWhite
+
     .PARAMETER PgDumpBin
         Full path to pg_dump. Must match the source server's major version.
 
@@ -93,6 +101,10 @@ function Invoke-RdsToCloudSqlBackup {
             -GcsObjectUri 'gs://portaldb-backup-dre/unicorn_20260713_191539.sql.gz'
 
     .EXAMPLE
+        # Full run with a green progress bar
+        Invoke-RdsToCloudSqlBackup -ProgressBarColor 'brightGreen'
+
+    .EXAMPLE
         # Different source/target end-to-end
         Invoke-RdsToCloudSqlBackup `
             -AwsProfile 'Inscape Production US 1' `
@@ -118,6 +130,10 @@ function Invoke-RdsToCloudSqlBackup {
         [string]$GcsObjectUri,
         [ValidateSet(0, 1)]
         [int]$ImportOnly = 0,
+        [ValidateSet('black','red','green','yellow','blue','magenta','cyan','white',
+                     'brightBlack','brightRed','brightGreen','brightYellow',
+                     'brightBlue','brightMagenta','brightCyan','brightWhite')]
+        [string]$ProgressBarColor = 'brightBlue',
         [string]$PgDumpBin = '/opt/homebrew/opt/postgresql@18/bin/pg_dump'
     )
 
@@ -127,15 +143,17 @@ function Invoke-RdsToCloudSqlBackup {
     if ($ImportOnly -eq 1) {
         # --- Branch A: Import-only mode -------------------------------------
         # Skip RDS lookup, sizing, dump, upload. Straight to import.
-        if (-not $GcsObjectUri) {
+        if (-not $GcsObjectUri) 
+        {
             # Auto-discover the newest dump in the bucket for this SourceDb.
             $bucketPrefix = "gs://$($GcsBucket.TrimEnd('/'))"
             $globUri = "$bucketPrefix/${SourceDb}_*.sql.gz"
             Write-Host "ImportOnly=1: searching $globUri for the most recent upload"
             $listing = & gcloud --project $GcpProjectId storage ls $globUri 2>$null
-            if ($LASTEXITCODE -ne 0 -or -not $listing) {
-                throw "No objects matched $globUri. Pass -GcsObjectUri explicitly."
-            } # end if (gcloud ls failed / no results)
+            if ($LASTEXITCODE -ne 0 -or -not $listing) 
+                {
+                    throw "No objects matched $globUri. Pass -GcsObjectUri explicitly."
+                } # end if (gcloud ls failed / no results)
             # Filenames embed yyyyMMdd_HHmmss, so lexicographic sort == chronological.
             # Use Select-Object -Last 1 so a single-line result is treated as one item
             # (indexing [-1] on a scalar string returns the last CHARACTER, not the string).
@@ -143,7 +161,8 @@ function Invoke-RdsToCloudSqlBackup {
             Write-Host "Auto-selected latest upload: $GcsObjectUri"
         } # end if (-not $GcsObjectUri) -- auto-discovery
 
-        if ($GcsObjectUri -notmatch '^gs://') {
+        if ($GcsObjectUri -notmatch '^gs://') 
+        {
             throw "GcsObjectUri must start with gs:// (got: $GcsObjectUri)"
         } # end if (GcsObjectUri scheme validation)
         $gcsUri = $GcsObjectUri
@@ -155,10 +174,14 @@ function Invoke-RdsToCloudSqlBackup {
         $rdsOutput = & aws --profile $AwsProfile --region $AwsRegion rds describe-db-instances `
             --db-instance-identifier $SourceRdsInstance `
             --query 'DBInstances[0].Endpoint.[Address,Port]' --output text
-        if ($LASTEXITCODE -ne 0) { throw "aws rds describe-db-instances failed (exit $LASTEXITCODE)" }
+        if ($LASTEXITCODE -ne 0) 
+        { 
+            throw "aws rds describe-db-instances failed (exit $LASTEXITCODE)" 
+        }
 
         $rdsParts = ($rdsOutput -split '\s+') | Where-Object { $_ }
-        if ($rdsParts.Count -lt 2) {
+        if ($rdsParts.Count -lt 2) 
+        {
             throw "Unexpected RDS endpoint output: $rdsOutput"
         } # end if (RDS endpoint parse guard)
         $sourceHost = $rdsParts[0]
@@ -169,92 +192,113 @@ function Invoke-RdsToCloudSqlBackup {
         $gcsUri = "gs://$($GcsBucket.TrimEnd('/'))/${SourceDb}_$timestamp.sql.gz"
 
         # Prereq: pv (pipe viewer) for progress. Fail fast with a clear hint.
-        if (-not (Get-Command pv -ErrorAction SilentlyContinue)) {
+        if (-not (Get-Command pv -ErrorAction SilentlyContinue)) 
+        {
             throw "pv is required for progress output. Install with: brew install pv"
         } # end if (pv prereq)
 
         # Prereq: pigz (parallel gzip). Much faster than gzip on multi-core hosts.
-        if (-not (Get-Command pigz -ErrorAction SilentlyContinue)) {
+        if (-not (Get-Command pigz -ErrorAction SilentlyContinue)) 
+        {
             throw "pigz is required for parallel compression. Install with: brew install pigz"
         } # end if (pigz prereq)
 
         # Derive psql from the pg_dump path so versions match.
         $psqlBin = Join-Path (Split-Path $PgDumpBin) 'psql'
-        if (-not (Test-Path $psqlBin)) {
+        if (-not (Test-Path $psqlBin)) 
+        {
             throw "psql not found at $psqlBin (needed to size the source DB)"
         } # end if (psql prereq)
 
-        $oldPassword = $env:PGPASSWORD
-        $oldSslMode = $env:PGSSLMODE
         $env:PGPASSWORD = $SourceDbPassword
         $env:PGSSLMODE = 'require'
+        # --- Dump/upload pipeline (runs with PGPASSWORD/PGSSLMODE set) --
+        # Ask the source how big the database is (uncompressed on-disk bytes).
+        # This is an upper bound for the raw pg_dump stream — good enough for pv -s
+        # to render a % / ETA. Wrapped so a failure just disables the size hint.
+        #
+        # psql flags used below:
+        #   --host=<host>        RDS endpoint hostname (from `aws rds describe-db-instances`)
+        #   --port=<port>        RDS endpoint port (usually 5432)
+        #   --username=<user>    Postgres login role; password comes from $env:PGPASSWORD
+        #   --dbname=<db>        Database to connect to
+        #   -Atqc "<sql>"        Stacked short flags for scriptable single-value output:
+        #                          -A  unaligned output (no column padding / separators)
+        #                          -t  tuples only     (no header row, no "(N rows)" footer)
+        #                          -q  quiet           (suppress SET/notice chatter)
+        #                          -c  command         (run the SQL that follows, then exit)
+        #                        Together they produce one clean line like "12345678900"
+        #                        that can be captured and passed to [int64].
+        $rawSizeBytes = $null
+        $sizePretty   = $null
         try {
-            # --- Dump/upload pipeline (runs with PGPASSWORD/PGSSLMODE set) --
-            # Ask the source how big the database is (uncompressed on-disk bytes).
-            # This is an upper bound for the raw pg_dump stream — good enough for pv -s
-            # to render a % / ETA. Wrapped so a failure just disables the size hint.
-            $rawSizeBytes = $null
-            $sizePretty   = $null
-            try {
-                $sizeText = & $psqlBin --host=$sourceHost --port=$sourcePort `
+            $sizeText = & $psqlBin --host=$sourceHost --port=$sourcePort `
+                --username=$SourceDbUser --dbname=$SourceDb `
+                -Atqc "SELECT pg_database_size('$SourceDb')"
+            if ($LASTEXITCODE -eq 0 -and $sizeText -match '^\d+$')
+            {
+                $rawSizeBytes = [int64]$sizeText
+                $sizePretty = & $psqlBin --host=$sourceHost --port=$sourcePort `
                     --username=$SourceDbUser --dbname=$SourceDb `
-                    -Atqc "SELECT pg_database_size('$SourceDb')"
-                if ($LASTEXITCODE -eq 0 -and $sizeText -match '^\d+$') {
-                    $rawSizeBytes = [int64]$sizeText
-                    $sizePretty = & $psqlBin --host=$sourceHost --port=$sourcePort `
-                        --username=$SourceDbUser --dbname=$SourceDb `
-                        -Atqc "SELECT pg_size_pretty(pg_database_size('$SourceDb'))"
-                    Write-Host "Source DB size: $sizePretty ($rawSizeBytes bytes)"
-                } else {
-                    Write-Warning "Could not read source DB size; pv will run without a total."
-                } # end if/else (pg_database_size result check)
-            } catch {
-                Write-Warning "Sizing query failed: $_. pv will run without a total."
-            } # end try/catch (source DB sizing)
+                    -Atqc "SELECT pg_size_pretty(pg_database_size('$SourceDb'))"
+                Write-Host "Source DB size: $sizePretty ($rawSizeBytes bytes)"
+            }
+            else
+            {
+                Write-Warning "Could not read source DB size; pv will run without a total."
+            } # end if/else (pg_database_size result check)
+        } catch
+        {
+            Write-Warning "Sizing query failed: $_. pv will run without a total."
+        } # end try/catch (source DB sizing)
 
-            Write-Host "Streaming pg_dump | pv | pigz -1 | pv | gcloud storage cp -> $gcsUri"
+        Write-Host "Streaming pg_dump | pv | pigz -1 | gcloud storage cp -> $gcsUri"
 
-            # Use `set -o pipefail` semantics via bash so a pg_dump failure kills
-            # the pipeline and returns a non-zero exit code (PowerShell pipelines
-            # only surface the *last* command's exit code, which masks pg_dump errors).
-            $pgDumpArgs = @(
-                "--host=$sourceHost",
-                "--port=$sourcePort",
-                "--username=$SourceDbUser",
-                "--dbname=$SourceDb",
-                '--format=plain',
-                '--encoding=UTF8',
-                '--no-owner',
-                '--no-privileges',
-                '--quote-all-identifiers',
-                '--verbose'
-            ) -join ' '
+        # Use `set -o pipefail` semantics via bash so a pg_dump failure kills
+        # the pipeline and returns a non-zero exit code (PowerShell pipelines
+        # only surface the *last* command's exit code, which masks pg_dump errors).
+        # NOTE: --verbose intentionally omitted and pg_dump's stderr is redirected
+        # to /dev/null so the terminal only shows the pv progress bar.
+        $pgDumpArgs = @(
+            "--host=$sourceHost",
+            "--port=$sourcePort",
+            "--username=$SourceDbUser",
+            "--dbname=$SourceDb",
+            '--format=plain',
+            '--encoding=UTF8',
+            '--no-owner',
+            '--no-privileges',
+            '--quote-all-identifiers'
+        ) -join ' '   # Flatten the array into a single space-separated string.
+                      # bash -c takes ONE command string, so all pg_dump flags must
+                      # be pre-joined here; bash will re-tokenize on whitespace when
+                      # $pgDumpArgs is interpolated into $bashCmd below.
 
-            # First pv sits on the raw dump stream so we get bytes-done / total and % vs pg_database_size.
-            # Second pv sits on the compressed stream to show upload throughput to GCS.
-            # Use line-per-tick format (`-F ... \n` + `-i 2`) so PowerShell hosts that
-            # buffer stderr per line still surface progress every 2 seconds.
-            # Total label is embedded as a literal string so users see "3.21GiB / 42 GB".
-            $totalLabel = if ($sizePretty) { $sizePretty } elseif ($rawSizeBytes) { "$rawSizeBytes bytes" } else { $null }
-
-            $pvDump = if ($rawSizeBytes) {
-                "pv -p -f -i 2 -F 'dump: %b / $totalLabel %p %r ETA %e\n' -s $rawSizeBytes"
-            } else {
-                "pv -f -i 2 -F 'dump: %b %r\n'"
-            } # end if/else ($pvDump format selection)
-            $pvGz = "pv -f -i 2 -F 'gz:   %b (compressed) %r\n'"
-
-            # pigz -1 = fastest compression, all cores. Larger than default -6 but usually a net win
-            # because compression (not network) is the bottleneck when streaming to GCS.
-            $bashCmd = "set -euo pipefail; '$PgDumpBin' $pgDumpArgs | $pvDump | pigz -1 -c | $pvGz | gcloud --project '$GcpProjectId' storage cp - '$gcsUri'"
-            & /bin/bash -c $bashCmd
-            if ($LASTEXITCODE -ne 0) { throw "Dump/upload pipeline failed (exit $LASTEXITCODE)" }
+        # Single pv on the raw dump stream, progress bar only (-p, delivered via -F).
+        # ANSI escape sequences colorize the bar; change via -ProgressBarColor.
+        # Needs a known size (-s) to render the bar; if we couldn't size the DB,
+        # pass the stream through with no pv (nothing useful to display).
+        # -f forces output even when stderr isn't a tty (which it isn't under pwsh).
+        $ansiMap = @{
+            black         = '30'; red           = '31'; green         = '32'; yellow        = '33'
+            blue          = '34'; magenta       = '35'; cyan          = '36'; white         = '37'
+            brightBlack   = '90'; brightRed     = '91'; brightGreen   = '92'; brightYellow  = '93'
+            brightBlue    = '94'; brightMagenta = '95'; brightCyan    = '96'; brightWhite   = '97'
         }
-        finally {
-            # Restore PGPASSWORD/PGSSLMODE regardless of dump/upload outcome.
-            $env:PGPASSWORD = $oldPassword
-            $env:PGSSLMODE = $oldSslMode
-        } # end try/finally (PG env vars scoped to dump/upload)
+        $esc        = [char]27
+        $colorCode  = $ansiMap[$ProgressBarColor]
+        $pvFormat   = "'${esc}[${colorCode}m%p${esc}[0m'"   # single-quoted for bash; embeds real ESC bytes
+        $pvStage    = if ($rawSizeBytes) { "pv -f -F $pvFormat -s $rawSizeBytes" } else { 'cat' }
+
+        # pigz -1 = fastest compression, all cores. Larger than default -6 but usually a net win
+        # because compression (not network) is the bottleneck when streaming to GCS.
+        # `gcloud ... --verbosity=error` silences the upload chatter; only errors surface.
+        $bashCmd = "set -euo pipefail; '$PgDumpBin' $pgDumpArgs 2>/dev/null | $pvStage | pigz -1 -c | gcloud --project '$GcpProjectId' --verbosity=error storage cp - '$gcsUri'"
+        & /bin/bash -c $bashCmd
+        if ($LASTEXITCODE -ne 0)
+        {
+            throw "Dump/upload pipeline failed (exit $LASTEXITCODE)"
+        }
     } # end Branch B: full run (dump + upload)
 
     # =========================================================================
@@ -263,6 +307,53 @@ function Invoke-RdsToCloudSqlBackup {
     Write-Host 'Verifying uploaded object'
     & gcloud --project $GcpProjectId storage ls -l $gcsUri
     if ($LASTEXITCODE -ne 0) { throw "gcloud storage ls failed (exit $LASTEXITCODE)" }
+
+    # =========================================================================
+    # SECTION 2.5: Preflight IAM check
+    #   Confirm the Cloud SQL instance's service agent has read access on the
+    #   bucket. The managed `gcloud sql import sql` API always reads GCS *as*
+    #   this service agent (not as the invoking user), so this is the exact
+    #   identity that must be authorized. Fails fast with a copy/paste fix.
+    # =========================================================================
+    Write-Host 'Preflight: checking Cloud SQL service agent read access on the bucket'
+    $cloudSqlSa = & gcloud --project $GcpProjectId sql instances describe $TargetCloudSqlInstance `
+        --format='value(serviceAccountEmailAddress)'
+    Write-Host "  Cloud SQL SA: $cloudSqlSa"
+
+    $bucketUri = "gs://$($GcsBucket.TrimEnd('/'))"
+    $policy = & gcloud storage buckets get-iam-policy $bucketUri --format=json | ConvertFrom-Json
+
+    # Roles that grant storage.objects.get on bucket contents.
+    $readRoles = @(
+        'roles/storage.objectViewer',
+        'roles/storage.objectUser',
+        'roles/storage.admin',
+        'roles/storage.legacyBucketReader',
+        'roles/storage.legacyBucketOwner',
+        'roles/storage.legacyObjectReader',
+        'roles/storage.legacyObjectOwner'
+    )
+    $memberToken = "serviceAccount:$cloudSqlSa"
+    $matchedRole = $policy.bindings |
+        Where-Object { $_.role -in $readRoles -and $_.members -contains $memberToken } |
+        Select-Object -First 1 -ExpandProperty role
+
+    if ($matchedRole) {
+        Write-Host "  OK: $cloudSqlSa has $matchedRole on $bucketUri"
+    }
+    else {
+        throw @"
+Cloud SQL service agent does NOT have a bucket-level read role on $bucketUri.
+  Service agent: $cloudSqlSa
+  Bucket:        $bucketUri
+Grant read access, then re-run with -ImportOnly 1:
+
+execute the following to fix the IAM binding:
+gcloud storage buckets add-iam-policy-binding $bucketUri ``
+    --member='serviceAccount:$cloudSqlSa' ``
+    --role='roles/storage.objectViewer'
+"@
+    } # end if/else (matched role check)
 
     # =========================================================================
     # SECTION 3: Cloud SQL import (runs in both branches; async vs sync)
@@ -303,4 +394,4 @@ function Invoke-RdsToCloudSqlBackup {
 Invoke-RdsToCloudSqlBackup -GcsBucket 'portaldb-backup' `
  -SourceDbPassword 'KVV0hjhRf&zGXK9j' `
 -SourceDbUser 'root' `
--importonly 1
+-importonly 0
