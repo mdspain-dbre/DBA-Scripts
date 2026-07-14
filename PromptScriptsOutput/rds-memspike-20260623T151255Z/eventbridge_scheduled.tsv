@@ -1,9 +1,0 @@
-rate(5 minutes)     LimitMonitor-QueuePollSchedule-7XJWMUX12WQ7  Limit Monitor Solution - Schedule to poll SQS queue
-rate(1 day)         LimitMonitor-TARefreshSchedule-IFPLDFBIFGY8  Limit Monitor Solution - Schedule to refresh TA checks
-cron(0 2 * * ? *)   gtplus-labeling-rule                         Rule requested by GT+ engineer - Will trigger an event once a day to pull data from S3 (2 AM UTC)
-cron(0 14 * * ? *)  gtplus-labeling-rule-time                    Rule requested by GT+ engineer - Will trigger an event once a day to pull data from S3 (2 PM UTC)
-rate(1 minute)      james-test                                   nothing
-rate(11 minutes)    overwatch-hour-dtsstage-trigger              Trigger the "overwatch-hour-dtsstage" Lambda.
-rate(11 minutes)    overwatch-hour-qa-trigger                    Trigger for overwatch-hour-qa Lambda Function.
-rate(11 minutes)    overwatch-hour-sofiazoo-trigger              Trigger for overwatch-hour-sofiazoo Lambda Function.
-rate(15 minutes)    ump_watcher_trigger                          Kick off the ump watcher lambda function
