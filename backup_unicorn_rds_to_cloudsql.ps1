@@ -133,13 +133,14 @@ function Invoke-RdsToCloudSqlBackup {
         [ValidateSet('black','red','green','yellow','blue','magenta','cyan','white',
                      'brightBlack','brightRed','brightGreen','brightYellow',
                      'brightBlue','brightMagenta','brightCyan','brightWhite')]
-        [string]$ProgressBarColor = 'brightBlue',
+        [string]$ProgressBarColor = 'brightMagenta',
         [string]$PgDumpBin = '/opt/homebrew/opt/postgresql@18/bin/pg_dump'
     )
 
     # =========================================================================
     # SECTION 1: Resolve $gcsUri (import-only auto-discover OR full dump+upload)
     # =========================================================================
+    try {
     if ($ImportOnly -eq 1) {
         # --- Branch A: Import-only mode -------------------------------------
         # Skip RDS lookup, sizing, dump, upload. Straight to import.
@@ -168,7 +169,8 @@ function Invoke-RdsToCloudSqlBackup {
         $gcsUri = $GcsObjectUri
         Write-Host "Import-only mode: skipping pg_dump/upload. Using existing object: $gcsUri"
     } # end Branch A: ImportOnly
-    else {
+    else 
+    {
         # --- Branch B: Full run (dump + upload) -----------------------------
         Write-Host 'Resolving source RDS endpoint'
         $rdsOutput = & aws --profile $AwsProfile --region $AwsRegion rds describe-db-instances `
@@ -247,7 +249,8 @@ function Invoke-RdsToCloudSqlBackup {
             {
                 Write-Warning "Could not read source DB size; pv will run without a total."
             } # end if/else (pg_database_size result check)
-        } catch
+        } 
+        catch
         {
             Write-Warning "Sizing query failed: $_. pv will run without a total."
         } # end try/catch (source DB sizing)
@@ -305,8 +308,12 @@ function Invoke-RdsToCloudSqlBackup {
     # SECTION 2: Verify uploaded object (runs in both branches)
     # =========================================================================
     Write-Host 'Verifying uploaded object'
+    
     & gcloud --project $GcpProjectId storage ls -l $gcsUri
-    if ($LASTEXITCODE -ne 0) { throw "gcloud storage ls failed (exit $LASTEXITCODE)" }
+    if ($LASTEXITCODE -ne 0) 
+    { 
+        throw "gcloud storage ls failed (exit $LASTEXITCODE)" 
+    }
 
     # =========================================================================
     # SECTION 2.5: Preflight IAM check
@@ -316,6 +323,7 @@ function Invoke-RdsToCloudSqlBackup {
     #   identity that must be authorized. Fails fast with a copy/paste fix.
     # =========================================================================
     Write-Host 'Preflight: checking Cloud SQL service agent read access on the bucket'
+
     $cloudSqlSa = & gcloud --project $GcpProjectId sql instances describe $TargetCloudSqlInstance `
         --format='value(serviceAccountEmailAddress)'
     Write-Host "  Cloud SQL SA: $cloudSqlSa"
@@ -338,10 +346,12 @@ function Invoke-RdsToCloudSqlBackup {
         Where-Object { $_.role -in $readRoles -and $_.members -contains $memberToken } |
         Select-Object -First 1 -ExpandProperty role
 
-    if ($matchedRole) {
+    if ($matchedRole)
+    {
         Write-Host "  OK: $cloudSqlSa has $matchedRole on $bucketUri"
     }
-    else {
+    else
+    {
         throw @"
 Cloud SQL service agent does NOT have a bucket-level read role on $bucketUri.
   Service agent: $cloudSqlSa
@@ -359,24 +369,65 @@ gcloud storage buckets add-iam-policy-binding $bucketUri ``
     # SECTION 3: Cloud SQL import (runs in both branches; async vs sync)
     # =========================================================================
     Write-Host 'Starting Cloud SQL import'
-    if ($ImportAsync) {
+    if ($ImportAsync)
+    {
         # --- Async: kick off the import and return the operation ID ---------
         $operationId = & gcloud --project $GcpProjectId sql import sql $TargetCloudSqlInstance $gcsUri `
             --database=$TargetDb --async --format='value(name)'
-        if ($LASTEXITCODE -ne 0) { throw "gcloud sql import (async) failed (exit $LASTEXITCODE)" }
         Write-Host "Import started asynchronously. Operation: $operationId"
         Write-Host "Track with: gcloud --project $GcpProjectId sql operations describe $operationId"
     } # end if $ImportAsync (async import branch)
-    else {
+    else
+    {
         # --- Sync: block until the import completes -------------------------
         & gcloud --project $GcpProjectId sql import sql $TargetCloudSqlInstance $gcsUri `
             --database=$TargetDb --quiet
-        if ($LASTEXITCODE -ne 0) { throw "gcloud sql import failed (exit $LASTEXITCODE)" }
         Write-Host 'Import completed successfully'
     } # end else (sync import branch)
 
     Write-Host 'Done'
     Write-Host "GCS object: $gcsUri"
+    } # end try (main body)
+    finally {
+    # =========================================================================
+    # SECTION 4: Publish run context for post-run inspection (ALWAYS runs)
+    #   Stashes key parameters + computed values on $Global:LastBackupRun so
+    #   you can inspect what was actually used after the function returns —
+    #   including when the run FAILED partway through. Wrapped in try/finally
+    #   above so this executes on both success and error paths.
+    #
+    #   Usage:
+    #       $Global:LastBackupRun
+    #       $Global:LastBackupRun | ConvertTo-Json -Depth 4
+    #       $Global:LastBackupRun.GcsUri
+    #
+    #   Password is intentionally omitted. Any variable that hasn't been set
+    #   yet (because the failure happened before it was assigned) shows $null.
+    # =========================================================================
+    $Global:LastBackupRun = [ordered]@{
+        Timestamp              = (Get-Date).ToString('s')
+        AwsProfile             = $AwsProfile
+        AwsRegion              = $AwsRegion
+        SourceRdsInstance      = $SourceRdsInstance
+        SourceDb               = $SourceDb
+        SourceDbUser           = $SourceDbUser
+        SourceHost             = if (Get-Variable -Name sourceHost   -Scope Local -ErrorAction SilentlyContinue) { $sourceHost }   else { $null }
+        SourcePort             = if (Get-Variable -Name sourcePort   -Scope Local -ErrorAction SilentlyContinue) { $sourcePort }   else { $null }
+        RawSizeBytes           = if (Get-Variable -Name rawSizeBytes -Scope Local -ErrorAction SilentlyContinue) { $rawSizeBytes } else { $null }
+        SizePretty             = if (Get-Variable -Name sizePretty   -Scope Local -ErrorAction SilentlyContinue) { $sizePretty }   else { $null }
+        GcpProjectId           = $GcpProjectId
+        TargetCloudSqlInstance = $TargetCloudSqlInstance
+        TargetDb               = $TargetDb
+        GcsBucket              = $GcsBucket
+        GcsUri                 = if (Get-Variable -Name gcsUri       -Scope Local -ErrorAction SilentlyContinue) { $gcsUri }       else { $null }
+        ImportOnly             = $ImportOnly
+        ImportAsync            = [bool]$ImportAsync
+        CloudSqlSa             = if (Get-Variable -Name cloudSqlSa   -Scope Local -ErrorAction SilentlyContinue) { $cloudSqlSa }   else { $null }
+        OperationId            = if (Get-Variable -Name operationId  -Scope Local -ErrorAction SilentlyContinue) { $operationId }  else { $null }
+        PgDumpBin              = $PgDumpBin
+    }
+    Write-Host 'Run context stored in $Global:LastBackupRun'
+    } # end finally (always publish run context)
 } # end function Invoke-RdsToCloudSqlBackup
 
 
@@ -391,7 +442,15 @@ gcloud storage buckets add-iam-policy-binding $bucketUri ``
 # Invoke-RdsToCloudSqlBackup -GcsObjectUri 'gs://portaldb-backup-dre/unicorn_20260713_191539.sql.gz'
 
 
-Invoke-RdsToCloudSqlBackup -GcsBucket 'portaldb-backup' `
- -SourceDbPassword 'KVV0hjhRf&zGXK9j' `
--SourceDbUser 'root' `
--importonly 0
+Invoke-RdsToCloudSqlBackup `
+    -GcsBucket 'portaldb-backup' `
+    -SourceDbPassword 'KVV0hjhRf&zGXK9j' `
+    -SourceDbUser 'root' `
+    -ImportOnly 1 `
+    -ImportAsync
+
+
+
+
+
+
