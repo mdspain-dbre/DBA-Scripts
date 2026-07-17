@@ -1,0 +1,6 @@
+Name,AwsProfile,Kind,Src,Dest,Include,Exclude,ListPrefix,TokenRegex,IncludeTemplate,Base,SrcTemplate,DestTemplate
+harmony,$ProfileSmartcast,bak-token,prod-sql-1-backups/FULL/Harmony/,sqlserver/Harmony/,,,prod-sql-1-backups/FULL/Harmony/,Harmony_(\d{2}-\d{2}-\d{4}-\d{4}-\d{2})_,Harmony_{token}_*.bak,,,
+chunker,$ProfileSmartcast,bak-token,prod-sql-1-backups/FULL/Chunker/,sqlserver/Chunker/,,,prod-sql-1-backups/FULL/Chunker/,Chunker_(\d{2}-\d{2}-\d{4}-\d{4}-\d{2})_,Chunker_{token}_*.bak,,,
+mongo-linux,$ProfileSmartcast,archive-date,prod-sql-1-backups/mongobackups/,mongo-linux/,,,,,*_{date}_*.archive.gz,prod-sql-1-backups/mongobackups/,,
+mongo-windows,$ProfileBuddytv,ts-folder,,,,ShaTes42;shatest44,,,,content-services-windows-mongo-backups/MongoBackups/,content-services-windows-mongo-backups/MongoBackups/{ts}/,mongo-windows/{ts}/
+mongo-vueprod,$ProfileBuddytv,bak-token,content-services-windows-mongo-backups/VueProdUserDB/FULL/,mongo-vueprod/,,,content-services-windows-mongo-backups/VueProdUserDB/FULL/,_(\d{2}-\d{2}-\d{4}-\d{4}-\d{2})_,*_{token}_*.bak,,,
