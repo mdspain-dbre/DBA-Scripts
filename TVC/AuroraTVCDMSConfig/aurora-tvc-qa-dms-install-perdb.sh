@@ -1,4 +1,4 @@
-Y#!/usr/bin/env bash
+#!/usr/bin/env bash
 # =============================================================================
 # aurora-tvc-qa-dms-install-perdb.sh
 # -----------------------------------------------------------------------------
@@ -7,7 +7,10 @@ Y#!/usr/bin/env bash
 #
 # What "user database" means here:
 #   - datistemplate = false
-#   - excludes rdsadmin (managed) and postgres (maintenance; already done)
+#   - excludes rdsadmin (AWS-managed; DMS cannot touch it)
+#   NOTE: the `postgres` maintenance DB IS included -- if it has no user
+#   tables the CREATE EXTENSION + grants are still harmless and idempotent,
+#   and any stray app schema in it will get picked up.
 #
 # Prompts once for the password (or supply via PGPASSWORD env var).
 #
@@ -39,7 +42,7 @@ DBS=$(psql "$(conn postgres)" -tAc "
   SELECT datname
   FROM pg_database
   WHERE datistemplate = false
-    AND datname NOT IN ('rdsadmin','postgres')
+    AND datname NOT IN ('rdsadmin')
   ORDER BY 1;")
 
 if [[ -z "$DBS" ]]; then

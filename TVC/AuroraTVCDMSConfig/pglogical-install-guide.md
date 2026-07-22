@@ -259,9 +259,10 @@ aws rds modify-db-cluster-parameter-group \
 ## Runbook order
 
 1. `./aurora-tvc-qa-dms-prep.sh` — cluster params + writer reboot.
-2. Connect as `root`, run the `GRANT rds_replication / rds_superuser` block
-   from [`aurora-tvc-qa-dms-prep.pgsql`](aurora-tvc-qa-dms-prep.pgsql) plus
-   the three `SHOW` sanity checks.
+2. Connect as `root` and run
+   [`aurora-tvc-qa-dms-cluster-grants.pgsql`](aurora-tvc-qa-dms-cluster-grants.pgsql)
+   once against any DB on the cluster (grants `rds_replication` +
+   `rds_superuser`, prints the three `SHOW` sanity checks).
 3. `PGPASSWORD=... ./aurora-tvc-qa-dms-install-perdb.sh` — installs
    pglogical + grants in every user DB, prints CDC-blocking tables per DB.
 4. Fix any tables reported by the audit (add PK / replica identity).
@@ -271,9 +272,9 @@ aws rds modify-db-cluster-parameter-group \
 
 ## Script index
 
-| File                                                                       | Purpose                                                                            |
-|----------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| [`aurora-tvc-qa-dms-prep.sh`](aurora-tvc-qa-dms-prep.sh)                   | AWS-side cluster parameter patch + writer reboot                                   |
-| [`aurora-tvc-qa-dms-prep.pgsql`](aurora-tvc-qa-dms-prep.pgsql)             | Full reference SQL: role grants, sanity checks, single-DB pglogical install, audit |
-| [`aurora-tvc-qa-dms-install-perdb.sh`](aurora-tvc-qa-dms-install-perdb.sh) | Loops over every user DB and applies the per-DB SQL                                |
-| [`aurora-tvc-qa-dms-perdb.pgsql`](aurora-tvc-qa-dms-perdb.pgsql)           | Idempotent per-DB payload: `CREATE EXTENSION pglogical` + grants + audit           |
+| File                                                                                     | Purpose                                                                            |
+|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`aurora-tvc-qa-dms-prep.sh`](aurora-tvc-qa-dms-prep.sh)                                 | AWS-side cluster parameter patch + writer reboot                                   |
+| [`aurora-tvc-qa-dms-cluster-grants.pgsql`](aurora-tvc-qa-dms-cluster-grants.pgsql)       | One-shot cluster grants (`rds_replication`, `rds_superuser`) + `SHOW` sanity checks |
+| [`aurora-tvc-qa-dms-install-perdb.sh`](aurora-tvc-qa-dms-install-perdb.sh)               | Loops over every user DB and applies the per-DB SQL                                |
+| [`aurora-tvc-qa-dms-perdb.pgsql`](aurora-tvc-qa-dms-perdb.pgsql)                         | Idempotent per-DB payload: `CREATE EXTENSION pglogical` + grants + audit           |

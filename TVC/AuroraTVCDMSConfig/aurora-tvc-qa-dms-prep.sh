@@ -70,7 +70,7 @@
 set -Eeuo pipefail
 
 # --- config -----------------------------------------------------------------
-CLUSTER_ID="tvc-qa-cluster"
+CLUSTER_ID="tvc-staging-cluster"
 CLUSTER_PG=""                 # blank = auto-discover
 REGION="us-east-1"
 # ---------------------------------------------------------------------------
@@ -140,4 +140,7 @@ aws rds reboot-db-instance --region "$REGION" --db-instance-identifier "$WRITER"
 
 echo "Waiting for writer to become available..."
 aws rds wait db-instance-available --region "$REGION" --db-instance-identifier "$WRITER"
-echo "Reboot complete. Next: run aurora-tvc-qa-dms-prep.pgsql against each source DB."
+echo "Reboot complete."
+echo "Next:"
+echo "  1) psql ... -f aurora-tvc-qa-dms-cluster-grants.pgsql   (once, cluster-wide)"
+echo "  2) ./aurora-tvc-qa-dms-install-perdb.sh                  (fans out perdb SQL)"
