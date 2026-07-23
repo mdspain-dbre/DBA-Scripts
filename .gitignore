@@ -51,3 +51,7 @@ Azure/start_migration.sh
 Azure/DMS_Setup.ps1
 secrets.auto.tfvars
 *.auto.tfvars
+
+# Local plaintext secrets for the Aurora DMS prep scripts
+TVC/AuroraTVCDMSConfig/secrets.txt
+**/secrets.txt
