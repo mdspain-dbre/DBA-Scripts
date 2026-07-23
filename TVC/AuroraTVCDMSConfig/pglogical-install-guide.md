@@ -109,10 +109,10 @@ GRANT rds_superuser   TO root;
 
 Connect over TLS with the RDS CA bundle:
 ```bash
-psql "host=tvc-qa.cujpo2r0mujo.us-east-1.rds.amazonaws.com \
+psql "host=tvc-staging-cluster.cluster-cujpo2r0mujo.us-east-1.rds.amazonaws.com \
       port=5432 dbname=postgres user=root \
       sslmode=verify-full \
-      sslrootcert=/Users/michael.dspain/Documents/rds-us-east-1-bundle.pem"
+      sslrootcert=/Users/michael.dspain/Documents/tvc-stage-global-bundle.pem"
 ```
 
 ---

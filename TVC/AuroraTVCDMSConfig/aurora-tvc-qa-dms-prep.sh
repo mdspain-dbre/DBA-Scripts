@@ -37,7 +37,7 @@
 #     the TCP session silently.
 # - rds.force_ssl
 #     Left at 1. The DMS source connection profile is configured with
-#     the RDS CA bundle (~/Documents/rds-us-east-1-bundle.pem) and
+#     the RDS CA bundle (~/Documents/tvc-stage-global-bundle.pem) and
 #     connects over TLS.
 #
 # PREREQUISITES
@@ -92,16 +92,27 @@ fi
 
 # Merge pglogical into shared_preload_libraries without clobbering existing entries.
 # Notes on the query:
-#   - describe-db-cluster-parameters is paginated; a single parameter name can
-#     appear across pages, so --no-paginate keeps us on the first page and
-#     [0].ParameterValue picks a single value (not a projection list).
-#   - --output text prints the literal string "None" when the value is null;
-#     we treat that as empty below.
+#   - describe-db-cluster-parameters is paginated (~100 params/page, ~460 total
+#     on a modern Aurora Postgres param group). shared_preload_libraries is NOT
+#     on page 1.
+#   - We CANNOT use server-side --query here: JMESPath runs per response page,
+#     and `[0].ParameterValue` on pages that don't contain the param returns
+#     `None`, which --output text concatenates into "NoneNoneNone<value>".
+#     Passing --no-paginate to "fix" that silently drops pages 2+ and hides
+#     the real value entirely -- which then wipes existing preloaded libraries
+#     (pg_stat_statements, etc.) on the next reboot.
+#   - So: fetch full JSON with pagination on, parse client-side with python3.
 CURRENT_SPL=$(aws rds describe-db-cluster-parameters --region "$REGION" \
   --db-cluster-parameter-group-name "$CLUSTER_PG" \
-  --no-paginate \
-  --query "Parameters[?ParameterName=='shared_preload_libraries'] | [0].ParameterValue" \
-  --output text)
+  --output json \
+  | python3 -c '
+import json, sys
+params = json.load(sys.stdin).get("Parameters", [])
+for p in params:
+    if p.get("ParameterName") == "shared_preload_libraries":
+        print(p.get("ParameterValue") or "")
+        break
+')
 # Collapse any accidental multi-line text and strip surrounding whitespace.
 CURRENT_SPL=$(printf '%s' "$CURRENT_SPL" | tr -d '\n\r' | awk '{$1=$1};1')
 if [[ "$CURRENT_SPL" == "None" || -z "$CURRENT_SPL" ]]; then
@@ -113,21 +124,67 @@ else
 fi
 echo "shared_preload_libraries: '$CURRENT_SPL' -> '$NEW_SPL'"
 
+# --- Safety gate: confirm target account/cluster before any mutation. -------
+# Prevents a stray AWS_PROFILE / default-creds mismatch from patching the
+# wrong cluster in the wrong account.
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+CALLER_ARN=$(aws sts get-caller-identity --query Arn --output text)
+cat <<EOF
+
+=== Confirm target before mutating ===
+  AWS account : $ACCOUNT_ID
+  Caller      : $CALLER_ARN
+  Region      : $REGION
+  Cluster     : $CLUSTER_ID
+  ParamGroup  : $CLUSTER_PG
+  Will set    : rds.logical_replication = 1  (pending-reboot)
+                shared_preload_libraries = '$NEW_SPL'  (pending-reboot)
+  Will then   : reboot the writer instance (cluster outage ~10-60s)
+
+EOF
+read -r -p "Type the cluster id ($CLUSTER_ID) to proceed: " CONFIRM
+if [[ "$CONFIRM" != "$CLUSTER_ID" ]]; then
+  echo "Aborted (confirmation did not match)." >&2
+  exit 1
+fi
+
 # Apply the two required parameters.
+# NOTE: we MUST use JSON syntax for --parameters here, not the CLI shorthand.
+# Shorthand ("ParameterName=X,ParameterValue=Y,ApplyMethod=Z") treats every
+# comma as a key separator, so a value like "pg_stat_statements,pglogical"
+# is parsed as a list ['pg_stat_statements','pglogical'] and the API rejects
+# it with "Invalid type for parameter ParameterValue ... valid types: str".
+# NEW_SPL is passed through the environment to avoid quote-injection risk.
 echo "=== Patching cluster parameter group: $CLUSTER_PG ==="
+PARAMS_JSON=$(NEW_SPL="$NEW_SPL" python3 -c '
+import json, os
+print(json.dumps([
+    {"ParameterName": "rds.logical_replication",  "ParameterValue": "1",                     "ApplyMethod": "pending-reboot"},
+    {"ParameterName": "shared_preload_libraries", "ParameterValue": os.environ["NEW_SPL"], "ApplyMethod": "pending-reboot"},
+]))
+')
 aws rds modify-db-cluster-parameter-group \
   --region "$REGION" \
   --db-cluster-parameter-group-name "$CLUSTER_PG" \
-  --parameters \
-    "ParameterName=rds.logical_replication,ParameterValue=1,ApplyMethod=pending-reboot" \
-    "ParameterName=shared_preload_libraries,ParameterValue=${NEW_SPL},ApplyMethod=pending-reboot"
+  --parameters "$PARAMS_JSON"
 
 # Show the pending state so the operator can confirm.
+# Same pagination caveat as above -- fetch full JSON, filter client-side.
 echo "=== Pending changes ==="
 aws rds describe-db-cluster-parameters --region "$REGION" \
   --db-cluster-parameter-group-name "$CLUSTER_PG" \
-  --query "Parameters[?ParameterName=='rds.logical_replication' || ParameterName=='shared_preload_libraries'].[ParameterName,ParameterValue,ApplyMethod]" \
-  --output table
+  --output json \
+  | python3 -c '
+import json, sys
+wanted = {"rds.logical_replication", "shared_preload_libraries"}
+params = json.load(sys.stdin).get("Parameters", [])
+hits = [p for p in params if p.get("ParameterName") in wanted]
+fmt = "  {:<28} {:<40} {}"
+print(fmt.format("ParameterName", "ParameterValue", "ApplyMethod"))
+print(fmt.format("-" * 28, "-" * 40, "-" * 12))
+for p in hits:
+    print(fmt.format(p["ParameterName"], p.get("ParameterValue", "") or "", p.get("ApplyMethod", "")))
+'
 
 # Reboot the writer to activate the pending-reboot parameters.
 echo "=== Rebooting writer to apply pending-reboot params ==="

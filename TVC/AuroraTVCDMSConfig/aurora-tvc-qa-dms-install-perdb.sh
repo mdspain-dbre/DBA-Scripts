@@ -12,20 +12,31 @@
 #   tables the CREATE EXTENSION + grants are still harmless and idempotent,
 #   and any stray app schema in it will get picked up.
 #
-# Prompts once for the password (or supply via PGPASSWORD env var).
+# Reads the root password from ./secrets.txt (line: `Root = '<pw>'`).
+# PGPASSWORD env var, if set, takes precedence.
 #
 # USAGE
-#   PGPASSWORD='<root pw>' ./aurora-tvc-qa-dms-install-perdb.sh
-#   # or interactively (prompted per DB unless PGPASSWORD is set):
-#   ./aurora-tvc-qa-dms-install-perdb.sh
+#   ./aurora-tvc-qa-dms-install-perdb.sh                          # reads secrets.txt
+#   PGPASSWORD='<root pw>' ./aurora-tvc-qa-dms-install-perdb.sh   # env override
 # =============================================================================
 set -Eeuo pipefail
 
-HOST="tvc-qa.cujpo2r0mujo.us-east-1.rds.amazonaws.com"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+HOST="tvc-staging-cluster.cluster-cujpo2r0mujo.us-east-1.rds.amazonaws.com"
 PORT=5432
 USER="root"
-CA="/Users/michael.dspain/Documents/rds-us-east-1-bundle.pem"
-PERDB_SQL="$(dirname "$0")/aurora-tvc-qa-dms-perdb.pgsql"
+CA="/Users/michael.dspain/Documents/tvc-stage-global-bundle.pem"
+PERDB_SQL="${HERE}/aurora-tvc-qa-dms-perdb.pgsql"
+
+# --- password: read from secrets.txt if not already exported ---------------
+if [[ -z "${PGPASSWORD:-}" ]]; then
+  SECRETS_FILE="${HERE}/secrets.txt"
+  [[ -f "$SECRETS_FILE" ]] || { echo "ERROR: secrets file not found: $SECRETS_FILE" >&2; exit 1; }
+  PGPASSWORD=$(sed -nE "s/^[[:space:]]*Root[[:space:]]*=[[:space:]]*['\"]?([^'\"]+)['\"]?.*/\1/p" "$SECRETS_FILE" | head -1)
+  [[ -n "$PGPASSWORD" ]] || { echo "ERROR: 'Root = ...' not found in $SECRETS_FILE" >&2; exit 1; }
+  export PGPASSWORD
+fi
 
 if [[ ! -f "$PERDB_SQL" ]]; then
   echo "ERROR: $PERDB_SQL not found" >&2
