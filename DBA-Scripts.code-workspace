@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../github/evergreen-inscape-iac"
+		},
+		{
+			"path": "../github/gcp-2-project-factory-sdo"
 		}
 	],
 	"settings": {
