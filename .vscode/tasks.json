@@ -11,7 +11,21 @@
                 "focus": false,
                 "clear": true
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "DB Inventory Drift Check",
+            "type": "shell",
+            "command": "${workspaceFolder}/.vscode/db-inventory-check.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false,
+                "clear": true
+            },
             "problemMatcher": [],
+            "dependsOn": "Cloud Auth Login (AWS + gcloud)",
+            "dependsOrder": "sequence",
             "runOptions": {
                 "runOn": "folderOpen"
             }

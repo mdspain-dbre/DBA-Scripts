@@ -1,0 +1,81 @@
+-- Grant read/write (CRUD) access to gcp-inscape-de-developer@vizio.com
+-- on the CURRENT database.
+
+
+DO $$
+DECLARE
+  s text;
+  r constant text := 'tvevents-sa@vz-inscape-portfolio-stage.iam';
+BEGIN
+  FOR s IN
+    SELECT nspname
+    FROM   pg_namespace
+    WHERE  nspname NOT IN ('pg_catalog','information_schema')
+      AND  nspname NOT LIKE 'pg\_%' ESCAPE '\'
+  LOOP
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO %I', current_database(), r);
+    EXECUTE format('GRANT USAGE ON SCHEMA %I TO %I', s, r);
+    EXECUTE format('GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES    IN SCHEMA %I TO %I', s, r);
+    EXECUTE format('GRANT USAGE, SELECT, UPDATE           ON ALL SEQUENCES IN SCHEMA %I TO %I', s, r);
+    EXECUTE format(
+      'ALTER DEFAULT PRIVILEGES IN SCHEMA %I GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO %I', s, r);
+    EXECUTE format(
+      'ALTER DEFAULT PRIVILEGES IN SCHEMA %I GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO %I', s, r);
+  END LOOP;
+END
+$$;
+
+-- Run in the SAME database you granted on.
+-- Effective privs = direct grants + anything inherited via role membership.
+
+-- 1) Database-level CONNECT
+SELECT current_database() AS database,
+       has_database_privilege('gcp-inscape-de-developer@vizio.com',
+                              current_database(), 'CONNECT') AS can_connect;
+
+-- 2) Schema-level USAGE
+SELECT n.nspname AS schema,
+       has_schema_privilege('gcp-inscape-de-developer@vizio.com',
+                            n.nspname, 'USAGE') AS can_use
+FROM   pg_namespace n
+WHERE  n.nspname NOT IN ('pg_catalog','information_schema')
+  AND  n.nspname NOT LIKE 'pg\_%' ESCAPE '\'
+ORDER  BY n.nspname;
+
+-- 3) Every table/view/mview/partitioned table: does the role have SELECT?
+SELECT n.nspname AS schema,
+       c.relname AS object,
+       CASE c.relkind
+         WHEN 'r' THEN 'table' WHEN 'p' THEN 'partitioned'
+         WHEN 'v' THEN 'view'  WHEN 'm' THEN 'matview'
+         WHEN 'f' THEN 'foreign'
+       END AS kind,
+       has_table_privilege('gcp-inscape-de-developer@vizio.com',
+                           c.oid, 'SELECT') AS can_select
+FROM   pg_class     c
+JOIN   pg_namespace n ON n.oid = c.relnamespace
+WHERE  c.relkind IN ('r','p','v','m','f')
+  AND  n.nspname NOT IN ('pg_catalog','information_schema')
+  AND  n.nspname NOT LIKE 'pg\_%' ESCAPE '\'
+ORDER  BY n.nspname, c.relname;
+
+-- 4) Any tables it CAN'T select (should be empty if grant worked everywhere)
+SELECT n.nspname, c.relname
+FROM   pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+WHERE  c.relkind IN ('r','p','v','m','f')
+  AND  n.nspname NOT IN ('pg_catalog','information_schema')
+  AND  n.nspname NOT LIKE 'pg\_%' ESCAPE '\'
+  AND  NOT has_table_privilege('gcp-inscape-de-developer@vizio.com',
+                               c.oid, 'SELECT')
+ORDER  BY 1,2;
+
+-- 5) Default privileges (what future tables will inherit)
+SELECT n.nspname       AS schema,
+       r.rolname       AS granted_by_owner,
+       d.defaclacl     AS acl
+FROM   pg_default_acl d
+JOIN   pg_roles      r ON r.oid = d.defaclrole
+LEFT   JOIN pg_namespace n ON n.oid = d.defaclnamespace
+WHERE  d.defaclobjtype IN ('r','S')   -- r=tables, S=sequences
+  AND  array_to_string(d.defaclacl, ',') LIKE '%gcp-inscape-de-developer@vizio.com%'
+ORDER  BY 1,2;

@@ -1,7 +1,7 @@
 ---
 description: "Focused CloudSQL backup & point-in-time-recovery (PITR) compliance report for a GCP project. Use for: 'audit my cloudsql backups', 'are backups and PITR enabled', 'backup compliance report', 'check retention windows'."
 name: "CloudSQL Backup Audit"
-agent: "CloudSQL Health Check"
+agent: "DB Fleet Health Check"
 argument-hint: "Optional project ID (defaults to vz-inscape-portfolio-dev) or a single instance name"
 ---
 Produce a **backup & point-in-time-recovery (PITR) compliance report** for every CloudSQL MySQL and PostgreSQL instance in the project (default `vz-inscape-portfolio-dev`, or the project/instance named in my request).

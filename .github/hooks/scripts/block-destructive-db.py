@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse guard for the "CloudSQL Health Check" agent.
+"""PreToolUse guard for the "DB Fleet Health Check" agent.
 
 Hard-blocks any destructive command (deleting databases/instances, DDL/DML, or
 mutating ``gcloud sql`` control-plane operations). This is the deterministic
@@ -52,18 +52,6 @@ def extract_command(payload: str) -> str:
     return payload
 
 
-def normalize(cmd: str) -> str:
-    """Lowercase and replace every non-alphanumeric character with a space.
-
-    This makes verbs space-delimited regardless of surrounding punctuation
-    (quotes, semicolons, hyphens, parentheses, newlines, ...). The result is
-    padded with spaces so word-boundary matching with leading/trailing spaces
-    works for tokens at the start or end of the command.
-    """
-    lowered = re.sub(r"[^a-z0-9]+", " ", cmd.lower())
-    return f" {lowered.strip()} "
-
-
 def deny(reason: str) -> None:
     """Emit a PreToolUse deny decision and exit 2 (blocking)."""
     print(json.dumps({
@@ -89,35 +77,64 @@ def allow() -> None:
     sys.exit(0)
 
 
-# 1) Mutating CloudSQL control-plane operations (delete/patch/restart/etc.).
-GCLOUD_SQL_MUTATION = re.compile(
-    r"gcloud .*sql .*"
-    r"(delete|patch|restart|failover|clone|set password|set root password|reschedule maintenance)"
+# 1) Mutating cloud CLI resource operations (delete/patch/create/restart/etc.).
+#    Matched case-insensitively on the raw command; `describe`/`list`/`get` and
+#    other read verbs are deliberately absent, so read-only gcloud stays allowed.
+GCLOUD_MUTATION = re.compile(
+    r"\bgcloud\b.*\b("
+    r"delete|remove|patch|create|update|restart|failover|clone|restore|"
+    r"reset|set-password|reset-password|reschedule[-\s]?maintenance|"
+    r"set\s+(?:root\s+)?password"
+    r")\b",
+    re.IGNORECASE | re.DOTALL,
 )
 
-# 2) Destructive / mutating SQL or any resource deletion (DDL + DML). Any of
-#    these verbs as a standalone word blocks the command -- DROP DATABASE and
-#    DELETE are explicitly forbidden, as is `gcloud ... delete`.
-MUTATING_VERB = re.compile(
-    r" (drop|truncate|delete|alter|update|insert|replace|grant|revoke|create|rename|merge|call) "
+# 1b) Object-store / dataset deletions that also destroy data.
+STORAGE_DELETE = re.compile(
+    r"\b(?:gsutil\b.*\brm\b|gcloud\s+storage\b.*\b(?:rm|delete)\b|bq\b.*\brm\b)",
+    re.IGNORECASE | re.DOTALL,
+)
+
+# 2) Destructive / mutating SQL, matched ONLY in actual DDL/DML statement
+#    position -- i.e. the verb is the first token of a statement. A statement
+#    starts at the beginning of the string/line or immediately after a
+#    separator (`;`), an opening quote (shell/SQL), or `(`. The trailing `\b`
+#    means `update_time`, `create_date`, `SHOW CREATE TABLE`, `is_updatable`,
+#    etc. are NOT matched -- only a leading `UPDATE`/`CREATE`/... verb is.
+SQL_DESTRUCTIVE = re.compile(
+    r"""(?:^|[;"'`(\n])\s*
+        (drop|truncate|delete|alter|update|insert|replace|rename|merge|
+         grant|revoke|create|call)
+        \b""",
+    re.IGNORECASE | re.MULTILINE | re.VERBOSE,
+)
+
+# 2b) `EXPLAIN ANALYZE <dml>` actually executes the statement in Postgres, so
+#    treat it as destructive even though the verb isn't first.
+EXPLAIN_ANALYZE_DML = re.compile(
+    r"\bexplain\s+analyze\b.*\b"
+    r"(update|delete|insert|truncate|drop|alter|replace|merge|create|call)\b",
+    re.IGNORECASE | re.DOTALL,
 )
 
 
 def main() -> None:
     payload = sys.stdin.read()
-    scan = normalize(extract_command(payload))
+    cmd = extract_command(payload)
 
-    if GCLOUD_SQL_MUTATION.search(scan):
+    if GCLOUD_MUTATION.search(cmd) or STORAGE_DELETE.search(cmd):
         deny(
-            "Blocked: mutating gcloud sql operation. The CloudSQL Health Check "
-            "agent is read-only and may not delete or change instances/databases."
+            "Blocked: mutating cloud CLI operation (delete/create/patch/restart/"
+            "etc.). This agent is read-only and may not create, delete, or change "
+            "instances, databases, clusters, or stored data."
         )
 
-    if MUTATING_VERB.search(scan):
+    if SQL_DESTRUCTIVE.search(cmd) or EXPLAIN_ANALYZE_DML.search(cmd):
         deny(
-            "Blocked: destructive/mutating operation detected (DROP/DELETE/"
-            "TRUNCATE/etc.). The CloudSQL Health Check agent is read-only and may "
-            "only run SELECT/SHOW/EXPLAIN queries and non-mutating gcloud reads."
+            "Blocked: destructive/mutating SQL detected (DROP/DELETE/TRUNCATE/"
+            "ALTER/UPDATE/INSERT/etc. in statement position). This agent is "
+            "read-only and may only run SELECT/SHOW/EXPLAIN and reads against "
+            "information_schema/performance_schema/pg_stat_*."
         )
 
     allow()
