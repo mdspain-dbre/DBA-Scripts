@@ -1,0 +1,133 @@
+/*
+Cloud SQL gotcha. 
+The postgres user on Cloud SQL is cloudsqlsuperuser, not a true Postgres superuser 
+— so it can't just reassign anyone's objects. To run REASSIGN OWNED BY X, your current role must have membership in X (or be X). Fix: grant Michelle's role to yourself first.
+*.
+
+
+GRANT "michelle.lowe@vizio.com" TO "postgres";
+REASSIGN OWNED BY "michelle.lowe@vizio.com" TO "postgres";
+DROP OWNED BY "michelle.lowe@vizio.com";
+
+
+/*
+find perms assigned
+*/
+
+
+SET my.role = 'gcp-inscape-de-developer@vizio.com';
+
+-- 1) Database-level CONNECT
+SELECT current_database() AS database,
+       has_database_privilege(current_setting('my.role'),
+                              current_database(), 'CONNECT') AS can_connect;
+
+-- 2) Schema-level USAGE
+SELECT n.nspname AS schema,
+       has_schema_privilege(current_setting('my.role'),
+                            n.nspname, 'USAGE') AS can_use
+FROM   pg_namespace n
+WHERE  n.nspname NOT IN ('pg_catalog','information_schema')
+  AND  n.nspname NOT LIKE 'pg\_%' ESCAPE '\'
+ORDER  BY n.nspname;
+
+-- 3) Every table/view/mview/partitioned table: does the role have SELECT?
+SELECT n.nspname AS schema,
+       c.relname AS object,
+       CASE c.relkind
+         WHEN 'r' THEN 'table' WHEN 'p' THEN 'partitioned'
+         WHEN 'v' THEN 'view'  WHEN 'm' THEN 'matview'
+         WHEN 'f' THEN 'foreign'
+       END AS kind,
+       has_table_privilege(current_setting('my.role'),
+                           c.oid, 'SELECT') AS can_select
+FROM   pg_class     c
+JOIN   pg_namespace n ON n.oid = c.relnamespace
+WHERE  c.relkind IN ('r','p','v','m','f')
+  AND  n.nspname NOT IN ('pg_catalog','information_schema')
+  AND  n.nspname NOT LIKE 'pg\_%' ESCAPE '\'
+ORDER  BY n.nspname, c.relname;
+
+-- 4) Any tables it CAN'T select (should be empty if grant worked everywhere)
+SELECT n.nspname, c.relname
+FROM   pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+WHERE  c.relkind IN ('r','p','v','m','f')
+  AND  n.nspname NOT IN ('pg_catalog','information_schema')
+  AND  n.nspname NOT LIKE 'pg\_%' ESCAPE '\'
+  AND  NOT has_table_privilege(current_setting('my.role'),
+                               c.oid, 'SELECT')
+ORDER  BY 1,2;
+
+-- 5) Default privileges (what future tables will inherit)
+SELECT n.nspname       AS schema,
+       r.rolname       AS granted_by_owner,
+       d.defaclacl     AS acl
+FROM   pg_default_acl d
+JOIN   pg_roles      r ON r.oid = d.defaclrole
+LEFT   JOIN pg_namespace n ON n.oid = d.defaclnamespace
+WHERE  d.defaclobjtype IN ('r','S')   -- r=tables, S=sequences
+  AND  array_to_string(d.defaclacl, ',') LIKE '%' || current_setting('my.role') || '%'
+ORDER  BY 1,2;
+
+
+
+
+/*************************
+validate ownwership of db objects 
+*************************/
+
+
+
+
+--1
+SELECT n.nspname                                        AS schema,
+       COALESCE(pg_get_userbyid(a.grantee), 'PUBLIC')   AS grantee,
+       pg_get_userbyid(a.grantor)                       AS grantor,
+       a.privilege_type,
+       a.is_grantable
+FROM   pg_namespace n,
+       aclexplode(n.nspacl) a
+WHERE  n.nspname NOT IN ('pg_catalog','information_schema','pg_toast')
+  AND  n.nspname NOT LIKE 'pg_temp_%'
+  AND  n.nspname NOT LIKE 'pg_toast_temp_%'
+ORDER  BY schema, grantee, privilege_type;
+
+--2
+SELECT n.nspname AS schema,
+       COALESCE(pg_get_userbyid(a.grantee), 'PUBLIC') AS grantee,
+       bool_or(a.privilege_type = 'USAGE')  AS usage,
+       bool_or(a.privilege_type = 'CREATE') AS create
+FROM   pg_namespace n,
+       aclexplode(n.nspacl) a
+WHERE  n.nspname NOT IN ('pg_catalog','information_schema','pg_toast')
+  AND  n.nspname NOT LIKE 'pg_temp_%'
+GROUP  BY n.nspname, a.grantee
+ORDER  BY schema, grantee;
+
+--3
+-- Table grants
+SELECT n.nspname AS schema, c.relname AS table,
+       COALESCE(pg_get_userbyid(a.grantee), 'PUBLIC') AS grantee,
+       a.privilege_type
+FROM   pg_class c
+JOIN   pg_namespace n ON n.oid = c.relnamespace,
+       aclexplode(c.relacl) a
+WHERE  c.relkind IN ('r','p','v','m')
+  AND  n.nspname NOT IN ('pg_catalog','information_schema','pg_toast')
+ORDER  BY schema, c.relname, grantee, a.privilege_type;
+
+--4
+-- Default privileges
+SELECT n.nspname AS schema,
+       pg_get_userbyid(d.defaclrole) AS grantor,
+       COALESCE(pg_get_userbyid(a.grantee), 'PUBLIC') AS grantee,
+       CASE d.defaclobjtype WHEN 'r' THEN 'TABLE'
+                            WHEN 'S' THEN 'SEQUENCE'
+                            WHEN 'f' THEN 'FUNCTION'
+                            WHEN 'T' THEN 'TYPE'
+                            WHEN 'n' THEN 'SCHEMA' END AS obj_type,
+       a.privilege_type
+FROM   pg_default_acl d
+JOIN   pg_namespace   n ON n.oid = d.defaclnamespace,
+       aclexplode(d.defaclacl) a
+ORDER  BY schema, obj_type, grantee, a.privilege_type;

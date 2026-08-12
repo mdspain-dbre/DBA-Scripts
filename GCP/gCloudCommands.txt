@@ -1,0 +1,18 @@
+	
+
+    tvcdb-stage
+
+    gcp-inscape-de-developer@vizio.com
+
+
+    gcloud projects add-iam-policy-binding vz-inscape-portfolio-stage \
+  --member=group:gcp-inscape-de-developer@vizio.com \
+  --role=roles/cloudsql.instanceUser
+
+
+##Check IAM Binding
+
+  gcloud projects get-iam-policy vz-inscape-portfolio-stage \
+  --flatten="bindings[].members" \
+  --format="table(bindings.role)" \
+  --filter="bindings.members:group:gcp-inscape-de-developer@vizio.com"
