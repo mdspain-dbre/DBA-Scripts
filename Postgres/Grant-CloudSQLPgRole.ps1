@@ -75,9 +75,8 @@
   on the same host/user session that created it. Omit to be prompted interactively.
 
 .PARAMETER ReadOnly
-  Switch. Grants app_ro membership to -Role. This is now the DEFAULT when no mode
-  switch is passed — the flag is retained as an explicit, self-documenting opt-in
-  and for backward compatibility with existing invocations. Effective perms the
+  Switch. Grants app_ro membership to -Role. This is the DEFAULT when no mode
+  switch is passed — the flag is retained as an explicit.  Effective perms the
   IAM principal inherits via app_ro:
     - Tables:    SELECT
     - Sequences: SELECT (allows currval; blocks nextval)
@@ -124,8 +123,7 @@
   pglogical logical replication, which does NOT sync sequence current values, so
   first inserts on the destination collide on the PK without this. After grants,
   runs ANALYZE across user schemas because logical replication leaves pg_stat
-  empty and initial query plans are otherwise pathological. Requires -GrantDdl —
-  every migrated object is owned by `postgres` on the destination and must be
+  empty. Requires -GrantDdl.  every migrated object is owned by `postgres` on the destination and must be
   reassigned to app_ddl. Run ONLY after the DMS job has been promoted (the
   DROP EXTENSION pglogical will fail while replication is still active).
 
@@ -1078,6 +1076,33 @@ if ($results.Where({ $_.Status -eq 'FAILED' }).Count -gt 0) {
   -GrantDdl -PostDmsPromote
 
   #>
+
+
+
+
+<#
+###################################################
+PG Database tables dictionary
+###################################################
+One-line reference for the pg_catalog / information_schema relations touched by
+the psql queries embedded in this script.
+
+pg_catalog.pg_database          - Row per database in the cluster; used to enumerate connectable DBs (datallowconn) for -AllDatabases discovery.
+pg_catalog.pg_namespace         - Row per schema (namespace); joined to resolve schema names and to filter out pg_catalog / information_schema / pglogical.
+pg_catalog.pg_class             - Row per relation (tables, views, matviews, indexes, sequences, foreign tables); source for ownership reassignment and relkind -> ALTER-noun mapping.
+pg_catalog.pg_attribute         - Row per column of every relation; joined to pg_depend on attnum to recover the owning column name of a sequence.
+pg_catalog.pg_depend            - Dependency edges between catalog objects; used to find sequence->table->column links and to exclude extension-owned objects (deptype 'e','a','i').
+pg_catalog.pg_proc              - Row per function / procedure; iterated separately from pg_class for ownership reassignment because functions do not live in pg_class.
+pg_catalog.pg_roles             - Row per database role (users + groups); guards CREATE ROLE bootstrap and resolves owner OIDs (e.g. app_ddl).
+pg_catalog.pg_auth_members      - Role membership edges (role -> member); used to audit which roles are granted to app_ro / app_rw / app_ddl and to the target principal.
+pg_catalog.pg_default_acl       - Default privileges (ALTER DEFAULT PRIVILEGES) per schema/creator/object-type; audited to confirm future objects inherit the right grants.
+pg_catalog.pg_extension         - Installed extensions in the current DB; probed to decide whether to run the pglogical drop path in -PostDmsPromote.
+pg_catalog.pg_tables            - Convenience view over pg_class for ordinary tables; used for per-schema table counts in the bootstrap summary.
+pg_catalog.pg_sequences         - Convenience view over pg_class for sequences; used for per-schema sequence counts and to drive setval() realignment.
+pg_catalog.pg_stat_*            - Referenced in comments only; planner statistics that logical replication does NOT copy, which is why -PostDmsPromote runs ANALYZE.
+information_schema.role_table_grants - SQL-standard view of table-level privileges; audited to confirm the target principal ended up with the expected SELECT/INSERT/UPDATE/DELETE grants.
+
+#>
 
 
 

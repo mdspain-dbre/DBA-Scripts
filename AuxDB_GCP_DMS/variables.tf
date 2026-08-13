@@ -46,7 +46,7 @@ variable "instances" {
       tier                = "db-custom-2-7680"
       database_version    = "MYSQL_8_0"
       availability_type   = "ZONAL"
-      deletion_protection = true
+      deletion_protection = false
     }
     qa = {
       instance_name       = "auxdb-qa-dre-test"
@@ -55,7 +55,7 @@ variable "instances" {
       tier                = "db-custom-2-7680"
       database_version    = "MYSQL_8_0"
       availability_type   = "ZONAL"
-      deletion_protection = true
+      deletion_protection = false
     }
   }
 }
