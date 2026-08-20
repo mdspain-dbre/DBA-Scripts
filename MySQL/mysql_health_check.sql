@@ -1,7 +1,58 @@
 -- ============================================================
 -- MySQL Instance Health Check Queries
 -- ============================================================
-
+--
+-- PURPOSE
+--   Read-only diagnostic sweep for a single MySQL instance. Run ad hoc during
+--   incident triage, or on a schedule to snapshot instance health over time.
+--   Every statement is SELECT/SHOW only — nothing here writes data or changes
+--   configuration, so it is safe to run against production without a change window.
+--
+-- HOW TO RUN
+--   - mysql CLI: `mysql -h <host> -u <user> -p < mysql_health_check.sql` or run
+--     interactively with `\G` after queries you want in vertical format.
+--   - GUI clients (DataGrip, Workbench, DBeaver): open the file and execute
+--     statement-by-statement (each numbered section is independent); running the
+--     whole script at once only shows the last result set in most GUI clients.
+--   - Sections are numbered and can be run individually and out of order.
+--
+-- REQUIRED PRIVILEGES
+--   - PROCESS            (information_schema.processlist, innodb_trx/data_lock_waits)
+--   - REPLICATION CLIENT  (SHOW REPLICA STATUS)
+--   - SELECT on performance_schema, information_schema (granted by default to most roles)
+--   - No SUPER/write privileges are needed anywhere in this script.
+--
+-- VERSION COMPATIBILITY
+--   - Written for MySQL 8.0 and 8.4. Section 3 auto-detects the major.minor
+--     version at runtime (via a dynamically prepared statement) because
+--     `Innodb_history_list_length` moved from global_status (8.0) to
+--     information_schema.innodb_metrics (8.4).
+--   - Not tested against MySQL 5.7 or MariaDB; performance_schema table/column
+--     names differ enough that several sections would need rewriting.
+--
+-- OUTPUT INTERPRETATION
+--   Each section's comment block states the healthy/warning/critical threshold
+--   for its key metric where one is well established. Thresholds are general
+--   guidance, not hard alarms — validate against this instance's normal baseline
+--   (e.g., via prior snapshots) before treating a single reading as an incident.
+--
+-- TABLE OF CONTENTS
+--    1. Uptime & version               - instance identity, confirm you're on the right box
+--    2. Connections                    - connection saturation, auth failures
+--    3. InnoDB row ops & history list   - read/write mix, undo purge lag (version-aware)
+--    4. Slow queries & table locks     - query performance, lock contention
+--    5. Temp tables (disk vs memory)   - queries spilling sorts/groups to disk
+--    6. Replication status             - replica lag/health (empty = not a replica)
+--    7. Active long-running queries    - queries running > 5s right now
+--    8. InnoDB deadlocks & lock waits  - cumulative counters, recent errors, recent statements
+--    9. Current InnoDB lock waits      - live blocker/waiter pairs
+--   10. Table cache efficiency         - table_open_cache sizing
+--   11. Largest tables by size         - disk consumers, OPTIMIZE TABLE candidates
+--   12. Disk I/O (file-level)          - InnoDB file latency, storage bottlenecks
+--   13. Key global variables check     - config snapshot (buffer pool, durability, replication)
+--   14. Memory                        - buffer pool hit ratio, session buffer sizing, pressure signals
+--   15. Binary log disk usage          - binlog retention/size
+--
 -- 1. UPTIME & VERSION
 -- Basic instance identity and availability check.
 SELECT VERSION() AS version,            -- MySQL version string (e.g., 8.0.36 or 8.4.0); confirms patch level

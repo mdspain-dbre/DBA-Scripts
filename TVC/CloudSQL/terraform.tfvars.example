@@ -1,6 +1,0 @@
-environment   = "dev"
-instance_name = "tvc-development"
-project_id    = "vz-inscape-portfolio-dev"
-region        = "us-east4"
-service       = "tvc"
-sub_service   = "tvc-development"

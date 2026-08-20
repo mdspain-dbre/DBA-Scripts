@@ -1,7 +1,0 @@
-prod-rds-unicorn-pg18.cujpo2r0mujo.us-east-1.rds.amazonaws.com
-
-admin-portal-db
-
-
-  psc_outbound_network_attachment_uri = "projects/vz-inscape-stage/regions/us-east4/networkAttachments/na-use4"
-  private_dns_zone_name               = "inscape-stage-sql-goog-portfolio-stage-use4"

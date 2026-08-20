@@ -1,0 +1,111 @@
+{
+    "AlignedStartTime": "2026-08-16T10:00:00-06:00",
+    "AlignedEndTime": "2026-08-16T10:20:00-06:00",
+    "Keys": [
+        {
+            "Dimensions": {
+                "db.wait_event.name": "LCK_M_IX",
+                "db.wait_event.type": "Lock"
+            },
+            "Total": 10.93923145665773
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "CPU",
+                "db.wait_event.type": "CPU"
+            },
+            "Total": 6.199285075960679
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "PAGEIOLATCH_SH",
+                "db.wait_event.type": "IO"
+            },
+            "Total": 5.1697944593386955
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "ASYNC_IO_COMPLETION",
+                "db.wait_event.type": "IO"
+            },
+            "Total": 1.837354781054513
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "CXSYNC_PORT",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 1.2868632707774799
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "SP_SERVER_DIAGNOSTICS_SLEEP",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.998212689901698
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "PAGEIOLATCH_EX",
+                "db.wait_event.type": "IO"
+            },
+            "Total": 0.998212689901698
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "ASYNC_NETWORK_IO",
+                "db.wait_event.type": "Network"
+            },
+            "Total": 0.871313672922252
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "LCK_M_IS",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.354781054512958
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "LCK_M_U",
+                "db.wait_event.type": "Other"
+            },
+            "Total": 0.2806076854334227
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "PAGEIOLATCH_UP",
+                "db.wait_event.type": "IO"
+            },
+            "Total": 0.2287756925826631
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "PAGELATCH_SH",
+                "db.wait_event.type": "Latch"
+            },
+            "Total": 0.20464700625558535
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "LCK_M_S",
+                "db.wait_event.type": "Lock"
+            },
+            "Total": 0.15192135835567472
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "IO_COMPLETION",
+                "db.wait_event.type": "IO"
+            },
+            "Total": 0.14745308310991956
+        },
+        {
+            "Dimensions": {
+                "db.wait_event.name": "PAGELATCH_EX",
+                "db.wait_event.type": "Latch"
+            },
+            "Total": 0.0938337801608579
+        }
+    ]
+}

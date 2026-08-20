@@ -1,0 +1,384 @@
+{
+    "Events": [
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T00:15:28.868000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T00:15:28.883000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T00:15:28.924000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T02:15:28.945000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T02:15:28.969000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T02:15:29.003000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T04:15:29.029000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T04:15:29.042000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T04:15:29.076000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T06:15:29.130000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T06:15:29.152000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T06:15:29.183000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Backing up DB instance",
+            "EventCategories": [
+                "backup"
+            ],
+            "Date": "2026-08-16T07:04:09.412000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T08:15:29.219000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T08:15:29.235000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T08:15:29.270000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T10:15:29.287000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T10:15:29.306000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T10:15:29.342000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Finished DB Instance backup",
+            "EventCategories": [
+                "backup"
+            ],
+            "Date": "2026-08-16T10:51:34.633000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T12:15:29.370000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T12:15:29.393000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T12:15:29.421000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T14:15:29.461000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T14:15:29.478000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T14:15:29.509000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T16:15:29.512000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T16:15:29.535000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T16:15:29.565000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T18:15:29.582000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T18:15:29.606000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T18:15:29.637000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T20:15:29.641000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T20:15:29.659000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T20:15:29.696000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T22:15:29.714000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T22:15:29.730000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        },
+        {
+            "SourceIdentifier": "mongo-mssql-1-production",
+            "SourceType": "db-instance",
+            "Message": "Storage size 45000 GiB is approaching the maximum storage threshold 50000 GiB. Increase the maximum storage threshold.",
+            "EventCategories": [
+                "notification"
+            ],
+            "Date": "2026-08-16T22:15:29.765000+00:00",
+            "SourceArn": "arn:aws:rds:us-west-2:363979333641:db:mongo-mssql-1-production"
+        }
+    ]
+}
