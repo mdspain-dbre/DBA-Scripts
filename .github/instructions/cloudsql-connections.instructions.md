@@ -1,12 +1,12 @@
 ---
-description: "Database connection reference for the Inscape portfolio projects (vz-inscape-portfolio-dev / -qa / -stage): CloudSQL MySQL/Postgres and AlloyDB instance names, regions, connection names, and Auth Proxy ports. Consult before connecting to any instance or running a health check / backup audit."
+description: "Database connection reference for the Inscape portfolio projects (vz-inscape-portfolio-dev / -qa / -stage / -prod): CloudSQL MySQL/Postgres and AlloyDB instance names, regions, connection names, and Auth Proxy ports. Consult before connecting to any instance or running a health check / backup audit."
 applyTo: "GCP/**,**/*cloudsql*,**/*CloudSQL*,**/*alloydb*,**/*AlloyDB*"
 ---
-# Database Connection Reference — Inscape portfolio (`dev` / `qa` / `stage`)
+# Database Connection Reference — Inscape portfolio (`dev` / `qa` / `stage` / `prod`)
 
-Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-inscape-portfolio-dev`, `vz-inscape-portfolio-qa`, and `vz-inscape-portfolio-stage`. Keep these tables up to date; agents and prompts rely on them so they don't have to rediscover connection details every run.
+Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-inscape-portfolio-dev`, `vz-inscape-portfolio-qa`, `vz-inscape-portfolio-stage`, and `vz-inscape-portfolio-prod`. Keep these tables up to date; agents and prompts rely on them so they don't have to rediscover connection details every run.
 
-> Inventory last verified: 2026-07-27. Re-run the discovery commands under each section if instances have changed.
+> Inventory last verified: 2026-09-08. Re-run the discovery commands under each section if instances have changed.
 
 ## Connection conventions
 - **Always connect via a proxy** — never expose public IP or embed passwords. CloudSQL uses the **Cloud SQL Auth Proxy**; AlloyDB uses the **AlloyDB Auth Proxy** (`alloydb-auth-proxy`) against the instance URI, or an existing PSC/private-IP path.
@@ -26,13 +26,10 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 |----------|------------------|--------|-----------------|------------|-------|
 | `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-dev:us-east4:admin-portal-db` | 5432 | ZONAL, db-custom-2-8192 |
 | `tvc-development` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-dev:us-east4:tvc-development` | 5432 | ZONAL, db-custom-2-8192 |
-| `client-cert-auxdb` | MYSQL_8_4 | us-west1 | `vz-inscape-portfolio-dev:us-west1:client-cert-auxdb` | 3306 | ZONAL, db-custom-4-26624 |
-| `prod-gcp-auxdb-qa-84-20260226` | MYSQL_8_4 | us-west1 | `vz-inscape-portfolio-dev:us-west1:prod-gcp-auxdb-qa-84-20260226` | 3306 | ZONAL, db-custom-4-26624; replica of `…-master` |
-| `auxdb-qa-dre-test` | MYSQL_8_0 | us-west1 | `vz-inscape-portfolio-dev:us-west1:auxdb-qa-dre-test` | 3306 | ZONAL, db-custom-2-7680 (DRE test) |
-| `auxdb-qa-dre-test2` | MYSQL_8_0 | us-west1 | `vz-inscape-portfolio-dev:us-west1:auxdb-qa-dre-test2` | 3306 | ZONAL, db-custom-2-7680; replica of `…-master` (DRE test) |
-| `auxdb-dre-test3` | MYSQL_8_0 | us-west1 | `vz-inscape-portfolio-dev:us-west1:auxdb-dre-test3` | 3306 | ZONAL, db-custom-2-7680 (DRE test) |
-| `prod-gcp-auxdb-qa-84-20260226-master` | MYSQL_8_0 | us-west1 | — | — | External-primary source row (no proxy target) for the replica above |
-| `auxdb-qa-dre-test2-master` | MYSQL_8_0 | us-west1 | — | — | External-primary source row (no proxy target) for the replica above |
+| `prod-gcp-auxdb-qa-84-20260226` | MYSQL_8_4 | us-west1 | `vz-inscape-portfolio-dev:us-west1:prod-gcp-auxdb-qa-84-20260226` | 3306 | ZONAL, db-custom-4-26624; replica of `prod-gcp-auxdb-qa-84-20260226-master` |
+| `prod-gcp-auxdb-qa-84-20260226-master` | MYSQL_8_0 | us-west1 | `` | 3306 | ZONAL |
+| `auxdb-dev` | MYSQL_8_4 | us-east4 | `vz-inscape-portfolio-dev:us-east4:auxdb-dev` | 3306 | ZONAL, db-custom-N4-4-32768; replica of `auxdb-dev-master` |
+| `auxdb-dev-master` | MYSQL_8_0 | us-east4 | `` | 3306 | ZONAL |
 
 ### `vz-inscape-portfolio-qa` (suggested Postgres port 5433)
 
@@ -40,14 +37,27 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 |----------|------------------|--------|-----------------|------------|-------|
 | `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-qa:us-east4:admin-portal-db` | 5433 | ZONAL, db-custom-2-8192 |
 | `tvc-qa` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-qa:us-east4:tvc-qa` | 5433 | ZONAL, db-custom-2-8192 |
+| `auxdb-qa` | MYSQL_8_4 | us-east4 | `vz-inscape-portfolio-qa:us-east4:auxdb-qa` | 3307 | ZONAL, db-custom-N4-4-32768; replica of `auxdb-qa-master` |
+| `auxdb-qa-de` | MYSQL_8_4 | us-east4 | `vz-inscape-portfolio-qa:us-east4:auxdb-qa-de` | 3307 | ZONAL, db-custom-N4-4-32768 |
+| `auxdb-qa-master` | MYSQL_8_0 | us-east4 | `` | 3307 | ZONAL |
 
 ### `vz-inscape-portfolio-stage` (suggested Postgres port 5434)
 
 | Instance | Engine / Version | Region | Connection name | Local port | Notes |
 |----------|------------------|--------|-----------------|------------|-------|
-| `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-stage:us-east4:admin-portal-db` | 5434 | **REGIONAL (HA)**, db-custom-2-8192 |
-| `tvcdb-stage` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-stage:us-east4:tvcdb-stage` | 5434 | **REGIONAL (HA)**, db-custom-2-8192; replica of `…-master` |
-| `tvcdb-stage-master` | POSTGRES_17 | us-east4 | — | — | External-primary source row (no proxy target) for the replica above |
+| `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-stage:us-east4:admin-portal-db` | 5434 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
+| `tvcdb-stage` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-stage:us-east4:tvcdb-stage` | 5434 | **REGIONAL (HA)**, db-custom-2-8192 |
+| `auxdb-stage` | MYSQL_8_4 | us-east4 | `vz-inscape-portfolio-stage:us-east4:auxdb-stage` | 3308 | **REGIONAL (HA)**, db-custom-N4-4-32768; replica of `auxdb-stage-master` |
+| `auxdb-stage-master` | MYSQL_8_0 | us-east4 | `` | 3308 | ZONAL |
+| `hadr-replica-admin-portal-db` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-stage:us-central1:hadr-replica-admin-portal-db` | 5434 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
+
+### `vz-inscape-portfolio-prod` (suggested Postgres port 5435, MySQL 3307)
+
+| Instance | Engine / Version | Region | Connection name | Local port | Notes |
+|----------|------------------|--------|-----------------|------------|-------|
+| `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
+| `hadr-replica-admin-portal-db` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-prod:us-central1:hadr-replica-admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
+| `tvcdb-production` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:tvcdb-production` | 5435 | **REGIONAL (HA)**, db-custom-2-8192 |
 
 ## AlloyDB clusters / instances
 > Discover live values with:
@@ -61,23 +71,32 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 | Cluster | Instance | Type | CPUs | Notes |
 |---------|----------|------|------|-------|
 | `pointsdb-video-clu` | `pointsdb-video-inst` | PRIMARY | 16 | POSTGRES_18, ZONAL, READY |
-| `pointsdb-video-clu` | `pointsdb-video-read-pool` | READ_POOL | 16 | READY |
 | `pointsdb-audio-clu` | `pointsdb-audio-inst` | PRIMARY | 8 | POSTGRES_18, ZONAL, READY |
-| `pointsdb-audio-clu` | `pointsdb-audio-read-pool` | READ_POOL | 8 | READY |
-| `tvc-development-cluster` | `tvc-development` | PRIMARY | 2 | POSTGRES_17, ZONAL, READY |
+| `pointsdb-audio-clu` | `pointsdb-audio-rp` | READ_POOL | 8 | POSTGRES_18, READY |
+| `pointsdb-video-clu` | `pointsdb-video-rp` | READ_POOL | 16 | POSTGRES_18, READY |
 
 ### `vz-inscape-portfolio-qa` — region `us-east4` (suggested port 5443)
 
 | Cluster | Instance | Type | CPUs | Notes |
 |---------|----------|------|------|-------|
 | `pointsdb-video-clu` | `pointsdb-video-inst` | PRIMARY | 16 | POSTGRES_18, ZONAL, READY |
-| `pointsdb-video-clu` | `pointsdb-video-read-pool` | READ_POOL | 16 | READY |
 | `pointsdb-audio-clu` | `pointsdb-audio-inst` | PRIMARY | 8 | POSTGRES_18, ZONAL, READY |
-| `pointsdb-audio-clu` | `pointsdb-audio-read-pool` | READ_POOL | 8 | READY |
+| `pointsdb-audio-clu` | `pointsdb-audio-rp` | READ_POOL | 8 | POSTGRES_18, READY |
+| `pointsdb-video-clu` | `pointsdb-video-rp` | READ_POOL | 16 | POSTGRES_18, READY |
 
-### `vz-inscape-portfolio-stage`
+### `vz-inscape-portfolio-stage` — region `us-east4` (suggested port 5444)
 
-No AlloyDB clusters as of the last inventory.
+| Cluster | Instance | Type | CPUs | Notes |
+|---------|----------|------|------|-------|
+| `pointsdb-audio-clu` | `pointsdb-audio-inst` | PRIMARY | 8 | POSTGRES_18, REGIONAL, READY |
+| `pointsdb-audio-clu` | `pointsdb-audio-rp` | READ_POOL | 8 | POSTGRES_18, READY |
+| `pointsdb-video-clu` | `pointsdb-video-inst` | PRIMARY | 16 | POSTGRES_18, REGIONAL, READY |
+| `pointsdb-video-clu` | `pointsdb-video-rp` | READ_POOL | 16 | POSTGRES_18, READY |
+
+### `vz-inscape-portfolio-prod` — (suggested port 5445)
+
+| Cluster | Instance | Type | CPUs | Notes |
+|---------|----------|------|------|-------|
 
 ## Credentials
 - Prefer **IAM database authentication** (`--auto-iam-authn`) where enabled — no stored passwords.

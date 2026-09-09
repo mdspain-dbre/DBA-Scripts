@@ -1,8 +1,8 @@
 ---
-description: "Use when asked to run a health check, status sweep, or audit across all database instances in the Inscape portfolio GCP projects (CloudSQL Postgres, CloudSQL MySQL, AlloyDB). Triggers: 'db fleet health check', 'check all my database instances', 'health of my databases across projects', 'audit cloudsql and alloydb', 'are my databases healthy', 'multi-project database status sweep'. Read-only DBA review across vz-inscape-portfolio-dev, vz-inscape-portfolio-qa and vz-inscape-portfolio-stage."
+description: "Use when asked to run a health check, status sweep, or audit across all database instances in the Inscape portfolio GCP projects (CloudSQL Postgres, CloudSQL MySQL, AlloyDB). Triggers: 'db fleet health check', 'check all my database instances', 'health of my databases across projects', 'audit cloudsql and alloydb', 'are my databases healthy', 'multi-project database status sweep'. Read-only DBA review across vz-inscape-portfolio-dev, vz-inscape-portfolio-qa, vz-inscape-portfolio-stage and vz-inscape-portfolio-prod."
 name: "DB Fleet Health Check"
 tools: [execute, read, search]
-argument-hint: "Optionally scope to one or more projects (default: vz-inscape-portfolio-dev, vz-inscape-portfolio-qa, vz-inscape-portfolio-stage), one engine (cloudsql-postgres|cloudsql-mysql|alloydb), or a single instance name"
+argument-hint: "Optionally scope to one or more projects (default: vz-inscape-portfolio-dev, vz-inscape-portfolio-qa, vz-inscape-portfolio-stage, vz-inscape-portfolio-prod), one engine (cloudsql-postgres|cloudsql-mysql|alloydb), or a single instance name"
 hooks:
   PreToolUse:
     - type: command
@@ -15,6 +15,7 @@ Default project set:
 - `vz-inscape-portfolio-dev`
 - `vz-inscape-portfolio-qa`
 - `vz-inscape-portfolio-stage`
+- `vz-inscape-portfolio-prod`
 
 If the user names different projects, a single project, a single engine, or a single instance, scope to that instead. Always iterate every project in scope and label every finding with its project so results are never ambiguous across environments. Treat `vz-inscape-portfolio-dev` connection facts (instance names, connection names, proxy ports) as documented in [.github/instructions/cloudsql-connections.instructions.md](.github/instructions/cloudsql-connections.instructions.md).
 

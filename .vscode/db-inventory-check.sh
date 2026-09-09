@@ -17,7 +17,7 @@ set -u
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOC="$SCRIPT_DIR/../.github/instructions/cloudsql-connections.instructions.md"
 PRUNER="$SCRIPT_DIR/db-inventory-prune.py"
-PROJECTS="${DB_INV_PROJECTS:-vz-inscape-portfolio-dev vz-inscape-portfolio-qa vz-inscape-portfolio-stage}"
+PROJECTS="${DB_INV_PROJECTS:-vz-inscape-portfolio-dev vz-inscape-portfolio-qa vz-inscape-portfolio-stage vz-inscape-portfolio-prod}"
 
 # ---- preflight -------------------------------------------------------------
 if ! command -v gcloud >/dev/null 2>&1; then
@@ -49,21 +49,40 @@ echo "    Projects: $PROJECTS"
 echo ""
 
 # ---- live inventory (list-only) --------------------------------------------
+# Emits typed TSV consumed by db-inventory-prune.py:
+#   <project>\tcloudsql\t<name>\t<version>\t<region>\t<connName>\t<avail>\t<tier>\t<master>
+#   <project>\talloydb\t<region>\t<cluster>\t<instance>\t<type>\t<cpus>\t<avail>\t<version>\t<state>
+#   <project>\t__INACCESSIBLE__
 live() {
     local project="$1"
-    gcloud sql instances list --project="$project" --format="value(name)" 2>/dev/null \
-        | while read -r n; do [ -n "$n" ] && printf '%s\t%s\n' "$project" "$n"; done
+
+    # gcloud uses '|' (non-whitespace) so `read` preserves empty fields; the
+    # emitted TSV downstream is still \t-separated.
+    gcloud sql instances list --project="$project" \
+        --format='value[separator="|"](name,databaseVersion,region,connectionName,settings.availabilityType,settings.tier,masterInstanceName)' \
+        2>/dev/null \
+    | while IFS='|' read -r name ver region conn avail tier master; do
+        [ -z "$name" ] && continue
+        printf '%s\tcloudsql\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+            "$project" "$name" "$ver" "$region" "$conn" "$avail" "$tier" "$master"
+    done
 
     gcloud alloydb clusters list --project="$project" --region=- \
-        --format="value(name)" 2>/dev/null \
-    | while read -r cpath; do
+        --format='value[separator="|"](name,databaseVersion)' 2>/dev/null \
+    | while IFS='|' read -r cpath cver; do
         [ -z "$cpath" ] && continue
         local region cluster
         region=$(echo "$cpath"  | sed -E 's#.*/locations/([^/]+)/.*#\1#')
         cluster=$(echo "$cpath" | sed -E 's#.*/clusters/([^/]+)$#\1#')
         gcloud alloydb instances list --cluster="$cluster" --region="$region" \
-            --project="$project" --format="value(name.basename())" 2>/dev/null \
-            | while read -r i; do [ -n "$i" ] && printf '%s\t%s\n' "$project" "$i"; done
+            --project="$project" \
+            --format='value[separator="|"](name.basename(),instanceType,machineConfig.cpuCount,availabilityType,state)' \
+            2>/dev/null \
+        | while IFS='|' read -r iname itype icpu iavail istate; do
+            [ -z "$iname" ] && continue
+            printf '%s\talloydb\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+                "$project" "$region" "$cluster" "$iname" "$itype" "$icpu" "$iavail" "$cver" "$istate"
+        done
     done
 }
 
@@ -83,4 +102,20 @@ if [ "${DB_INV_NO_PRUNE:-0}" = "1" ]; then
 else
     python3 "$PRUNER" "$DOC" "$LIVE_TSV" $PROJECTS
 fi
+
+if [ "${DB_INV_NO_TABLE:-0}" != "1" ]; then
+    echo ""
+    echo "==> DB Fleet (live from gcloud)"
+    {
+        printf 'PROJECT\tKIND\tINSTANCE\tENGINE\tREGION\tHA\tTIER\tREPLICA_OF\n'
+        awk -F'\t' '
+            function nz(v) { return (v=="") ? "-" : v }
+            $2=="cloudsql" { split($9,m,":"); printf "%s\tcloudsql\t%s\t%s\t%s\t%s\t%s\t%s\n",
+                                                        $1,$3,$4,$5,nz($7),nz($8),nz(m[2]) }
+            $2=="alloydb"  { printf "%s\talloydb\t%s/%s\t%s\t%s\t%s\t%s (%s, %s cpu)\t-\n",
+                                                        $1,$4,$5,$9,$3,nz($8),$6,$10,$7 }
+        ' "$LIVE_TSV"
+    } | column -t -s $'\t'
+fi
+
 exit 0

@@ -15,7 +15,7 @@ command -v jq     >/dev/null || { echo "[ERROR] jq required." >&2; exit 1; }
 
 CHANNEL="${1:-C0AE84DBWRZ}"; [ $# -gt 0 ] && shift
 PROJECTS=("$@")
-[ ${#PROJECTS[@]} -eq 0 ] && PROJECTS=(vz-inscape-portfolio-dev vz-inscape-portfolio-qa vz-inscape-portfolio-stage)
+[ ${#PROJECTS[@]} -eq 0 ] && PROJECTS=(vz-inscape-portfolio-dev vz-inscape-portfolio-qa vz-inscape-portfolio-stage vz-inscape-portfolio-prod)
 
 TOK=$(gcloud auth print-access-token 2>/dev/null || true)
 END=$(date -u +%Y-%m-%dT%H:%M:%SZ)
