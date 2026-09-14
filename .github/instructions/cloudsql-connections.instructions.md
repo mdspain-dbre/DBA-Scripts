@@ -6,7 +6,7 @@ applyTo: "GCP/**,**/*cloudsql*,**/*CloudSQL*,**/*alloydb*,**/*AlloyDB*"
 
 Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-inscape-portfolio-dev`, `vz-inscape-portfolio-qa`, `vz-inscape-portfolio-stage`, and `vz-inscape-portfolio-prod`. Keep these tables up to date; agents and prompts rely on them so they don't have to rediscover connection details every run.
 
-> Inventory last verified: 2026-09-08. Re-run the discovery commands under each section if instances have changed.
+> Inventory last verified: 2026-09-10. Re-run the discovery commands under each section if instances have changed.
 
 ## Connection conventions
 - **Always connect via a proxy** — never expose public IP or embed passwords. CloudSQL uses the **Cloud SQL Auth Proxy**; AlloyDB uses the **AlloyDB Auth Proxy** (`alloydb-auth-proxy`) against the instance URI, or an existing PSC/private-IP path.
@@ -57,7 +57,8 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 |----------|------------------|--------|-----------------|------------|-------|
 | `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
 | `hadr-replica-admin-portal-db` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-prod:us-central1:hadr-replica-admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
-| `tvcdb-production` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:tvcdb-production` | 5435 | **REGIONAL (HA)**, db-custom-2-8192 |
+| `tvcdb-production` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:tvcdb-production` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
+| `hadr-replica-tvcdb-production` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-prod:us-central1:hadr-replica-tvcdb-production` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `tvcdb-production` |
 
 ## AlloyDB clusters / instances
 > Discover live values with:
@@ -97,6 +98,10 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 
 | Cluster | Instance | Type | CPUs | Notes |
 |---------|----------|------|------|-------|
+| `pointsdb-audio-clu` | `pointsdb-audio-inst` | PRIMARY | 8 | POSTGRES_18, REGIONAL, READY |
+| `pointsdb-audio-clu` | `pointsdb-audio-rp` | READ_POOL | 8 | POSTGRES_18, READY |
+| `pointsdb-video-clu` | `pointsdb-video-inst` | PRIMARY | 16 | POSTGRES_18, REGIONAL, READY |
+| `pointsdb-video-clu` | `pointsdb-video-rp` | READ_POOL | 16 | POSTGRES_18, READY |
 
 ## Credentials
 - Prefer **IAM database authentication** (`--auto-iam-authn`) where enabled — no stored passwords.
