@@ -1,0 +1,1244 @@
+{
+    "Label": "CommitThroughput",
+    "Datapoints": [
+        {
+            "Timestamp": "2026-09-11T22:51:00+00:00",
+            "Average": 6816.15,
+            "Minimum": 6816.15,
+            "Maximum": 6816.15,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:44:00+00:00",
+            "Average": 7245.592695037824,
+            "Minimum": 7245.592695037824,
+            "Maximum": 7245.592695037824,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:34:00+00:00",
+            "Average": 6645.882587992408,
+            "Minimum": 6645.882587992408,
+            "Maximum": 6645.882587992408,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:56:00+00:00",
+            "Average": 0.9999666677777407,
+            "Minimum": 0.9999666677777407,
+            "Maximum": 0.9999666677777407,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:49:00+00:00",
+            "Average": 6719.91265502067,
+            "Minimum": 6719.91265502067,
+            "Maximum": 6719.91265502067,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:42:00+00:00",
+            "Average": 7188.760710832528,
+            "Minimum": 7188.760710832528,
+            "Maximum": 7188.760710832528,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:01:00+00:00",
+            "Average": 4646.521351066657,
+            "Minimum": 3868.8533834586465,
+            "Maximum": 5424.189318674668,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:54:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:32:00+00:00",
+            "Average": 6762.989774982902,
+            "Minimum": 6762.989774982902,
+            "Maximum": 6762.989774982902,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:40:00+00:00",
+            "Average": 7191.7531958865975,
+            "Minimum": 7191.7531958865975,
+            "Maximum": 7191.7531958865975,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:47:00+00:00",
+            "Average": 6608.570952142738,
+            "Minimum": 6608.570952142738,
+            "Maximum": 6608.570952142738,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:57:00+00:00",
+            "Average": 7399.599766530476,
+            "Minimum": 7399.599766530476,
+            "Maximum": 7399.599766530476,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:50:00+00:00",
+            "Average": 0.9999833336111065,
+            "Minimum": 0.9999833336111065,
+            "Maximum": 0.9999833336111065,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:59:00+00:00",
+            "Average": 6996.171006192982,
+            "Minimum": 6996.171006192982,
+            "Maximum": 6996.171006192982,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:52:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:30:00+00:00",
+            "Average": 6855.736065983504,
+            "Minimum": 6855.736065983504,
+            "Maximum": 6855.736065983504,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:38:00+00:00",
+            "Average": 7229.357339334833,
+            "Minimum": 7229.357339334833,
+            "Maximum": 7229.357339334833,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:55:00+00:00",
+            "Average": 7419.534573358912,
+            "Minimum": 7419.534573358912,
+            "Maximum": 7419.534573358912,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:48:00+00:00",
+            "Average": 1.0333333333333334,
+            "Minimum": 1.0333333333333334,
+            "Maximum": 1.0333333333333334,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:28:00+00:00",
+            "Average": 6770.151343422895,
+            "Minimum": 6770.151343422895,
+            "Maximum": 6770.151343422895,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:45:00+00:00",
+            "Average": 6625.417111585692,
+            "Minimum": 6625.417111585692,
+            "Maximum": 6625.417111585692,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:11:00+00:00",
+            "Average": 104.78924132705842,
+            "Minimum": 104.78924132705842,
+            "Maximum": 104.78924132705842,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:46:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:26:00+00:00",
+            "Average": 6555.189017177321,
+            "Minimum": 6555.189017177321,
+            "Maximum": 6555.189017177321,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:36:00+00:00",
+            "Average": 7200.13012795916,
+            "Minimum": 7200.13012795916,
+            "Maximum": 7200.13012795916,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:01:00+00:00",
+            "Average": 7447.973548419418,
+            "Minimum": 7447.973548419418,
+            "Maximum": 7447.973548419418,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:44:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:09:00+00:00",
+            "Average": 170.4995466437114,
+            "Minimum": 145.77040892830365,
+            "Maximum": 195.22868435911914,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:22:00+00:00",
+            "Average": 6521.564443258923,
+            "Minimum": 6521.564443258923,
+            "Maximum": 6521.564443258923,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:59:00+00:00",
+            "Average": 7869.52244380711,
+            "Minimum": 7869.52244380711,
+            "Maximum": 7869.52244380711,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:24:00+00:00",
+            "Average": 6488.3825663436355,
+            "Minimum": 6488.3825663436355,
+            "Maximum": 6488.3825663436355,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:34:00+00:00",
+            "Average": 7271.870883838806,
+            "Minimum": 7271.870883838806,
+            "Maximum": 7271.870883838806,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:42:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:55:00+00:00",
+            "Average": 6770.629510491841,
+            "Minimum": 6770.629510491841,
+            "Maximum": 6770.629510491841,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:20:00+00:00",
+            "Average": 6479.316381825761,
+            "Minimum": 6479.316381825761,
+            "Maximum": 6479.316381825761,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:32:00+00:00",
+            "Average": 7415.315585801975,
+            "Minimum": 7415.315585801975,
+            "Maximum": 7415.315585801975,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:57:00+00:00",
+            "Average": 6918.092604008731,
+            "Minimum": 6918.092604008731,
+            "Maximum": 6918.092604008731,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:07:00+00:00",
+            "Average": 404.1325549333651,
+            "Minimum": 404.1325549333651,
+            "Maximum": 404.1325549333651,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:18:00+00:00",
+            "Average": 6382.593924860112,
+            "Minimum": 6382.593924860112,
+            "Maximum": 6382.593924860112,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:53:00+00:00",
+            "Average": 6733.599933349996,
+            "Minimum": 6733.599933349996,
+            "Maximum": 6733.599933349996,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:30:00+00:00",
+            "Average": 7709.78479769652,
+            "Minimum": 7709.78479769652,
+            "Maximum": 7709.78479769652,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:40:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:05:00+00:00",
+            "Average": 449.63813369377385,
+            "Minimum": 449.63813369377385,
+            "Maximum": 449.63813369377385,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:16:00+00:00",
+            "Average": 6463.883841498991,
+            "Minimum": 6463.883841498991,
+            "Maximum": 6463.883841498991,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:09:00+00:00",
+            "Average": 7112.970362970363,
+            "Minimum": 7112.970362970363,
+            "Maximum": 7112.970362970363,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:02:00+00:00",
+            "Average": 3574.370789262401,
+            "Minimum": 3574.370789262401,
+            "Maximum": 3574.370789262401,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:55:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:35:00+00:00",
+            "Average": 6648.373304829982,
+            "Minimum": 6648.373304829982,
+            "Maximum": 6648.373304829982,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:28:00+00:00",
+            "Average": 7286.140412271493,
+            "Minimum": 7286.140412271493,
+            "Maximum": 7286.140412271493,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:21:00+00:00",
+            "Average": 1.0166327789073697,
+            "Minimum": 1.0166327789073697,
+            "Maximum": 1.0166327789073697,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:24:00+00:00",
+            "Average": 7137.6794696692095,
+            "Minimum": 7137.6794696692095,
+            "Maximum": 7137.6794696692095,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:17:00+00:00",
+            "Average": 1.0833333333333333,
+            "Minimum": 1.0833333333333333,
+            "Maximum": 1.0833333333333333,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:31:00+00:00",
+            "Average": 6857.787396986598,
+            "Minimum": 6857.787396986598,
+            "Maximum": 6857.787396986598,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:50:00+00:00",
+            "Average": 6667.200186732023,
+            "Minimum": 6667.200186732023,
+            "Maximum": 6667.200186732023,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:43:00+00:00",
+            "Average": 7345.07077477117,
+            "Minimum": 7345.07077477117,
+            "Maximum": 7345.07077477117,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:36:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:51:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:12:00+00:00",
+            "Average": 6395.703834552636,
+            "Minimum": 6395.703834552636,
+            "Maximum": 6395.703834552636,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:05:00+00:00",
+            "Average": 7396.1222992798075,
+            "Minimum": 7396.1222992798075,
+            "Maximum": 7396.1222992798075,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:58:00+00:00",
+            "Average": 7282.234432234432,
+            "Minimum": 7282.234432234432,
+            "Maximum": 7282.234432234432,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:27:00+00:00",
+            "Average": 6663.048552754435,
+            "Minimum": 6663.048552754435,
+            "Maximum": 6663.048552754435,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:20:00+00:00",
+            "Average": 7026.598670066497,
+            "Minimum": 7026.598670066497,
+            "Maximum": 7026.598670066497,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:13:00+00:00",
+            "Average": 131.6658962902094,
+            "Minimum": 131.6658962902094,
+            "Maximum": 131.6658962902094,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:32:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:46:00+00:00",
+            "Average": 6487.87883836785,
+            "Minimum": 6487.87883836785,
+            "Maximum": 6487.87883836785,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:39:00+00:00",
+            "Average": 7179.263210535089,
+            "Minimum": 7179.263210535089,
+            "Maximum": 7179.263210535089,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:42:00+00:00",
+            "Average": 6582.048972511343,
+            "Minimum": 6582.048972511343,
+            "Maximum": 6582.048972511343,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:28:00+00:00",
+            "Average": 1.0333161113981435,
+            "Minimum": 1.0333161113981435,
+            "Maximum": 1.0333161113981435,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:43:00+00:00",
+            "Average": 6574.399360650006,
+            "Minimum": 6574.399360650006,
+            "Maximum": 6574.399360650006,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:29:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:08:00+00:00",
+            "Average": 6406.387445021991,
+            "Minimum": 6406.387445021991,
+            "Maximum": 6406.387445021991,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:54:00+00:00",
+            "Average": 7446.376762984454,
+            "Minimum": 7446.376762984454,
+            "Maximum": 7446.376762984454,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:51:00+00:00",
+            "Average": 7578.636992120475,
+            "Minimum": 7578.636992120475,
+            "Maximum": 7578.636992120475,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:05:00+00:00",
+            "Average": 6462.460210322817,
+            "Minimum": 6462.460210322817,
+            "Maximum": 6462.460210322817,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:17:00+00:00",
+            "Average": 6949.162998532746,
+            "Minimum": 6949.162998532746,
+            "Maximum": 6949.162998532746,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:16:00+00:00",
+            "Average": 6964.281547410704,
+            "Minimum": 6964.281547410704,
+            "Maximum": 6964.281547410704,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:38:00+00:00",
+            "Average": 6516.459875925556,
+            "Minimum": 6516.459875925556,
+            "Maximum": 6516.459875925556,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:24:00+00:00",
+            "Average": 1.000016666944449,
+            "Minimum": 1.000016666944449,
+            "Maximum": 1.000016666944449,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:13:00+00:00",
+            "Average": 7058.207140120279,
+            "Minimum": 7058.207140120279,
+            "Maximum": 7058.207140120279,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:59:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:39:00+00:00",
+            "Average": 6578.097396753441,
+            "Minimum": 6578.097396753441,
+            "Maximum": 6578.097396753441,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:50:00+00:00",
+            "Average": 7497.197505197505,
+            "Minimum": 7497.197505197505,
+            "Maximum": 7497.197505197505,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:04:00+00:00",
+            "Average": 6450.548351611721,
+            "Minimum": 6450.548351611721,
+            "Maximum": 6450.548351611721,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:25:00+00:00",
+            "Average": 1.016649722504625,
+            "Minimum": 1.016649722504625,
+            "Maximum": 1.016649722504625,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:46:00+00:00",
+            "Average": 7321.633822525029,
+            "Minimum": 7321.633822525029,
+            "Maximum": 7321.633822525029,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:00:00+00:00",
+            "Average": 7802.30658978034,
+            "Minimum": 7802.30658978034,
+            "Maximum": 7802.30658978034,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:01:00+00:00",
+            "Average": 7008.532053525305,
+            "Minimum": 7008.532053525305,
+            "Maximum": 7008.532053525305,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:47:00+00:00",
+            "Average": 7396.4793658195385,
+            "Minimum": 7396.4793658195385,
+            "Maximum": 7396.4793658195385,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:12:00+00:00",
+            "Average": 7075.818303273213,
+            "Minimum": 7075.818303273213,
+            "Maximum": 7075.818303273213,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:58:00+00:00",
+            "Average": 1.0333333333333334,
+            "Minimum": 1.0333333333333334,
+            "Maximum": 1.0333333333333334,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:20:00+00:00",
+            "Average": 1.000016666944449,
+            "Minimum": 1.000016666944449,
+            "Maximum": 1.000016666944449,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:37:00+00:00",
+            "Average": 1.0833333333333333,
+            "Minimum": 1.0833333333333333,
+            "Maximum": 1.0833333333333333,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:17:00+00:00",
+            "Average": 6493.274439536628,
+            "Minimum": 6493.274439536628,
+            "Maximum": 6493.274439536628,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:10:00+00:00",
+            "Average": 7114.9346639742325,
+            "Minimum": 7114.9346639742325,
+            "Maximum": 7114.9346639742325,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:27:00+00:00",
+            "Average": 7175.676126321407,
+            "Minimum": 7175.676126321407,
+            "Maximum": 7175.676126321407,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:13:00+00:00",
+            "Average": 6432.904473035132,
+            "Minimum": 6432.904473035132,
+            "Maximum": 6432.904473035132,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:35:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:08:00+00:00",
+            "Average": 7021.136613478131,
+            "Minimum": 7021.136613478131,
+            "Maximum": 7021.136613478131,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:15:00+00:00",
+            "Average": 6442.547023640937,
+            "Minimum": 6442.547023640937,
+            "Maximum": 6442.547023640937,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:25:00+00:00",
+            "Average": 6947.0980653769175,
+            "Minimum": 6947.0980653769175,
+            "Maximum": 6947.0980653769175,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:18:00+00:00",
+            "Average": 1.0333505558425973,
+            "Minimum": 1.0333505558425973,
+            "Maximum": 1.0333505558425973,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:33:00+00:00",
+            "Average": 1.0166327789073697,
+            "Minimum": 1.0166327789073697,
+            "Maximum": 1.0166327789073697,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:11:00+00:00",
+            "Average": 6403.490349034903,
+            "Minimum": 6403.490349034903,
+            "Maximum": 6403.490349034903,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:04:00+00:00",
+            "Average": 7356.495669553631,
+            "Minimum": 7356.495669553631,
+            "Maximum": 7356.495669553631,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:06:00+00:00",
+            "Average": 7267.238073004385,
+            "Minimum": 7267.238073004385,
+            "Maximum": 7267.238073004385,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:16:00+00:00",
+            "Average": 1.2001000083340279,
+            "Minimum": 1.2001000083340279,
+            "Maximum": 1.2001000083340279,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:23:00+00:00",
+            "Average": 7020.2286133235575,
+            "Minimum": 7020.2286133235575,
+            "Maximum": 7020.2286133235575,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:31:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:09:00+00:00",
+            "Average": 6349.7883403886535,
+            "Minimum": 6349.7883403886535,
+            "Maximum": 6349.7883403886535,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:02:00+00:00",
+            "Average": 7396.781639736288,
+            "Minimum": 7396.781639736288,
+            "Maximum": 7396.781639736288,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:21:00+00:00",
+            "Average": 6921.467975533741,
+            "Minimum": 6921.467975533741,
+            "Maximum": 6921.467975533741,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:14:00+00:00",
+            "Average": 109.04521838336186,
+            "Minimum": 109.04521838336186,
+            "Maximum": 109.04521838336186,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:00:00+00:00",
+            "Average": 7769.57620916772,
+            "Minimum": 7769.57620916772,
+            "Maximum": 7769.57620916772,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:25:00+00:00",
+            "Average": 6584.534622114824,
+            "Minimum": 6584.534622114824,
+            "Maximum": 6584.534622114824,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:35:00+00:00",
+            "Average": 7252.9413725294135,
+            "Minimum": 7252.9413725294135,
+            "Maximum": 7252.9413725294135,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:12:00+00:00",
+            "Average": 80.45977011494253,
+            "Minimum": 80.45977011494253,
+            "Maximum": 80.45977011494253,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:47:00+00:00",
+            "Average": 1.0833152780786988,
+            "Minimum": 1.0833152780786988,
+            "Maximum": 1.0833152780786988,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:58:00+00:00",
+            "Average": 7001.265928208545,
+            "Minimum": 7001.265928208545,
+            "Maximum": 7001.265928208545,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:33:00+00:00",
+            "Average": 7382.402509636403,
+            "Minimum": 7382.402509636403,
+            "Maximum": 7382.402509636403,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:45:00+00:00",
+            "Average": 1.0166836113935231,
+            "Minimum": 1.0166836113935231,
+            "Maximum": 1.0166836113935231,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:10:00+00:00",
+            "Average": 188.07182848559333,
+            "Minimum": 188.07182848559333,
+            "Maximum": 188.07182848559333,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:23:00+00:00",
+            "Average": 6517.285019649637,
+            "Minimum": 6517.285019649637,
+            "Maximum": 6517.285019649637,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:31:00+00:00",
+            "Average": 7372.787960512077,
+            "Minimum": 7372.787960512077,
+            "Maximum": 7372.787960512077,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:56:00+00:00",
+            "Average": 6866.6799986668,
+            "Minimum": 6866.6799986668,
+            "Maximum": 6866.6799986668,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:06:00+00:00",
+            "Average": 354.2442351616032,
+            "Minimum": 354.2442351616032,
+            "Maximum": 354.2442351616032,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:43:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:21:00+00:00",
+            "Average": 6462.893815635939,
+            "Minimum": 6462.893815635939,
+            "Maximum": 6462.893815635939,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:29:00+00:00",
+            "Average": 7430.315361139369,
+            "Minimum": 7430.315361139369,
+            "Maximum": 7430.315361139369,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:39:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:04:00+00:00",
+            "Average": 1739.002028209981,
+            "Minimum": 748.3450108721913,
+            "Maximum": 2729.659045547771,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:41:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:54:00+00:00",
+            "Average": 6715.304863819715,
+            "Minimum": 6715.304863819715,
+            "Maximum": 6715.304863819715,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:19:00+00:00",
+            "Average": 6423.1775389485965,
+            "Minimum": 6423.1775389485965,
+            "Maximum": 6423.1775389485965,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:33:00+00:00",
+            "Average": 6639.855422489465,
+            "Minimum": 6639.855422489465,
+            "Maximum": 6639.855422489465,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:26:00+00:00",
+            "Average": 7150.592582728544,
+            "Minimum": 7150.592582728544,
+            "Maximum": 7150.592582728544,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:19:00+00:00",
+            "Average": 1.016649722504625,
+            "Minimum": 1.016649722504625,
+            "Maximum": 1.016649722504625,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:45:00+00:00",
+            "Average": 7266.294382397066,
+            "Minimum": 7266.294382397066,
+            "Maximum": 7266.294382397066,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:38:00+00:00",
+            "Average": 1.0333333333333334,
+            "Minimum": 1.0333333333333334,
+            "Maximum": 1.0333333333333334,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:52:00+00:00",
+            "Average": 6718.81198019967,
+            "Minimum": 6718.81198019967,
+            "Maximum": 6718.81198019967,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:14:00+00:00",
+            "Average": 6561.028479957314,
+            "Minimum": 6561.028479957314,
+            "Maximum": 6561.028479957314,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:07:00+00:00",
+            "Average": 7148.655860182776,
+            "Minimum": 7148.655860182776,
+            "Maximum": 7148.655860182776,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:53:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:29:00+00:00",
+            "Average": 6679.242767630983,
+            "Minimum": 6679.242767630983,
+            "Maximum": 6679.242767630983,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:22:00+00:00",
+            "Average": 6900.04003736821,
+            "Minimum": 6900.04003736821,
+            "Maximum": 6900.04003736821,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:15:00+00:00",
+            "Average": 0.0,
+            "Minimum": 0.0,
+            "Maximum": 0.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:48:00+00:00",
+            "Average": 6693.922081383147,
+            "Minimum": 6693.922081383147,
+            "Maximum": 6693.922081383147,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:41:00+00:00",
+            "Average": 7143.342493130152,
+            "Minimum": 7143.342493130152,
+            "Maximum": 7143.342493130152,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:34:00+00:00",
+            "Average": 1.0000333344444816,
+            "Minimum": 1.0000333344444816,
+            "Maximum": 1.0000333344444816,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:44:00+00:00",
+            "Average": 6652.287690640887,
+            "Minimum": 6652.287690640887,
+            "Maximum": 6652.287690640887,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:37:00+00:00",
+            "Average": 7169.309701492538,
+            "Minimum": 7169.309701492538,
+            "Maximum": 7169.309701492538,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:03:00+00:00",
+            "Average": 7440.649617822676,
+            "Minimum": 7440.649617822676,
+            "Maximum": 7440.649617822676,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:56:00+00:00",
+            "Average": 7458.015521433567,
+            "Minimum": 7458.015521433567,
+            "Maximum": 7458.015521433567,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:49:00+00:00",
+            "Average": 1.0166836113935231,
+            "Minimum": 1.0166836113935231,
+            "Maximum": 1.0166836113935231,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:10:00+00:00",
+            "Average": 6379.597825724481,
+            "Minimum": 6379.597825724481,
+            "Maximum": 6379.597825724481,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:07:00+00:00",
+            "Average": 6405.592423383467,
+            "Minimum": 6405.592423383467,
+            "Maximum": 6405.592423383467,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:18:00+00:00",
+            "Average": 7019.13324881564,
+            "Minimum": 7019.13324881564,
+            "Maximum": 7019.13324881564,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:53:00+00:00",
+            "Average": 7367.515143490782,
+            "Minimum": 7367.515143490782,
+            "Maximum": 7367.515143490782,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:19:00+00:00",
+            "Average": 6930.892684713482,
+            "Minimum": 6930.892684713482,
+            "Maximum": 6930.892684713482,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:30:00+00:00",
+            "Average": 1.0,
+            "Minimum": 1.0,
+            "Maximum": 1.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:15:00+00:00",
+            "Average": 7155.619212577443,
+            "Minimum": 7155.619212577443,
+            "Maximum": 7155.619212577443,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:40:00+00:00",
+            "Average": 6505.432065851301,
+            "Minimum": 6505.432065851301,
+            "Maximum": 6505.432065851301,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:26:00+00:00",
+            "Average": 1.000016666944449,
+            "Minimum": 1.000016666944449,
+            "Maximum": 1.000016666944449,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:06:00+00:00",
+            "Average": 6411.002265760362,
+            "Minimum": 6411.002265760362,
+            "Maximum": 6411.002265760362,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:52:00+00:00",
+            "Average": 7313.67967824302,
+            "Minimum": 7313.67967824302,
+            "Maximum": 7313.67967824302,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:27:00+00:00",
+            "Average": 1.0833333333333333,
+            "Minimum": 1.0833333333333333,
+            "Maximum": 1.0833333333333333,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:41:00+00:00",
+            "Average": 6519.34575859025,
+            "Minimum": 6519.34575859025,
+            "Maximum": 6519.34575859025,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:03:00+00:00",
+            "Average": 6579.285976199207,
+            "Minimum": 6579.285976199207,
+            "Maximum": 6579.285976199207,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:49:00+00:00",
+            "Average": 7345.637135313973,
+            "Minimum": 7345.637135313973,
+            "Maximum": 7345.637135313973,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:02:00+00:00",
+            "Average": 6757.422689005585,
+            "Minimum": 6757.422689005585,
+            "Maximum": 6757.422689005585,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:14:00+00:00",
+            "Average": 7165.964111364735,
+            "Minimum": 7165.964111364735,
+            "Maximum": 7165.964111364735,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:11:00+00:00",
+            "Average": 7084.475873544093,
+            "Minimum": 7084.475873544093,
+            "Maximum": 7084.475873544093,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:22:00+00:00",
+            "Average": 1.0000333344444816,
+            "Minimum": 1.0000333344444816,
+            "Maximum": 1.0000333344444816,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:36:00+00:00",
+            "Average": 6518.50493464924,
+            "Minimum": 6518.50493464924,
+            "Maximum": 6518.50493464924,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:57:00+00:00",
+            "Average": 1.0833694456481884,
+            "Minimum": 1.0833694456481884,
+            "Maximum": 1.0833694456481884,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T22:37:00+00:00",
+            "Average": 6471.295571507087,
+            "Minimum": 6471.295571507087,
+            "Maximum": 6471.295571507087,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-12T00:23:00+00:00",
+            "Average": 1.0166666666666666,
+            "Minimum": 1.0166666666666666,
+            "Maximum": 1.0166666666666666,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2026-09-11T23:48:00+00:00",
+            "Average": 7287.90857295172,
+            "Minimum": 7287.90857295172,
+            "Maximum": 7287.90857295172,
+            "Unit": "Count/Second"
+        }
+    ]
+}

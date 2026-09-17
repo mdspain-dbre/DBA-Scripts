@@ -1,0 +1,21 @@
+{
+    "DBProxyEndpoints": [
+        {
+            "DBProxyEndpointName": "default",
+            "DBProxyName": "account-db-prod-proxy-us-west-2",
+            "Status": "available",
+            "VpcId": "vpc-0ed87385cbe527b86",
+            "VpcSecurityGroupIds": [
+                "sg-0c01aa6afc4213e65"
+            ],
+            "VpcSubnetIds": [
+                "subnet-080f1b123f5f645ef",
+                "subnet-0569189f9ca9def68"
+            ],
+            "Endpoint": "account-db-prod-proxy-us-west-2.proxy-c38c4oymc9wd.us-west-2.rds.amazonaws.com",
+            "CreatedDate": "2026-06-02T21:35:58.838000+00:00",
+            "TargetRole": "READ_WRITE",
+            "IsDefault": true
+        }
+    ]
+}

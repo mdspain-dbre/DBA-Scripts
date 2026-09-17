@@ -1,0 +1,20 @@
+[
+  {
+    "DBInstanceIdentifier": "ims-account-aurora-us-west-2-cluster-2",
+    "IsClusterWriter": true,
+    "DBClusterParameterGroupStatus": "in-sync",
+    "PromotionTier": 0
+  },
+  {
+    "DBInstanceIdentifier": "ims-account-aurora-us-west-2-cluster-1",
+    "IsClusterWriter": false,
+    "DBClusterParameterGroupStatus": "in-sync",
+    "PromotionTier": 0
+  },
+  {
+    "DBInstanceIdentifier": "ims-account-aurora-us-west-2-cluster-0",
+    "IsClusterWriter": false,
+    "DBClusterParameterGroupStatus": "in-sync",
+    "PromotionTier": 0
+  }
+]
