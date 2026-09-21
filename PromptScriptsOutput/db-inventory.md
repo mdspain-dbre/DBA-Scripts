@@ -1,0 +1,51 @@
+# GCP DB Inventory -- 2026-09-18 14:09
+
+_45 instance(s) across 5 project(s)._
+
+| Project                    | Instance Name                                      | Machine Type          | DB Type  | Engine   |
+| -------------------------- | -------------------------------------------------- | --------------------- | -------- | -------- |
+| vz-inscape-portfolio-dev   | tvc-development                                    | db-custom-2-8192      | cloudsql | postgres |
+| vz-inscape-portfolio-dev   | auxdb-dev-master                                   | -                     | cloudsql | mysql    |
+| vz-inscape-portfolio-dev   | auxdb-dev                                          | db-custom-N4-4-32768  | cloudsql | mysql    |
+| vz-inscape-portfolio-dev   | admin-portal-db                                    | db-custom-2-8192      | cloudsql | postgres |
+| vz-inscape-portfolio-dev   | prod-gcp-auxdb-qa-84-20260226                      | db-custom-4-26624     | cloudsql | mysql    |
+| vz-inscape-portfolio-dev   | prod-gcp-auxdb-qa-84-20260226-master               | -                     | cloudsql | mysql    |
+| vz-inscape-portfolio-dev   | pointsdb-video-clu/pointsdb-video-rp               | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-dev   | pointsdb-video-clu/pointsdb-video-inst             | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-dev   | pointsdb-audio-clu/pointsdb-audio-rp               | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-dev   | pointsdb-audio-clu/pointsdb-audio-inst             | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-qa    | auxdb-qa-master                                    | -                     | cloudsql | mysql    |
+| vz-inscape-portfolio-qa    | auxdb-qa                                           | db-custom-N4-4-32768  | cloudsql | mysql    |
+| vz-inscape-portfolio-qa    | admin-portal-db                                    | db-custom-2-8192      | cloudsql | postgres |
+| vz-inscape-portfolio-qa    | tvc-qa                                             | db-custom-2-8192      | cloudsql | postgres |
+| vz-inscape-portfolio-qa    | auxdb-qa-de                                        | db-custom-N4-4-32768  | cloudsql | mysql    |
+| vz-inscape-portfolio-qa    | pointsdb-video-clu/pointsdb-video-rp               | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-qa    | pointsdb-video-clu/pointsdb-video-inst             | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-qa    | pointsdb-audio-clu/pointsdb-audio-rp               | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-qa    | pointsdb-audio-clu/pointsdb-audio-inst             | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-stage | hadr-replica-admin-portal-db                       | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-stage | hadr-replica-tvcdb-stage                           | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-stage | admin-portal-db                                    | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-stage | tvcdb-stage                                        | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-stage | auxdb-stage-master                                 | -                     | cloudsql | mysql    |
+| vz-inscape-portfolio-stage | auxdb-stage                                        | db-perf-optimized-N-4 | cloudsql | mysql    |
+| vz-inscape-portfolio-stage | pointsdb-video-clu/pointsdb-video-rp               | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-stage | pointsdb-video-clu/pointsdb-video-inst             | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-stage | pointsdb-audio-clu/pointsdb-audio-rp               | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-stage | pointsdb-audio-clu/pointsdb-audio-inst             | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-prod  | hadr-replica-admin-portal-db                       | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-prod  | hadr-replica-tvcdb-production                      | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-prod  | admin-portal-db                                    | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-prod  | tvcdb-production                                   | db-perf-optimized-N-2 | cloudsql | postgres |
+| vz-inscape-portfolio-prod  | pointsdb-video-clu/pointsdb-video-rp               | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-prod  | pointsdb-video-clu/pointsdb-video-inst             | c4a-highmem-16-lssd   | alloydb  | postgres |
+| vz-inscape-portfolio-prod  | pointsdb-audio-clu/pointsdb-audio-rp               | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-inscape-portfolio-prod  | pointsdb-audio-clu/pointsdb-audio-inst             | c4a-highmem-8-lssd    | alloydb  | postgres |
+| vz-dre-dev                 | automation-test                                    | db-f1-micro           | cloudsql | mysql    |
+| vz-dre-dev                 | bt-lqb-softserve-dev-postgres                      | db-g1-small           | cloudsql | postgres |
+| vz-dre-dev                 | lqb-cicd-cloudsql-pg-dev-postgres                  | db-g1-small           | cloudsql | postgres |
+| vz-dre-dev                 | lqb-cicd-cloudsql-my-dev-mysql                     | db-g1-small           | cloudsql | mysql    |
+| vz-dre-dev                 | md-perm-test-pg                                    | db-g1-small           | cloudsql | postgres |
+| vz-dre-dev                 | btuck-rptest-clu/btuck-rptest-inst                 | c4a-highmem-1         | alloydb  | postgres |
+| vz-dre-dev                 | btuck-rptest-clu/btuck-rptest-read-pool            | c4a-highmem-1         | alloydb  | postgres |
+| vz-dre-dev                 | lqb-cicd-alloydb-dev-clu/lqb-cicd-alloydb-dev-inst | n2-highmem-2          | alloydb  | postgres |

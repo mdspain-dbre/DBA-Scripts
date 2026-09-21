@@ -1,2 +1,0 @@
-private_ip,eni_id,interface_type,instance_id,instance_type,name_tag,service_tag,repo_tag,environment_tag,asg_name
-10.127.26,,,,,,,,,

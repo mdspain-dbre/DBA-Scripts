@@ -1,6 +1,0 @@
-ims-account-aurora-us-west-2-cluster-2: Performance Insights disabled or missing DbiResourceId
-ims-account-aurora-us-west-2-cluster-1: Performance Insights disabled or missing DbiResourceId
-ims-account-aurora-us-west-2-cluster-0: Performance Insights disabled or missing DbiResourceId
-ims-account-aurora-us-west-2-cluster-2: Performance Insights disabled or missing DbiResourceId
-ims-account-aurora-us-west-2-cluster-1: Performance Insights disabled or missing DbiResourceId
-ims-account-aurora-us-west-2-cluster-0: Performance Insights disabled or missing DbiResourceId
