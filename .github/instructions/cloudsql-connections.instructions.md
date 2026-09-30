@@ -6,7 +6,7 @@ applyTo: "GCP/**,**/*cloudsql*,**/*CloudSQL*,**/*alloydb*,**/*AlloyDB*"
 
 Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-inscape-portfolio-dev`, `vz-inscape-portfolio-qa`, `vz-inscape-portfolio-stage`, and `vz-inscape-portfolio-prod`. Keep these tables up to date; agents and prompts rely on them so they don't have to rediscover connection details every run.
 
-> Inventory last verified: 2026-09-16. Re-run the discovery commands under each section if instances have changed.
+> Inventory last verified: 2026-09-29. Re-run the discovery commands under each section if instances have changed.
 
 ## Connection conventions
 - **Always connect via a proxy** — never expose public IP or embed passwords. CloudSQL uses the **Cloud SQL Auth Proxy**; AlloyDB uses the **AlloyDB Auth Proxy** (`alloydb-auth-proxy`) against the instance URI, or an existing PSC/private-IP path.
@@ -49,7 +49,7 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 | `tvcdb-stage` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-stage:us-east4:tvcdb-stage` | 5434 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
 | `auxdb-stage` | MYSQL_8_4 | us-east4 | `vz-inscape-portfolio-stage:us-east4:auxdb-stage` | 3308 | ZONAL, db-perf-optimized-N-4; replica of `auxdb-stage-master` |
 | `auxdb-stage-master` | MYSQL_8_0 | us-east4 | `` | 3308 | ZONAL |
-| `hadr-replica-admin-portal-db` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-stage:us-central1:hadr-replica-admin-portal-db` | 5434 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
+| `hadr-replica-admin-portal-db` | POSTGRES_18 | us-west1 | `vz-inscape-portfolio-stage:us-west1:hadr-replica-admin-portal-db` | 5434 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
 | `hadr-replica-tvcdb-stage` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-stage:us-central1:hadr-replica-tvcdb-stage` | 5434 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `tvcdb-stage` |
 
 ### `vz-inscape-portfolio-prod` (suggested Postgres port 5435, MySQL 3307)
@@ -57,9 +57,11 @@ Standard facts for connecting to CloudSQL and AlloyDB instances across `vz-insca
 | Instance | Engine / Version | Region | Connection name | Local port | Notes |
 |----------|------------------|--------|-----------------|------------|-------|
 | `admin-portal-db` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
-| `hadr-replica-admin-portal-db` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-prod:us-central1:hadr-replica-admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
+| `hadr-replica-admin-portal-db` | POSTGRES_18 | us-west1 | `vz-inscape-portfolio-prod:us-west1:hadr-replica-admin-portal-db` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `admin-portal-db` |
 | `tvcdb-production` | POSTGRES_18 | us-east4 | `vz-inscape-portfolio-prod:us-east4:tvcdb-production` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2 |
 | `hadr-replica-tvcdb-production` | POSTGRES_18 | us-central1 | `vz-inscape-portfolio-prod:us-central1:hadr-replica-tvcdb-production` | 5435 | **REGIONAL (HA)**, db-perf-optimized-N-2; replica of `tvcdb-production` |
+| `auxdb-prod` | MYSQL_8_4 | us-east4 | `vz-inscape-portfolio-prod:us-east4:auxdb-prod` | 3307 | **REGIONAL (HA)**, db-perf-optimized-N-16; replica of `auxdb-prod-master` |
+| `auxdb-prod-master` | MYSQL_8_0 | us-east4 | `` | 3307 | ZONAL |
 
 ## AlloyDB clusters / instances
 > Discover live values with:
