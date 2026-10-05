@@ -27,6 +27,7 @@ PROJECTS = [
     "vz-inscape-portfolio-qa",
     "vz-inscape-portfolio-stage",
     "vz-inscape-portfolio-prod",
+    "vz-dre-dev",
 ]
 
 INSTRUCTIONS_REL = ".github/instructions/cloudsql-connections.instructions.md"
